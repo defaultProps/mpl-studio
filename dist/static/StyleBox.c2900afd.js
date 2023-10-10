@@ -1,0 +1,1 @@
+import{_ as e,o as _,c as t}from"./projectDirectory.76fa72f5.js";const o={},c={class:"right-bar-style--box"};function s(n,a){return _(),t("div",c)}const l=e(o,[["render",s],["__scopeId","data-v-744fb6b1"]]);export{l as default};

@@ -1,0 +1,1 @@
+import{_ as t,o,c as _,l as c,w as s,f as n,i as a}from"./projectDirectory.76fa72f5.js";const r={},d={class:"right-bar-setting--box"};function i(l,f){const e=a("el-divider");return o(),_("div",d,[c(e,null,{default:s(()=>[n("\u6807\u9898\u914D\u7F6E")]),_:1})])}const x=t(r,[["render",i],["__scopeId","data-v-08a24f3c"]]);export{x as default};

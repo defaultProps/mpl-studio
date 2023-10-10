@@ -1,0 +1,1 @@
+import{_ as e,o as t,c as _}from"./projectDirectory.76fa72f5.js";const c={},o={class:"right-bar-setting--box"};function s(n,a){return t(),_("div",o,"excel table")}const i=e(c,[["render",s],["__scopeId","data-v-681e9f69"]]);export{i as default};

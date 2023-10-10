@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" href="./static/logo.51249ca9.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- mpl主题 -->
+  <link rel="stylesheet" href="https://at.alicdn.com/t/c/font_2784375_s3jk93u8ops.css" />
+  <title>MPL Studio</title>
+  <script type="module" crossorigin src="./static/main.c6d67f4a.js"></script>
+  <link rel="modulepreload" crossorigin href="./static/projectDirectory.76fa72f5.js">
+  <link rel="modulepreload" crossorigin href="./static/index.8e6cbe70.js">
+  <link rel="modulepreload" crossorigin href="./static/FormItemLabel.vue_vue_type_style_index_0_lang.6dbb8de0.js">
+  <link rel="stylesheet" href="./static/projectDirectory.5cb297a7.css">
+  <link rel="stylesheet" href="./static/FormItemLabel.7550c459.css">
+  <link rel="stylesheet" href="./static/index.d15ae5f9.css">
+</head>
+
+<body>
+  <div id="app"></div>
+  
+</body>
+
+</html>
+<script>
+  function throttleCloseContextmenu(func, wait) {
+    var timeout;
+    var previous = 0;
+
+    return function () {
+      context = this;
+      args = arguments;
+      if (!timeout) {
+        timeout = setTimeout(function () {
+          timeout = null;
+          func.apply(context, args)
+        }, wait)
+      }
+    }
+  }
+
+  function mplCloseContextmenu() {
+    // 减少DOM查询
+    if (localStorage.getItem("workbenchNodeContextmenuStatus") === "open") {
+      const contextmenuNode = document.querySelector('#workbenchIframeScroll iframe')?.contentWindow.document.getElementById('contextmenuMounted')
+
+      if (contextmenuNode) {
+        contextmenuNode.style.display = 'none'
+        localStorage.setItem("workbenchNodeContextmenuStatus", "close")
+      }
+    }
+  }
+
+  document.addEventListener('contextmenu', mplCloseContextmenu)
+  document.addEventListener('click', mplCloseContextmenu)
+  // 滚轮事件触发频率非常高，需节流
+  document.addEventListener('mousewheel', throttleCloseContextmenu(mplCloseContextmenu, 300))
+</script>
+<style>
+  body,
+  html {
+    margin: 0;
+    padding: 0;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  ::selection {
+    background-color: #2f7f79;
+    color: #fff;
+  }
+
+  #app {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    justify-content: flex-start;
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #app>.lcs-header {
+    height: 30px;
+    width: 100%;
+  }
+
+  #app>.lcs-container {
+    flex: 1;
+    width: 100%;
+    overflow: hidden;
+  }
+</style>
