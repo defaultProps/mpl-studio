@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN" translate="no">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta lang="zh-CN" />
+  <meta name="google" content="notranslate" />
+  <meta translate="no" />
+  <link rel="icon" href="/logo.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@vue-flow/node-resizer@latest/dist/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@vue-flow/controls@latest/dist/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@vue-flow/core@1.33.6/dist/style.css">
+  <link rel="stylesheet" href="https://at.alicdn.com/t/c/font_2784375_fraxt9kksvb.css">
+  <title>MPL Studio</title>
+  <script type="module" crossorigin src="./js/main-Blgt_pq8.js"></script>
+  <link rel="modulepreload" crossorigin href="./js/modulepreload-polyfill-B5Qt9EMX.js">
+  <link rel="modulepreload" crossorigin href="./js/.pnpm-CFV4EdYx.js">
+  <link rel="modulepreload" crossorigin href="./js/_plugin-vue_export-helper-DlAUqK2U.js">
+  <link rel="modulepreload" crossorigin href="./js/file-DXuT3BQ1.js">
+  <link rel="modulepreload" crossorigin href="./js/index-CHDEKTv2.js">
+  <link rel="stylesheet" crossorigin href="./css/.pnpm-B9-LAJaj.css">
+  <link rel="stylesheet" crossorigin href="./css/index-gSKcJT7x.css">
+  <link rel="stylesheet" crossorigin href="./css/main-Bg5gbtu_.css">
+</head>
+
+<body>
+  <div id="app"></div>
+</body>
+
+</html>
+<script>
+  function throttleCloseContextmenu(func, wait) {
+    var timeout;
+    var previous = 0;
+
+    return function () {
+      context = this;
+      args = arguments;
+      if (!timeout) {
+        timeout = setTimeout(function () {
+          timeout = null;
+          func.apply(context, args);
+        }, wait);
+      }
+    };
+  }
+
+  // 关闭所有右键列表
+  function mplCloseContextmenu() {
+    // 减少DOM查询 Window访问变量比document快
+    if (window.mplWorkbenchNodeContextmenuStatus === 'open') {
+      const contextmenuNode = document
+        .querySelector('#workbenchIframeScroll iframe')
+        ?.contentWindow.document.getElementById('contextmenuMounted');
+
+      if (contextmenuNode) {
+        contextmenuNode.style.display = 'none';
+        window.mplWorkbenchNodeContextmenuStatus = 'close';
+      }
+    }
+  }
+
+  document.addEventListener('contextmenu', mplCloseContextmenu);
+  document.addEventListener('click', mplCloseContextmenu);
+  // 滚轮事件触发频率非常高，需节流
+  document.addEventListener(
+    'mousewheel',
+    throttleCloseContextmenu(mplCloseContextmenu, 500)
+  );
+</script>
+<style>
+  :root {
+    --primary-color: #227447;
+    --color-1: #cccccc;
+    --color-2: #333333;
+    --color-3: #323233;
+    --color-4: #c3002f;
+    --color-5: #1e1e1e;
+    --color-6: #2c2c2c;
+    --color-7: #ffffff;
+  }
+  .icon.mpl-icon {
+    width: 12px;
+    height: 12px;
+    fill: currentColor;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+  }
+
+  body,
+  html {
+    margin: 0;
+    padding: 0;
+    font-family: initial;
+  }
+
+  ::selection {
+    background-color: var(--primary-color);
+    color: #fff;
+  }
+
+  svg.icon {
+    width: 12px;
+    height: 12px;
+    fill: currentColor;
+    overflow: hidden;
+  }
+
+  #app {
+    width: 100vw;
+    height: 100vh;
+    justify-content: flex-start;
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+  }
+
+  #app>.lcs-header {
+    height: 30px;
+    width: 100%;
+  }
+
+  #app>.lcs-container {
+    flex: 1;
+    width: 100%;
+    overflow: hidden;
+  }
+</style>
