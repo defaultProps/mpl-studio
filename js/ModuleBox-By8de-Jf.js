@@ -1,0 +1,1 @@
+import{_ as o}from"./_plugin-vue_export-helper-DlAUqK2U.js";import{o as e,b as c}from"./.pnpm-CFV4EdYx.js";const s={},t={class:"xx"};function r(n,_){return e(),c("div",t," collapse ")}const f=o(s,[["render",r]]);export{f as default};

@@ -1,0 +1,1 @@
+import"./modulepreload-polyfill-B5Qt9EMX.js";import{o,b as t,X as n}from"./.pnpm-CFV4EdYx.js";import{_ as c}from"./_plugin-vue_export-helper-DlAUqK2U.js";/* empty css               */const e={},r={class:"annotation--container"};function a(p,i){return o(),t("div",r," 事件流窗口 ")}const s=c(e,[["render",a],["__scopeId","data-v-401c4409"]]),_=n(s);_.mount("#mplEventFlowRoot");
