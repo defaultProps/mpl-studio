@@ -1,0 +1,1 @@
+import{_ as e}from"./_plugin-vue_export-helper-DlAUqK2U.js";import{o,b as t}from"./.pnpm-CFV4EdYx.js";const c={},r={class:"right-bar-style--box"};function s(a,_){return o(),t("div",r)}const f=e(c,[["render",s],["__scopeId","data-v-779840ba"]]);export{f as default};
