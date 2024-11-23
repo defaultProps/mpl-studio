@@ -1,0 +1,1 @@
+import{_ as e}from"./_plugin-vue_export-helper-DlAUqK2U.js";import{o,b as t}from"./.pnpm-CFV4EdYx.js";const c={},s={class:"xx"};function r(n,_){return o(),t("div",s," style ")}const l=e(c,[["render",r]]);export{l as default};
