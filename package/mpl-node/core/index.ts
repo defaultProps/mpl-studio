@@ -9,6 +9,7 @@ import singleInputNode from './baseNode/baseInput' // 基础输入框
 import passwordInputNode from './baseNode/passwordInput' // 密码输入框
 import baseButton from './baseNode/baseButton' // 基础按钮
 import buttonGroup from './baseNode/buttonGroup' // 按钮组
+import upload from './baseNode/upload' // 上传
 import checkbox from './baseNode/checkbox' // 多选框
 import radioBox from './baseNode/radio' // 单选框
 import select from './baseNode/select' // 下拉框
@@ -36,6 +37,7 @@ import '../components/common.less'
 
 export * from './baseNode/baseBox'
 export * from './baseNode/baseButton'
+export * from './baseNode/upload'
 export * from './baseNode/buttonGroup'
 export * from './baseNode/body'
 export * from './baseNode/checkbox'
@@ -63,10 +65,10 @@ export * from './baseNode/tabs'
 
 export const mplBodyRoot = bodyNode
 
-
 export const mapNodeSetting: Record<string, MPL.SettingMap> = {
   [baseButton.tag]: baseButton,
   [buttonGroup.tag]: buttonGroup,
+  [upload.tag]: upload,
   [tabs.tag]: tabs,
   [baseCard.tag]: baseCard,
   [collapse.tag]: collapse,

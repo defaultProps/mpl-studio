@@ -11,6 +11,13 @@ function resolvePath(path: string) {
 // https://vitejs.dev/config/
 export default defineConfig({
   base: './',
+  css: {
+    preprocessorOptions: {
+      scss: {
+        api: 'modern-compiler'
+      }
+    }
+  },
   plugins: [
     vue(),
     vueJsx(),

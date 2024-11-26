@@ -239,6 +239,7 @@ export declare namespace MPL {
     | 'mpl-time-picker'
     | 'mpl-workbench-highlight-node'
     | 'mpl-btn-group'
+    | 'mpl-upload'
 
   export interface Node {
     mpl_group: string
