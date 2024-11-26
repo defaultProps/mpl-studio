@@ -1,1 +1,0 @@
-import"./modulepreload-polyfill-B5Qt9EMX.js";import{o,b as t,X as e}from"./.pnpm-CFV4EdYx.js";import{_ as n}from"./_plugin-vue_export-helper-DlAUqK2U.js";/* empty css               */const c={},a={class:"annotation--container"};function r(m,p){return o(),t("div",a," 评论窗口 ")}const s=n(c,[["render",r],["__scopeId","data-v-8bb2aec6"]]),_=e(s);_.mount("#mplCommentRoot");

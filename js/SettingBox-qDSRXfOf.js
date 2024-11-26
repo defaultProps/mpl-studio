@@ -1,1 +1,0 @@
-import{_ as t}from"./_plugin-vue_export-helper-DlAUqK2U.js";import{o as e,b as o}from"./.pnpm-CFV4EdYx.js";const c={},r={class:"right-bar-setting--box"};function s(a,n){return e(),o("div",r," 组件依赖于其他组件的组合，最后面在做 ")}const d=t(c,[["render",s],["__scopeId","data-v-49ac9c9b"]]);export{d as default};

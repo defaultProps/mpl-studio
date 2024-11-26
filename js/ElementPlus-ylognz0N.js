@@ -1,1 +1,0 @@
-import{d as t,o as s,b as a,t as n}from"./.pnpm-CFV4EdYx.js";import{_ as p}from"./_plugin-vue_export-helper-DlAUqK2U.js";const r={class:"mpl-paragraph"},c=t({__name:"ElementPlus",props:{node:{}},setup(e){const o=e;return(l,_)=>(s(),a("div",r,n(o.node.label),1))}}),i=p(c,[["__scopeId","data-v-1e650ac1"]]);export{i as default};

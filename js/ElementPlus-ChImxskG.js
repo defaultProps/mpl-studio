@@ -1,1 +1,0 @@
-import{_ as e}from"./_plugin-vue_export-helper-DlAUqK2U.js";import{o,b as t}from"./.pnpm-CFV4EdYx.js";const c={},s={class:"mpl-empty-block"};function r(_,n){return o(),t("div",s," 卡片 ")}const m=e(c,[["render",r],["__scopeId","data-v-e577f8e5"]]);export{m as default};

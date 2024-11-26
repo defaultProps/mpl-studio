@@ -1,1 +1,0 @@
-import{_ as o}from"./_plugin-vue_export-helper-DlAUqK2U.js";import{o as e,b as c}from"./.pnpm-CFV4EdYx.js";const t={},r={class:"xx"};function s(n,_){return e(),c("div",r," module body ")}const f=o(t,[["render",s]]);export{f as default};
