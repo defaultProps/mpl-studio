@@ -1,0 +1,22 @@
+{
+  "cSpell.words": [
+    "cascader",
+    "dexie",
+    "echarts",
+    "gitlab",
+    "keymaster",
+    "Pathspec",
+    "pinia",
+    "unplugin",
+    "vant",
+    "vditor",
+    "vueuse",
+    "wangeditor"
+  ],
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "vue"
+  ],
+  "cSpell.caseSensitive": true
+}

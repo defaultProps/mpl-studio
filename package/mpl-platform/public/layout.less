@@ -1,0 +1,343 @@
+@import url('./theme.less');
+
+:root {
+  --primary-color: #227447;
+  --color-1: #cccccc;
+  --color-2: #333333;
+  --color-3: #323233;
+  --color-4: #c3002f;
+  --color-5: #1e1e1e;
+  --color-6: #2c2c2c;
+  --color-7: #ffffff;
+}
+
+.mpl-scroll-none {
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+}
+
+#highlightBlock {
+  min-width: calc(100% / 24 * 1);
+  min-height: 8px;
+  background-color: #2f7f7966;
+  z-index: 300;
+  user-select: none;
+  pointer-events: none;
+  display: inline-block;
+  position: relative;
+
+  &:before {
+    content: '';
+    left: 0px;
+    top: 0px;
+    right: 0;
+    height: 2px;
+    background-color: var(--primary-color);
+    z-index: 101;
+    position: absolute;
+  }
+}
+
+// 弹窗拖拽定位容器
+.workbench-highlight-block--dialog {
+  display: block;
+  position: fixed !important;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+// 抽屉拖拽定位容器
+.workbench-highlight-block--drawer {
+  display: block;
+  position: fixed !important;
+  top: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  height: 100vh;
+}
+
+.h-0 {
+  height: fit-content !important;
+  display: none !important;
+}
+
+.w-0 {
+  width: fit-content !important;
+  display: none !important;
+}
+
+.unitLoop(@i) when (@i > 0) {
+  .unitLoop((@i - 1));
+
+  .h-@{i} {
+    height: calc(12px * @i);
+  }
+
+  .w-@{i} {
+    width: calc(100% / 24 * @i);
+  }
+
+  .t-@{i} {
+    top: calc(12px * @i + 1px);
+  }
+
+  .l-@{i} {
+    left: calc(100% / 24 * @i);
+  }
+}
+
+.mounted-workbench-box {
+  .unitLoop(180);
+}
+
+button.el-button[theme='mpl'] {
+  color: var(--theme01);
+}
+
+.el-menu-item.is-active {
+  background-color: var(--color-4);
+}
+
+#componentWidthHeightBlock {
+  position: absolute;
+  z-index: 100;
+  display: none;
+  transform: translate(-1px, -1px);
+  outline: 1px solid var(--primary-color);
+  background-size: 20px 20px;
+  pointer-events: none;
+
+  &.show {
+    display: inline-block;
+  }
+
+  >.left-node {
+    width: 4px;
+    height: 16px;
+    position: absolute;
+    top: calc(50% - 8px);
+    left: -3px;
+    background: #fff;
+    border-radius: 2px;
+    border: 1px solid var(--primary-color);
+    cursor: w-resize;
+    pointer-events: all;
+
+    &:hover {
+      background-color: var(--primary-color);
+    }
+  }
+
+  >.right-node {
+    width: 4px;
+    height: 16px;
+    position: absolute;
+    top: calc(50% - 8px);
+    right: -3px;
+    background: #fff;
+    border-radius: 2px;
+    border: 1px solid var(--primary-color);
+    cursor: w-resize;
+    pointer-events: all;
+
+    &:hover {
+      background-color: var(--primary-color);
+    }
+  }
+
+  >.lt-node {
+    width: 6px;
+    height: 6px;
+    position: absolute;
+    top: -4px;
+    left: -3px;
+    cursor: se-resize;
+    background: #fff;
+    border-radius: 6px;
+    border: 1px solid var(--primary-color);
+    z-index: 100;
+    pointer-events: all;
+
+    &:hover {
+      background: var(--primary-color);
+    }
+  }
+
+  >.lb-node {
+    width: 6px;
+    height: 6px;
+    position: absolute;
+    bottom: -4px;
+    left: -3px;
+    background: #fff;
+    border-radius: 6px;
+    border: 1px solid var(--primary-color);
+    z-index: 100;
+    cursor: ne-resize;
+    pointer-events: all;
+
+    &:hover {
+      background: var(--primary-color);
+    }
+  }
+
+  >.rt-node {
+    width: 6px;
+    height: 6px;
+    position: absolute;
+    top: -3px;
+    right: -4px;
+    background: #fff;
+    border-radius: 6px;
+    border: 1px solid var(--primary-color);
+    z-index: 100;
+    cursor: ne-resize;
+    pointer-events: all;
+
+    &:hover {
+      background: var(--primary-color);
+    }
+  }
+
+  >.rb-node {
+    width: 6px;
+    height: 6px;
+    position: absolute;
+    bottom: -4px;
+    right: -4px;
+    background: #fff;
+    border-radius: 6px;
+    border: 1px solid var(--primary-color);
+    z-index: 100;
+    cursor: nwse-resize;
+    pointer-events: all;
+
+    &:hover {
+      background: var(--primary-color);
+    }
+  }
+
+  >.top-node {
+    pointer-events: all;
+    background-color: var(--primary-color);
+    position: absolute;
+    top: -20px;
+    border-radius: 0;
+    left: -1px;
+    width: fit-content;
+    height: 20px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 12px;
+    color: #fff;
+    padding: 1px 3px 0 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    >span {
+      display: inline-block;
+      font-size: 12px;
+      width: 20px;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 12px;
+      color: #fff;
+    }
+  }
+
+  >.top-line {
+    position: absolute;
+    top: 0;
+    height: 1px;
+    left: 3px;
+    right: 3px;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  >.top-drag-line {
+    position: absolute;
+    top: -2px;
+    height: 5px;
+    background-color: transparent;
+    border-radius: 4px;
+    left: 4px;
+    right: 4px;
+    cursor: n-resize;
+    z-index: 3;
+  }
+
+  >.bottom-line {
+    position: absolute;
+    bottom: -1px;
+    height: 1px;
+    left: 3px;
+    right: 3px;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  >.bottom-drag-line {
+    position: absolute;
+    bottom: -2px;
+    height: 5px;
+    background-color: transparent;
+    border-radius: 4px;
+    left: 4px;
+    right: 4px;
+    cursor: n-resize;
+    z-index: 3;
+  }
+
+  >.left-line {
+    position: absolute;
+    bottom: 3px;
+    top: 2px;
+    width: 1px;
+    left: -0.5px;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  >.left-drag-line {
+    position: absolute;
+    bottom: 4px;
+    top: 4px;
+    background-color: transparent;
+    border-radius: 4px;
+    width: 6px;
+    left: -4px;
+    cursor: w-resize;
+  }
+
+  >.right-line {
+    position: absolute;
+    bottom: 3px;
+    top: 2px;
+    width: 0.5px;
+    right: -0.5px;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  >.right-drag-line {
+    position: absolute;
+    bottom: 4px;
+    top: 4px;
+    border-radius: 4px;
+    width: 6px;
+    right: -4px;
+    cursor: w-resize;
+  }
+}

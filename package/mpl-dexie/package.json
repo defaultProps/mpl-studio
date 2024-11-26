@@ -1,0 +1,16 @@
+{
+  "name": "@mpl/dexie",
+  "type": "commonjs",
+  "version": "1.0.0",
+  "description": "本地演示项目的存储仓库",
+  "exports": {
+    ".": {
+      "import": "./index.ts"
+    }
+  },
+  "main": "index.ts",
+  "scripts": {},
+  "dependencies": {
+    "dexie": "^4.0.7"
+  }
+}

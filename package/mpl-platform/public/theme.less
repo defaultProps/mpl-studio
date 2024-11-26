@@ -1,0 +1,135 @@
+// 画板主题和源码主题是俩份文件
+body[aria-theme="mpl-theme"] {
+  .el-button {
+    user-select: none;
+    cursor: default;
+    position: relative;
+
+    // 主要按钮
+    &.mpl-primary-btn {
+      position: relative;
+      color: #000;
+      border-color: var(--Theme08);
+      background-color: var(--Theme08);
+      color: #fff;
+      --primary-color: #fff;
+
+      &:hover {
+        border-color: var(--Theme10);
+        background-color: var(--Theme10);
+        color: #fff;
+      }
+
+      &:active,
+      &:focus {
+        border-color: var(--Theme10);
+        background-color: var(--Theme10);
+        color: #fff;
+      }
+
+      &.is-disabled,
+      &.is-disabled:hover,
+      &.is-disabled:active,
+      &.is-disabled:focus {
+        border-color: #fff;
+        background-color: var(--Theme08);
+        color: var(--Theme08);
+        opacity: 0.4;
+      }
+    }
+  }
+
+  .el-form-item.mpl-form-item {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    padding-right: 5px;
+    margin: 0;
+
+    &.mpl-none>label.el-form-item__label {
+      display: none;
+    }
+
+    &.mpl-label-left label.el-form-item__label {
+      justify-content: flex-start;
+    }
+
+    &.mpl-label-right label.el-form-item__label {
+      justify-content: flex-end;
+    }
+
+    &.mpl-label-center label.el-form-item__label {
+      justify-content: center;
+    }
+
+    label.el-form-item__label {
+      overflow: hidden;
+      // 右侧输入框的宽度需要保留
+      max-width: calc(100% - 40px);
+
+      .mpl-label {
+        height: 32px;
+        line-height: 32px;
+        font-size: 14px;
+        min-width: 50px;
+        padding-right: 5px;
+        box-sizing: border-box;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        display: inline-flex;
+        align-items: center;
+
+        // 控制输入宽度太小导致文本换行样式错乱
+        >span {
+          max-width: 140px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+
+        .mpl-label-icon {
+          width: 20px;
+          text-align: center;
+          height: 20px;
+          display: inline-flex;
+          justify-content: center;
+          align-items: center;
+        }
+      }
+    }
+
+    .mpl-content {
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      user-select: none;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      .el-button + .el-button {
+        margin-left: 5px;
+      }
+
+      &.mpl-content-left {
+        text-align: left;
+      }
+
+      &.mpl-content-right {
+        text-align: right;
+      }
+
+      &.mpl-content-center {
+        text-align: center;
+      }
+
+      .el-input {
+        width: 100%;
+        max-width: 100%; // 输入框的宽度限制在flex:1 区域内 level: max-width > width
+      }
+    }
+  }
+}

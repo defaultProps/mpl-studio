@@ -1,0 +1,20 @@
+{
+  "name": "@mpl/node",
+  "version": "1.0.0",
+  "description": "mpl-lowCode core components libs",
+  "author": "defaultProps",
+  "license": "ISC",
+  "keywords": [],
+  "types": "./*.d.ts",
+  "exports": {
+    ".": {
+      "import": "./index.ts"
+    }
+  },
+  "main": "index.ts",
+  "dependencies": {
+    "element-plus": "^2.7.4",
+    "vant": "^4.9.4",
+    "@element-plus/icons-vue": "^2.3.1"
+  }
+}

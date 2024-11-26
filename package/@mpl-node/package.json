@@ -1,0 +1,13 @@
+{
+  "name": "@mpl/typings",
+  "version": "1.0.0",
+  "description": "mpl standard node rule typings",
+  "types": ".index.d.ts",
+  "main":"",
+  "scripts": {},
+  "exports": {
+    ".": {
+      "import": "./index.d.ts"
+    }
+  }
+}

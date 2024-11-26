@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN" translate="no">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" href="/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://at.alicdn.com/t/c/font_2784375_zet2z4qfodo.css" />
+  <title>主题控件预览</title>
+</head>
+
+<body>
+  <div id="lcsThemePreview"></div>
+</body>
+
+</html>
+<script type="module" src="./main.ts"></script>
+<style>
+  body,
+  html,
+  #lcsThemePreview {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+  }
+
+  :root {
+    --primary-color: #227447;
+    --color-1: #cccccc;
+    --color-2: #333333;
+    --color-3: #323233;
+    --color-4: #c3002f;
+    --color-5: #1e1e1e;
+    --color-6: #2c2c2c;
+    --color-7: #ffffff;
+  }
+</style>
+<script>
+  document.addEventListener('contextmenu', e => {
+    // e.preventDefault()
+  })
+</script>

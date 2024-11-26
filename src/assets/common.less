@@ -1,0 +1,85 @@
+body i.mpl {
+  font-size: 12px;
+}
+
+.v-popper--theme-tooltip .v-popper__inner {
+  padding: 2px 4px;
+  font-size: 12px;
+  .tooltip-title {
+    padding-bottom: 2px;
+    border-bottom: 1px solid #f1f1f1;
+    margin-bottom: 2px;
+  }
+}
+
+@keyframes lcsRotate {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  50% {
+    transform: rotate(180deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+i.mpl.mpl-loading {
+  animation: lcsRotate 2s linear infinite;
+}
+
+// resize min slider
+.mpl-resize-slider {
+  padding: 0 5px;
+  width: 80px;
+}
+
+.mpl-scroll-none {
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+}
+.mpl-scroll-x {
+  overflow-x: auto;
+  &::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+}
+
+.mpl-scroll-theme {
+  &::-webkit-scrollbar {
+    width: 15px;
+    height: 15px;
+    background-color: var(--color-5);
+  }
+
+  &::-webkit-scrollbar-button {
+    opacity: 0;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--color-1);
+  }
+
+  &::-webkit-scrollbar-corner {
+    background-color: var(--color-5);
+  }
+}
+
+
+.tooltip-copy-text {
+  color: #e6a23c;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+// icon color
+i.mpl.icon-info2.info-icon {
+  color: #e6a23c;
+}

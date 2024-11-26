@@ -1,0 +1,12 @@
+// 覆盖官方样式控件
+// 提取文件 https://github.com/element-plus/element-plus/blob/dev/packages/theme-chalk/src/common/var.scss
+// 尽量保证源文件的完整性，局部的更改变量值
+// 如果改动比较大的则单独增加一个 mpl-cover.scss文件替换组件样式
+// 保证后续迭代同步更新 element-plus 主题文件更新版本时方便
+// 目前仅提供支持一种light主题文件
+
+// 此主题文件需要同步主题可视化配置项中，采用 lydp-dfn +  lydp-官方标准主题 +  mpl-dark主题 + mpl-light + mpl-color
+
+// 所有组件都要二次包装为一个mpl组件。样式 + 二次业务开发功能 + 组合组件等。
+// 尽量保证 element-plus组件可以稳定的升级兼容。不能破坏太大的功能点。
+// 如有必要，则迁移复制组件代码，二次封装，内部升级处理后续问题 => 需要试试查看官方版本修复问题，工作量比较大，尽量不做。
