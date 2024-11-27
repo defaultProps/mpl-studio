@@ -158,7 +158,6 @@
       el.dataTransfer.dropEffect = 'move'
     }
 
-    // isInnerNodeDragging.value
     if (dragStartNode.value) {
       dragOverElement(el, dragStartNode.value.pos.pc)
       isErrorDragging.value = false
@@ -182,7 +181,6 @@
     isErrorDragging.value = false
     isGlobalMask.value = false
     isInnerNodeDragging.value = false
-
 
     if (dragStartNode.value) {
       activeNode.value = dragStartNode.value

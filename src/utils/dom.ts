@@ -68,6 +68,7 @@ export function closeMenuAuto() {
 }
 
 export function dragNewCompStart(el: any, tag: string) {
+  console.log(tag)
   el.dataTransfer?.setData('tag', tag)
   el.dataTransfer.effectAllowed = 'move'
   el.dataTransfer.dropEffect = 'move'

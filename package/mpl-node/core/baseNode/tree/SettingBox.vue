@@ -2,7 +2,7 @@
 
 <template>
   <div class="right-bar-setting--box">
-    组件依赖于其他组件的组合，最后面在做 mpl-tree
+    mpl-tree
   </div>
 </template>
 

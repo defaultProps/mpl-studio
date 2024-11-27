@@ -91,7 +91,6 @@ export function newTreeNode(cid: string): TreeNodeProp {
     classList: [],
     userClassName: [],
     style: '',
-
     tree: {
       emptyText: '',
       highlightCurrent: true,

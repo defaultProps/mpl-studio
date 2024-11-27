@@ -31,6 +31,7 @@ import baseTable from './baseNode/table' // 表格
 import paragraph from './baseNode/paragraph' // 文章段落
 import baseCard from './baseNode/baseCard' // 卡片
 import tabs from './baseNode/tabs' // 页签
+import tree from './baseNode/tree' // 树形
 
 // common style.
 import '../components/common.less'
@@ -93,6 +94,7 @@ export const mapNodeSetting: Record<string, MPL.SettingMap> = {
   [panel.tag]: panel,
   [baseTable.tag]: baseTable,
   [paragraph.tag]: paragraph,
+  [tree.tag]: tree
 }
 
 export function initNode(tag: string): MPL.Node | null {
