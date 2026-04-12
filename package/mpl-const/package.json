@@ -1,0 +1,13 @@
+{
+  "name": "@mpl/const",
+  "type": "commonjs",
+  "version": "1.0.0",
+  "description": "mpl mock data",
+  "exports": {
+    ".": {
+      "import": "./index.ts"
+    }
+  },
+  "main": "index.ts",
+  "scripts": {}
+}

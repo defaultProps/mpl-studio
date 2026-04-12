@@ -1,0 +1,28 @@
+<script lang="ts" setup>
+import { ref } from 'vue'
+import FormItem from '../../../components/FormItem.vue'
+import { borderTypeOptions, sizeOptions } from '../../../libs'
+import RadioBtnGroup from '../../../components/RadioBtnGroup.vue'
+
+const styleConfig = ref({
+  size: 'small',
+  border: 'line'
+})
+</script>
+
+<template>
+  <div class="right-bar-style--box">
+    <FormItem label="边框类型">
+      <RadioBtnGroup v-model="styleConfig.border" :option="borderTypeOptions" />
+    </FormItem>
+  </div>
+</template>
+
+<style lang="less" scoped>
+.right-bar-style--box {
+  padding: 5px;
+  box-sizing: border-box;
+  color: #ccc;
+  font-size: 12px;
+}
+</style>

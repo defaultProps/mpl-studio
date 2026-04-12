@@ -1,0 +1,13 @@
+{
+  "name": "@mpl/platform",
+  "type": "commonjs",
+  "version": "1.0.0",
+  "description": "mpl system platform",
+  "exports": {
+    ".": {
+      "import": "./index.ts"
+    }
+  },
+  "main": "index.ts",
+  "scripts": {}
+}

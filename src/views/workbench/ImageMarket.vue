@@ -1,0 +1,11 @@
+<template>
+  <iframe src="/src/iframe/image/index.html" name="mplImageIframe" frameBorder="0" />
+</template>
+
+<style lang="less" scoped>
+	iframe {
+		width: 100%;
+		height: 100%;
+		background: #f6f8fa;
+	}
+</style>

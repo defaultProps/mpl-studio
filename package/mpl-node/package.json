@@ -1,0 +1,57 @@
+{
+  "name": "@mpl/node",
+  "version": "1.0.0",
+  "description": "mpl-lowCode core components libs",
+  "author": "defaultProps",
+  "license": "ISC",
+  "keywords": [],
+  "types": "./*.d.ts",
+  "exports": {
+    ".": {
+      "import": "./index.ts"
+    }
+  },
+  "main": "index.ts",
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "parser": "babel-eslint"
+    },
+    "rules": {
+      "vue/html-indent": "off",
+      "@typescript-eslint/no-explicit-any": 0,
+      "vue/require-v-for-key": "off",
+      "vue/multi-word-component-names": "off",
+      "@typescript-eslint/no-unused-expressions": 0,
+      "vue/first-attribute-linebreak": 0,
+      "vue/valid-v-for": "off",
+      "vue/no-unused-components": "off",
+      "vue/no-unused-vars": "off",
+      "vue/no-v-html": "off",
+      "no-unused-vars": 0,
+      "@typescript-eslint/no-unused-vars": 0,
+      "@typescript-eslint/triple-slash-reference": "off",
+      "@typescript-eslint/no-empty-object-type": "off",
+      "vue/html-closing-bracket-newline": "off",
+      "vue/max-attributes-per-line": [
+        "error",
+        {
+          "singleline": {
+            "max": 20
+          },
+          "multiline": {
+            "max": 20
+          }
+        }
+      ],
+      "vue/no-mutating-props": "off"
+    }
+  }
+}

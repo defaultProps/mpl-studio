@@ -1,0 +1,13 @@
+{
+  "name": "@mpl/libs",
+  "type": "commonjs",
+  "version": "1.0.0",
+  "description": "mpl core libs",
+  "exports": {
+    ".": {
+      "import": "./index.ts"
+    }
+  },
+  "main": "index.ts",
+  "scripts": {}
+}

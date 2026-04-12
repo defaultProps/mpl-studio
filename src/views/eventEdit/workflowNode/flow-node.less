@@ -1,0 +1,200 @@
+.vue-flow__edge-path,
+.vue-flow__connection-path {
+  stroke: #606266;
+}
+
+.drag-area .mpl-event-flow-node {
+  margin: 5px 0;
+  pointer-events: all;
+  font-size: 12px;
+}
+
+
+.vue-flow__node {
+  pointer-events: none;
+
+  .success-connect-node {
+    left: 25%;
+    height: fit-content;
+    width: fit-content;
+    padding: 0 2px;
+    background: #f6f8fa;
+    border-radius: var(--radius-2);
+    color: #333;
+
+    &::after {
+      content: "成功";
+      font-size: 12px;
+      color: #196eff;
+      font-weight: bold;
+    }
+  }
+
+  .failed-connect-node {
+    left: 75%;
+    height: fit-content;
+    width: fit-content;
+    padding: 0 2px;
+    background: #f6f8fa;
+    border-radius: var(--radius-2);
+    color: #333;
+
+    &::after {
+      content: "失败";
+      font-size: 12px;
+      font-weight: bold;
+      color: #c3002f;
+    }
+  }
+}
+
+.vue-flow__edge-labels {
+  .drop-flow-btn.is-drop {
+    color: var(--primary-color);
+    box-shadow: 0 0 7px 2px #333;
+    font-weight: 600;
+  }
+}
+
+.vue-flow__node.selected .mpl-event-flow-node {
+  outline: 1px solid var(--primary-color);
+  border: 1px solid var(--primary-color);
+  pointer-events: all;
+}
+
+.vue-flow__node .mpl-event-flow-node {
+  pointer-events: none;
+}
+
+.vue-flow__node.selected .mpl-event-flow-node {
+  pointer-events: all;
+}
+
+.vue-flow__node-executeBlock.selected .vue-flow__resize-control.line {
+  border-color: var(--primary-color);
+  outline: 1px solid var(--primary-color);
+}
+
+.mpl-event-flow-node {
+  border: 1px solid #73767a;
+}
+
+.mpl-execute-flow-node,
+.mpl-event-flow-node {
+  box-sizing: border-box;
+  border-radius: var(--radius-3);
+  width: 100%;
+  padding: 2px 5px;
+  background: #f6f8fa;
+  user-select: none;
+  position: relative;
+
+  &.is-active {
+    outline: 1px solid var(--primary-color);
+    border-color: var(--primary-color);
+  }
+
+  .header-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2px;
+    box-sizing: border-box;
+    height: 100%;
+
+    .title {
+      flex: 1;
+      text-indent: 5px;
+      height: 22px;
+      line-height: 22px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    +.line-box {
+      margin-top: 2px;
+      border-top: 1px dashed #cccccc;
+    }
+  }
+
+  .line-box {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    box-sizing: border-box;
+    color: #000;
+    height: 30px;
+    font-size: 12px;
+
+    &.a-c {
+      align-items: center;
+    }
+
+    .content {
+      flex: 1;
+    }
+
+    label {
+      text-indent: 5px;
+    }
+
+    .label {
+      padding-right: 3px;
+      min-width: 60px;
+    }
+  }
+}
+
+.start-flow-node,
+.end-flow-node {
+  padding: 3px 5px;
+  border-radius: var(--radius-3);
+  font-size: 12px;
+  color: #fff;
+  background: #2f7f7991;
+  width: 65px;
+  height: 37px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border: none;
+}
+
+.vue-flow__controls-button svg {
+  fill: #000;
+}
+
+.vue-flow__node[data-id="startNode"],
+.vue-flow__node[data-id="endNode"] {
+  padding: 3px 5px;
+  border-radius: var(--radius-3);
+  font-size: 12px;
+  color: #fff;
+  background: var(--primary-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: var(--radius-5);
+  width: 80px;
+  height: 35px;
+}
+
+.vue-flow__handle {
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  border: 1px solid #000;
+  outline: none;
+  background: #e6e6e6;
+}
+
+// 线高亮
+.vue-flow__edge.selected .vue-flow__edge-path,
+.vue-flow__edge:focus .vue-flow__edge-path,
+.vue-flow__edge:focus-visible .vue-flow__edge-path {
+  stroke: var(--primary-color);
+  stroke-width: 2;
+}

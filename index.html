@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN" translate="no">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta lang="zh-CN" />
+  <meta name="google" content="notranslate" />
+  <meta translate="no" />
+  <link rel="icon" href="/logo.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@vue-flow/node-resizer@latest/dist/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@vue-flow/controls@latest/dist/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@vue-flow/core@1.33.6/dist/style.css">
+  <link rel="stylesheet" href="//at.alicdn.com/t/c/font_2784375_236yaj40exp.css">
+  <title>vue3 sfc loader</title>
+</head>
+
+<body class="hard-style dark-theme">
+  <div id="app" class="mpl-scroll-none"></div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+
+</html>
+<script>
+  function throttleCloseContextmenu(func, wait) {
+    var timeout;
+    var previous = 0;
+
+    return function () {
+      context = this;
+      args = arguments;
+      if (!timeout) {
+        timeout = setTimeout(function () {
+          timeout = null;
+          func.apply(context, args);
+        }, wait);
+      }
+    };
+  }
+
+  // 关闭所有右键列表
+  function mplCloseContextmenu() {
+    // 减少DOM查询 Window访问变量比document快
+    if (window.mplWorkbenchNodeContextmenuStatus === 'open') {
+      const contextmenuNode = document
+        .querySelector('#workbenchIframeScroll iframe')
+        ?.contentWindow.document.getElementById('contextmenuMounted');
+
+      if (contextmenuNode) {
+        contextmenuNode.style.display = 'none';
+        window.mplWorkbenchNodeContextmenuStatus = 'close';
+      }
+    }
+  }
+
+  document.addEventListener('contextmenu', mplCloseContextmenu);
+  document.addEventListener('click', mplCloseContextmenu);
+  // 滚轮事件触发频率非常高，需节流
+  document.addEventListener(
+    'mousewheel',
+    throttleCloseContextmenu(mplCloseContextmenu, 500)
+  );
+</script>
+<style>
+  body.dark-theme {
+    --primary-color: #1e1e1e;
+  }
+  body.light-theme {
+    --primary-color: #107c41;
+  }
+  body.blue-theme {
+    --primary-color: #196eff;
+  }
+
+  body.hard-style {
+    --radius-2: 0px;
+    --radius-3: 0px;
+    --radius-4: 0px;
+    --radius-5: 0px;
+    --radius-6: 0px;
+    --input-checkbox: "\2713";
+  }
+  body.soft-style {
+    --radius-2: 2px;
+    --radius-3: 3px;
+    --radius-4: 4px;
+    --radius-5: 5px;
+    --radius-6: 6px;
+    --input-checkbox: "\2714";
+  }
+
+  body,
+  html,
+  textarea,
+  input {
+    font-weight: normal;
+    font-feature-settings: "liga" 0, "calt" 0;
+    font-variation-settings: normal;
+    letter-spacing: 0px;
+    font-family: Noto Sans SC;
+    font-variant-ligatures: contextual;
+    font-style: normal;
+  }
+</style>

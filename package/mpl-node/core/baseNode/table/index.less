@@ -1,0 +1,167 @@
+.mpl-table {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: relative;
+  padding: 3px;
+  box-sizing: border-box;
+
+  &.is-workbench {
+    &:after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      height: 100%;
+      width: 100%;
+      z-index: 1;
+      user-select: none;
+    }
+
+    .el-table {
+      .el-table__cell {
+        .cell {
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+        }
+      }
+    }
+  }
+
+  .el-button+.el-button {
+    margin-left: 5px;
+  }
+
+  .mpl-table-header-bar {
+    height: 40px;
+    min-height: 40px;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+
+    .left-tool-btn {
+      flex: 1;
+      height: 100%;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    .auxiliary-table-btn {
+      height: 30px;
+      line-height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 2px;
+
+      button {
+        border: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 26px;
+        width: 30px;
+        border-radius: 2px;
+        outline: 1px solid #ccc;
+        cursor: default;
+
+        +button {
+          margin-left: 5px;
+        }
+
+        &:hover {
+          background-color: #cccccc96;
+        }
+      }
+    }
+  }
+
+  .mask-table-workbench {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    background: transparent;
+  }
+
+  .el-table {
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    --el-border-color-lighter: #ccc;
+
+    .el-table__cell {
+      height: 40px;
+      min-height: 40px;
+      padding: 0;
+      max-height: 40px;
+
+      .cell {
+        font-size: 14px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        color: #333;
+      }
+    }
+
+    // 表头样式覆盖
+    .el-table__header {
+      thead {
+        tr th.el-table__cell {
+          background: #e6e6e6;
+          color: #000;
+          font-weight: 600;
+          font-size: 14px;
+          height: 40px;
+
+          .cell {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+        }
+      }
+    }
+
+    .table-op-btn {
+      font-size: 12px;
+
+      &.del-btn {
+        color: #c3002f
+      }
+    }
+  }
+
+  .el-pagination {
+    min-height: 45px;
+    width: 100%;
+    height: 45px;
+    text-align: right;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    box-sizing: border-box;
+
+    .el-pagination__total {
+      flex: 1;
+      display: inline-block;
+      text-align: left;
+    }
+  }
+}

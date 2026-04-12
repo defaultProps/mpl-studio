@@ -1,0 +1,13 @@
+{
+  "name": "@mpl/i18n",
+  "type": "commonjs",
+  "version": "1.0.0",
+  "description": "mpl i18n with mpl/ui",
+  "exports": {
+    ".": {
+      "import": "./index.ts"
+    }
+  },
+  "main": "index.ts",
+  "scripts": {}
+}

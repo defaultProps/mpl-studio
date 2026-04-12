@@ -1,0 +1,7 @@
+pnpm-lock.yaml
+**/node_modules/*/**
+/node_modules
+tsconfig.
+vite.config.ts.*.mjs
+tsconfig.tsbuildinfo
+**/dist/*/**

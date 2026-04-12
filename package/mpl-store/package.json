@@ -1,0 +1,13 @@
+{
+  "name": "@mpl/store",
+  "type": "commonjs",
+  "version": "1.0.0",
+  "description": "mpl store with pinia",
+  "exports": {
+    ".": {
+      "import": "./index.ts"
+    }
+  },
+  "main": "index.ts",
+  "scripts": {}
+}

@@ -1,0 +1,325 @@
+// 选中节点取消CSS隔离事件
+.component-wrapper {
+  .el-form-item.mpl-form-item {
+    pointer-events: none;
+  }
+
+  /* 选中节点后-可再次点击触发组件内部逻辑 */
+  .el-form-item {
+    pointer-events: none;
+  }
+
+  &.target>.el-form-item {
+    pointer-events: all;
+  }
+
+  &.pane-fit-h[mpl-node-tag="mpl-panel"] {
+    height: fit-content;
+  }
+
+  &.target .el-form-item.mpl-form-item {
+    pointer-events: all;
+  }
+
+  tr>td.target .el-form-item.mpl-form-item {
+    pointer-events: all;
+  }
+
+  &.target .component-wrapper .el-form-item.mpl-form-item {
+    pointer-events: none;
+  }
+}
+
+.pure-line-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mpl-workbench-editable:focus-visible {
+  box-shadow: #1E1E1E 0px 0px 0px 2px inset;
+  outline: none;
+  border-radius: 2px;
+}
+
+// 通用样式
+.mr-5 {
+  margin-right: 5px;
+}
+
+.mr-2 {
+  margin-right: 2px;
+}
+
+.mr-0 {
+  margin-right: 0;
+}
+
+.ml-2 {
+  margin-left: 2px;
+}
+
+.ml-5 {
+  margin-left: 5px;
+}
+
+.mb-5 {
+  margin-bottom: 5px;
+}
+
+.mb-2 {
+  margin-bottom: 2px;
+}
+
+.mt-5 {
+  margin-top: 5px;
+}
+
+.mt-2 {
+  margin-bottom: 2px;
+}
+
+.pb-5 {
+  padding-bottom: 5px;
+}
+
+.pt-5 {
+  padding-top: 5px;
+}
+
+// 画板主题和源码主题是俩份文件
+body[aria-theme="mpl-theme"] {
+  .el-button {
+    user-select: none;
+    cursor: default;
+    position: relative;
+
+    // 主要按钮
+    &.mpl-primary-btn {
+      position: relative;
+      color: #000;
+      border-color: var(--Theme08);
+      background: var(--Theme08);
+      color: #fff;
+
+      &:hover {
+        border-color: var(--Theme10);
+        background: var(--Theme10);
+        color: #fff;
+      }
+
+      &:active,
+      &:focus {
+        border-color: var(--Theme10);
+        background: var(--Theme10);
+        color: #fff;
+      }
+
+      &.is-disabled,
+      &.is-disabled:hover,
+      &.is-disabled:active,
+      &.is-disabled:focus {
+        border-color: #fff;
+        background: var(--Theme08);
+        color: var(--Theme08);
+        opacity: 0.4;
+      }
+    }
+  }
+
+  .el-form-item.mpl-form-item {
+    display: inline-flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 5px;
+    margin: 0;
+    height: 100%;
+    background: #fff;
+    position: relative;
+
+    &.mpl-none>label.el-form-item__label {
+      display: none;
+    }
+
+    &.mpl-label-left label.el-form-item__label {
+      justify-content: flex-start;
+    }
+
+    &.mpl-label-right label.el-form-item__label {
+      justify-content: flex-end;
+    }
+
+    &.mpl-label-center label.el-form-item__label {
+      justify-content: center;
+    }
+
+    &.is-note::after {
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      font-size: 12px;
+      color: #fff;
+      background: #ff9f00;
+      padding: 2px;
+      content: '注';
+      border: 1px solid #c3002f;
+      overflow: hidden;
+      width: fit-content;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 10px;
+      transform: scale(0.8);
+      transform-origin: top right;
+    }
+
+    .el-form-item__label {
+      overflow: hidden;
+      // 右侧输入框的宽度需要保留
+      max-width: calc(100% - 40px);
+      padding: 0 0 0 0;
+
+      .mpl-label {
+        height: 32px;
+        line-height: 32px;
+        font-size: 14px;
+        padding-right: 5px;
+        box-sizing: border-box;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        display: inline-flex;
+        align-items: center;
+
+        // 控制输入宽度太小导致文本换行样式错乱
+        >span {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+
+        .mpl-label-icon {
+          width: 14px;
+          text-align: center;
+          height: 14px;
+          display: inline-flex;
+          justify-content: center;
+          align-items: center;
+        }
+      }
+    }
+
+    .mpl-content {
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      user-select: none;
+      display: flex;
+      align-items: center;
+
+      >*:last-child {
+        margin-right: 0;
+      }
+
+      .el-button+.el-button {
+        margin-left: 5px;
+      }
+
+      &.mpl-content-left {
+        text-align: left;
+      }
+
+      &.mpl-content-right {
+        text-align: right;
+      }
+
+      &.mpl-content-center {
+        text-align: center;
+      }
+
+      .el-input {
+        width: 100%;
+        max-width: 100%; // 输入框的宽度限制在flex:1 区域内 level: max-width > width
+      }
+    }
+  }
+
+  // 弹窗优化
+  .el-dialog.mpl-dialog {
+    .el-dialog__header {
+      height: 45px;
+      line-height: 45px;
+      padding: 0 10px;
+      background: #f0f0f0;
+      border-bottom: 1px solid #ccc;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+
+    footer.el-dialog__footer {
+      height: 45px;
+      line-height: 45px;
+      padding: 0 10px;
+      box-sizing: border-box;
+      border-top: 1px solid #ccc;
+
+      .dialog-footer {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+      }
+    }
+  }
+}
+
+// 基础按钮
+button.el-button {
+  &[aria-theme="primary"] {
+    background: #196eff;
+    color: #fff;
+  }
+}
+
+.w(@n, @i: 1) when (@i =< @n) {
+  .w-@{i} {
+    width: calc(100% / 24 * @i) !important;
+  }
+
+  .w(@n, (@i + 1));
+}
+
+.w(24);
+
+.h(@n, @i: 1) when (@i =< @n) {
+  .h-@{i} {
+    height: calc(12px * @i) !important;
+  }
+
+  .h(@n, (@i + 1));
+}
+
+.h(10);
+
+.lcs-select-dialog {
+  .dialog-content {
+    width: 100%;
+    min-height: 200px;
+  }
+}
+
+body.mpl-line-bottom {
+  .el-input__wrapper {
+    border-radius: 0;
+    box-shadow: 0 -1px 0 0 #c0c4cc inset;
+
+    &:hover,
+    &:focus {
+      box-shadow: 0 -1px 0 0 #c0c4cc inset;
+    }
+  }
+}

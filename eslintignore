@@ -1,0 +1,8 @@
+logs
+dist
+node_modules
+pnpm-lock.yaml
+tsconfig.tsbuildinfo
+*.md
+**/vite-env.d.ts
+./src/components/ui/

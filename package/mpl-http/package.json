@@ -1,0 +1,13 @@
+{
+  "name": "@mpl/http",
+  "type": "commonjs",
+  "version": "1.0.0",
+  "description": "mpl http",
+  "exports": {
+    ".": {
+      "import": "./index.ts"
+    }
+  },
+  "main": "index.ts",
+  "scripts": {}
+}
