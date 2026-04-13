@@ -91,12 +91,13 @@ onMounted(() => {
     state,
     parent: editorRef.value!
   })
+
+  console.log(editorView, editorRef.value!)
 })
 
 
 onMounted(() => {
   window.addEventListener('message', messageIDE)
-  editorView?.destroy()
 })
 
 function messageIDE(event: MessageEvent<any>) {
