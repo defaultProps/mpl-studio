@@ -3,24 +3,20 @@
 </template>
 
 <script lang="ts" setup>
-import { checkPageScript } from './core'
 import {
   parseVueOptions,
   updateNodeListByMethodsCode,
   updateEventListByNodeList,
   removeMethodFromVueOptions,
   defaultCodeMirrorExtensions,
-  getVariableNameAtPosition
+  getJavascriptNameAtPosition,
+  validateWithBabel
 } from '@mpl/libs'
 import { ref, onMounted, onUnmounted, watch } from 'vue'
 import { EditorState } from "@codemirror/state"
 import * as beautify from 'js-beautify'
 import { beautifyCode } from '@mpl/const'
 import { workbenchStore } from '@mpl/store'
-import { parse } from '@babel/parser'
-import traverse from '@babel/traverse'
-import generate from '@babel/generator'
-import { searchNodeListVarsByFullPath } from '@mpl/node'
 import { EditorView, ViewUpdate, ViewPlugin } from '@codemirror/view'
 import { undo, redo } from '@codemirror/commands'
 import { useDebounceFn } from '@vueuse/core'
@@ -43,6 +39,8 @@ watch(() => workbench.pageJs, newVal => {
   }
 })
 
+
+
 // 监听光标变化 和 选区变化
 const cursorPlugin = ViewPlugin.fromClass(
   class {
@@ -53,10 +51,6 @@ const cursorPlugin = ViewPlugin.fromClass(
     update(update: ViewUpdate) {
       // 只拦截 选区/光标 变化
       if (update.selectionSet) {
-        // 空值选中不处理
-        // if (update.state.selection.main.empty) {
-        //   return
-        // }
         this.throttleUpdate(update);
       }
     }
@@ -65,7 +59,8 @@ const cursorPlugin = ViewPlugin.fromClass(
       const selection = state.selection.main;
       const head = selection.head;
       const line = state.doc.lineAt(head);
-      const obj = getVariableNameAtPosition(codeStr.value, line.number);
+      const obj = getJavascriptNameAtPosition(codeStr.value, line.number);
+
       // 空值不处理
       if (!obj.variableName || !obj.fullPath) {
         return
@@ -200,21 +195,26 @@ function focusOnMethod(methodName: string) {
 }
 
 // 脚本内容保存
-async function saveCode() {
+function saveCode(): { msg: string } {
   // 更改事件名称 = 删除事件 + 增加页面级别事件.
   // 删除事件同步组件UI
   // 事件代码格式不正确时不保存同步代码.
-  if (!editorView) return
-
+  if (!editorView) return { msg: '编辑器不存在' }
 
   const code = editorView.state.doc.toString()
   let msg = ''
 
-  try {
-    new Function(`${code}; return mpl`)()
-  } catch (err) {
-    msg = String(err)
+  // 校验js字符串的合法性
+  const valid = validateWithBabel(code)
+  if (!valid.isValid) {
+    msg = valid.message
   }
+  // 必须是 const mpl = {} 格式
+  else if (code.trim().indexOf('const mpl = {') !== 0) {
+    msg = '代码必须是 const mpl = {} 格式'
+  }
+
+  if (msg) return { msg }
 
   // 根据methodsCode的增加删除同步NodeList节点. 更新事件左侧目录节点.
   // 会更新画板. 优化为只更新画板一次
@@ -223,7 +223,13 @@ async function saveCode() {
   workbench.updateNodeList(updateNodeListByMethodsCode(workbench.nodeList, parsed))
   // 同步更新eventList事件列表
   workbench.updateEventList(updateEventListByNodeList(parsed, workbench.eventList))
+
+  return { msg: '' }
 }
+
+defineExpose({
+  saveCode
+})
 
 // 销毁
 onUnmounted(() => {

@@ -354,11 +354,13 @@ onUnmounted(() => {
     }
 
     .line-box {
-      height: 25px;
       display: flex;
       justify-content: flex-start;
       align-items: center;
       grid-column: 1;
+      & +.line-box {
+        margin-top: 5px;
+      }
 
       .note-btn {
         font-size: 12px;

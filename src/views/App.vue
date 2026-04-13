@@ -43,7 +43,7 @@ onMounted(() => {
   <HeaderBox />
   <section class="mpl-container">
     <!-- 左侧菜单 -->
-    <NavBox v-if="project.userRole" />
+    <NavBox v-if="project.activeProject" />
     <!-- 左侧菜单内容 -->
     <DisplayNodeList v-if="coreView.visibleDisplayNodeBox" />
     <!-- 主要操作区域 -->

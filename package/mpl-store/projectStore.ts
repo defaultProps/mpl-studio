@@ -21,7 +21,7 @@ export interface ProjectDirectoryStore {
   packageSourceTree: CategorySourceTree[]
   activeProject: null | Project
   userName: string
-  userRole: 'community' | 'enterprise'
+  userRole: 'community' | 'enterprise' | ''
   activeThemeId: string
   systemPlatformList: Platform[]
   projectList: Project[]
@@ -46,7 +46,7 @@ export const projectStore = defineStore('ProjectDirectory', {
       packageSourceTree: [], // 项目源码目录
       activeProject: null, // 项目信息
       userName: '', // 用户名称
-      userRole: 'community', // 用户角色
+      userRole: 'enterprise', // 用户角色
       projectList: [],
       projectIcon: [
         { label: '项目图标库', url: '//at.alicdn.com/t/c/font_2784375_236yaj40exp.js' },

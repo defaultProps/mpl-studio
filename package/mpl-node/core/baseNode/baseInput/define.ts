@@ -74,7 +74,7 @@ export function newSingleInputNode(cid: string): SingleInputFormProp {
   return {
     mpl_group: '表单控件',
     mpl_title: '基础输入',
-    mpl_zh: '基础输入框',
+    mpl_zh: '基础输入标题',
     mpl_ce: 'c',
     mpl_version: '1.0.0',
     field: '',
@@ -95,7 +95,7 @@ export function newSingleInputNode(cid: string): SingleInputFormProp {
     label: {
       show: true,
       width: 120,
-      text: '基础输入',
+      text: '基础输入标题',
       pos: 'r',
       icon: 'AlertCircle',
       iconTheme: '#C3002F',

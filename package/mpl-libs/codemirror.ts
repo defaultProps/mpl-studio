@@ -6,6 +6,7 @@ import { javascript } from "@codemirror/lang-javascript";
 import {
   drawSelection,
   dropCursor,
+  keymap,
   highlightActiveLine,
   lineNumbers,
   EditorView
@@ -20,6 +21,7 @@ import {
 } from '@codemirror/language'
 import { history } from '@codemirror/commands'
 import { oneDark } from '@codemirror/theme-one-dark'
+import { standardKeymap } from "@codemirror/commands"
 
 /**
  * 在变量的嵌套对象中插入方法
@@ -425,7 +427,7 @@ export function insertToMplVar(sourceCode: string, insertStr: string) {
   return generate(ast, { compact: false, retainLines: true }).code;
 }
 
-// 根据变量字符串聚焦获取变量位置信息
+// 根据变量字符串聚焦获取变量位置信息 var
 export function getVariableNameAtPosition(code: string, lineNumber: number) {
   const ast = parser.parse(code, {
     sourceType: 'module',
@@ -512,6 +514,206 @@ export function getVariableNameAtPosition(code: string, lineNumber: number) {
   return result;
 }
 
+// 根据变量字符串聚焦获取变量位置信息 js
+export function getJavascriptNameAtPosition(code: string, lineNumber: number) {
+  const ast = parser.parse(code, {
+    sourceType: 'module',
+    plugins: ['objectRestSpread'],
+  });
+
+  // 最终返回结构
+  const result = {
+    fullPath: '',
+    variableName: '',
+    parentObject: ''
+  };
+
+  interface NameCode {
+    path: any,
+    type: string,
+    distance: number,
+    keyName?: string
+  }
+
+  // 存储所有在当前行附近的节点
+  const foundNodes: NameCode[] = [];
+
+  traverse(ast, {
+    enter(path) {
+      const { node } = path;
+      if (!node.loc) return;
+
+      const startLine = node.loc.start.line;
+      const endLine = node.loc.end.line;
+
+      // 计算目标行与当前节点行的接近程度
+      let distance = Infinity;
+
+      // 如果目标行在节点范围内，距离为0
+      if (lineNumber >= startLine && lineNumber <= endLine) {
+        distance = 0;
+      }
+      // 如果目标行在节点范围外，计算最近的距离
+      else if (lineNumber < startLine) {
+        distance = startLine - lineNumber;
+      } else { // lineNumber > endLine
+        distance = lineNumber - endLine;
+      }
+
+      // 检查节点类型并收集相关信息
+      let nodeType = '';
+      let keyName = '';
+
+      if (t.isObjectMethod(node)) {
+        nodeType = 'method';
+        const key: any = node.key;
+        keyName = key.name || key.value;
+      } else if (t.isObjectProperty(node)) {
+        nodeType = 'property';
+        const key: any = node.key;
+        keyName = key.name || key.value;
+      } else if (t.isFunctionDeclaration(node) || t.isFunctionExpression(node) || t.isArrowFunctionExpression(node)) {
+        nodeType = 'function';
+        if (t.isFunctionDeclaration(node) && t.isIdentifier(node.id)) {
+          keyName = node.id.name;
+        }
+        // 对于函数表达式，我们需要查看父节点
+        else if (path.parentPath && (t.isObjectProperty(path.parentPath.node) || t.isObjectMethod(path.parentPath.node))) {
+          const parentKey: any = path.parentPath.node.key;
+          keyName = parentKey.name || parentKey.value;
+        }
+      } else if (t.isVariableDeclarator(node)) {
+        nodeType = 'variable';
+        if (t.isIdentifier(node.id)) {
+          keyName = node.id.name;
+        }
+      } else if (t.isStatement(node) && !t.isBlockStatement(node)) {
+        // 语句节点，尝试找到其所属的函数或方法
+        nodeType = 'statement';
+      }
+
+      if (nodeType) {
+        foundNodes.push({
+          path,
+          type: nodeType,
+          distance,
+          keyName: keyName || ''
+        });
+      }
+    }
+  });
+
+  if (!foundNodes.length) return result;
+
+  // 按距离排序，优先选择距离目标行最近的节点
+  foundNodes.sort((a, b) => {
+    if (a.distance !== b.distance) {
+      return a.distance - b.distance;
+    }
+    // 如果距离相同，优先选择更具体的节点类型
+    const typePriority = { method: 4, function: 3, property: 2, variable: 1, statement: 0 };
+    return (typePriority[b.type] || 0) - (typePriority[a.type] || 0);
+  });
+
+  // 选择最佳匹配
+  const bestMatch: NameCode = foundNodes[0]!;
+  const targetPath = bestMatch.path;
+
+  // 获取键名，如果当前节点没有，向上查找
+  let keyName = bestMatch.keyName;
+  if (!keyName) {
+    // 向上查找最近的对象方法或属性
+    let current = targetPath;
+    while (current && !keyName) {
+      const n = current.node;
+      if (t.isObjectMethod(n)) {
+        const key: any = n.key;
+        keyName = key.name || key.value;
+      } else if (t.isObjectProperty(n)) {
+        const key: any = n.key;
+        keyName = key.name || key.value;
+      } else if (t.isFunctionDeclaration(n) && t.isIdentifier(n.id)) {
+        keyName = n.id.name;
+      } else if (t.isVariableDeclarator(n) && t.isIdentifier(n.id)) {
+        keyName = n.id.name;
+      }
+      current = current.parentPath;
+    }
+  }
+
+  if (!keyName) return result;
+
+  // ====================
+  // 核心：向上收集完整路径
+  // ====================
+  const pathSegments: string[] = [];
+  let current: any = targetPath;
+
+  while (current && pathSegments.length < 10) { // 添加深度限制防止无限循环
+    const n = current.node;
+
+    // 1. 对象方法或属性 { methodName() {}, 或 propertyName: value }
+    if (t.isObjectMethod(n) || t.isObjectProperty(n)) {
+      const key: any = n.key;
+      const name = key.name || key.value;
+      if (name && !pathSegments.includes(name)) { // 避免重复添加
+        pathSegments.unshift(name);
+      }
+    }
+    // 2. 遇到变量声明 const mpl = {}
+    else if (t.isVariableDeclarator(n)) {
+      if (t.isIdentifier(n.id)) {
+        if (!pathSegments.includes(n.id.name)) {
+          pathSegments.unshift(n.id.name);
+        }
+      }
+      break;
+    }
+    // 3. 遇到 MemberExpression 如 mpl.var.merge
+    else if (t.isMemberExpression(n)) {
+      const prop = n.property;
+      if (t.isIdentifier(prop)) {
+        if (!pathSegments.includes(prop.name)) {
+          pathSegments.unshift(prop.name);
+        }
+      }
+
+      // 递归解析左侧 mpl.var
+      if (t.isIdentifier(n.object)) {
+        if (!pathSegments.includes(n.object.name)) {
+          pathSegments.unshift(n.object.name);
+        }
+        break;
+      }
+    }
+    // 4. 函数声明
+    else if (t.isFunctionDeclaration(n) && t.isIdentifier(n.id)) {
+      if (!pathSegments.includes(n.id.name)) {
+        pathSegments.unshift(n.id.name);
+      }
+    }
+    // 5. 函数表达式，检查父节点
+    else if ((t.isFunctionExpression(n) || t.isArrowFunctionExpression(n)) &&
+      current.parentPath &&
+      (t.isObjectProperty(current.parentPath.node) || t.isObjectMethod(current.parentPath.node))) {
+      const parentKey: any = current.parentPath.node.key;
+      const parentKeyName = parentKey.name || parentKey.value;
+      if (parentKeyName && !pathSegments.includes(parentKeyName)) {
+        pathSegments.unshift(parentKeyName);
+      }
+    }
+
+    current = current.parentPath;
+  }
+
+  // 组装结果
+  result.fullPath = pathSegments.slice(0, 3).join('.'); // 限制路径长度避免过长
+  result.variableName = keyName;
+  result.parentObject = pathSegments.length > 1 ? (pathSegments[pathSegments.length - 2] as string) : '';
+
+  return result;
+}
+
 export const defaultCodeMirrorExtensions = (extensions: any[] = []) => [
   javascript({ jsx: true }), // 语法高亮
   lineNumbers(),
@@ -521,6 +723,8 @@ export const defaultCodeMirrorExtensions = (extensions: any[] = []) => [
   dropCursor(),
   indentUnit.of('  '),
   indentOnInput(),
+  // 标准快捷键映射，包含 Enter 键的处理
+  keymap.of([...standardKeymap]),
   foldGutter(),
   bracketMatching(),
   EditorView.theme({
@@ -543,3 +747,35 @@ export const defaultCodeMirrorExtensions = (extensions: any[] = []) => [
   oneDark,
   ...extensions,
 ]
+
+/**
+ * 使用 Babel 解析器校验 JavaScript 代码
+ * @param {string} code - 要校验的代码字符串
+ * @returns {object} - 校验结果
+ */
+export function validateWithBabel(code) {
+  try {
+    const ast = parser.parse(code, {
+      sourceType: 'module',
+      plugins: [
+        'jsx',
+        'typescript',
+        'decorators-legacy',
+        'classProperties',
+        'objectRestSpread'
+      ]
+    });
+    
+    return {
+      isValid: true,
+      ast: ast,
+      message: '代码语法有效，成功生成AST'
+    };
+  } catch (error: any) {
+    return {
+      isValid: false,
+      message: `语法错误: ${error.message}`,
+      loc: error.loc ? { line: error.loc.line, column: error.loc.column } : null
+    };
+  }
+}

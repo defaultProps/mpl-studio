@@ -4,12 +4,24 @@ import CodeEditorJs from './CodeEditorJs.vue'
 import CodeEditorVar from './CodeEditorVar.vue'
 import { workbenchStore } from '@mpl/store'
 
+interface CodeEditorJsAPI {
+  saveCode(): { msg: string }
+}
+
 const isSaveLoading = ref(false)
 const errorMsg = defineModel<string>('errorMsg', { default: '' })
 const workbench = workbenchStore()
+const editorJsRef = ref<CodeEditorJsAPI>()
 
 function saveMethod() {
-  //
+  if (workbench.ideModel === 'javascript') {
+    const { msg } = editorJsRef.value!.saveCode()
+    if (msg) {
+      errorMsg.value = msg
+    } else {
+      errorMsg.value = ''
+    }
+  }
 }
 
 // 格式化代码
@@ -24,7 +36,7 @@ function formatCode() {
     <!-- 变量 -->
     <CodeEditorVar v-show="workbench.ideModel === 'var'" />
     <!-- 脚本 -->
-    <CodeEditorJs v-show="workbench.ideModel === 'javascript'" />
+    <CodeEditorJs v-show="workbench.ideModel === 'javascript'" ref="editorJsRef" />
     <!-- 保存按钮组 -->
     <div v-if="workbench.ideModel === 'javascript'" class="btn-group">
       <button class="validate-btn" type="button" @click="formatCode">
