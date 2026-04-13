@@ -4,7 +4,6 @@ import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import eslintPlugin from 'vite-plugin-eslint'
 import VueDevTools from 'vite-plugin-vue-devtools'
-import { default as monacoEditorPlugin } from 'vite-plugin-monaco-editor-esm'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import path from 'path'
 
@@ -23,9 +22,6 @@ export default defineConfig({
     global: 'globalThis'
   },
   plugins: [
-    monacoEditorPlugin({
-      languageWorkers: ['json', 'css', 'html', 'typescript'],
-    }),
     vue(),
     vueJsx(),
     eslintPlugin({
@@ -96,7 +92,6 @@ export default defineConfig({
         manualChunks: {
           'vue-vendor': ['vue', 'vue-router', 'pinia'],
           'element-plus': ['element-plus', '@element-plus/icons-vue'],
-          'monaco-editor': ['monaco-editor'],
           'echarts': ['echarts'],
           'utils': ['lodash', 'axios', '@vueuse/core']
         }

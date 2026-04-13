@@ -23,13 +23,13 @@ const props = defineProps<{ w: string | number, h: number | string }>()
         </div>
       </template>
       <div class="mpl-content" :class="[formContentPosClassName.get(el.select.pos)]">
-        <SlotRenderNode :nodes="el.slotNodes.filter(v => v.slotPos === 'l')" />
+        <SlotRenderNode :nodes="el.slotNodes.filter(v => v.pos === 'l')" />
         <el-select v-model="el.select.model" popper-class="mpl-select-popper" class="mr-5"
           :style="{ width: el.select.width ? `${el.select.width}px` : '100%' }" :placeholder="el.select.placeholder"
           :clearable="el.select.clearable" style="user-select: none">
           静态数据，预览生效
         </el-select>
-        <SlotRenderNode :nodes="el.slotNodes.filter(v => v.slotPos === 'r')" />
+        <SlotRenderNode :nodes="el.slotNodes.filter(v => v.pos === 'r')" />
       </div>
       <template #error>
         <div class="mpl-form-item-error">

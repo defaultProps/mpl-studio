@@ -321,3 +321,59 @@ export const containerNodeTag: NODE_TAG[] = [
   'mpl-drawer',
   'mpl-dialog'
 ]
+
+export const beautifyCode = {
+  html: {
+    indent_size: 2,
+    indent_char: ' ',
+    max_preserve_newlines: -1,
+    preserve_newlines: false,
+    keep_array_indentation: false,
+    break_chained_methods: false,
+    space_before_conditional: true,
+    unescape_strings: false,
+    jslint_happy: false,
+    end_with_newline: false,
+    wrap_line_length: 160,
+    indent_inner_html: false,
+    comma_first: false,
+    e4x: false,
+    indent_empty_lines: false
+  },
+  css: {
+    indent_size: 2,
+    indent_char: ' ',
+    max_preserve_newlines: -1,
+    preserve_newlines: false,
+    keep_array_indentation: false,
+    break_chained_methods: false,
+    indent_scripts: 'keep',
+    space_before_conditional: true,
+    unescape_strings: false,
+    jslint_happy: false,
+    end_with_newline: false,
+    wrap_line_length: 160,
+    indent_inner_html: false,
+    comma_first: false,
+    e4x: false,
+    indent_empty_lines: false
+  },
+  js: {
+    indent_size: 2,
+    indent_char: ' ',
+    max_preserve_newlines: -1,
+    preserve_newlines: false,
+    keep_array_indentation: false,
+    break_chained_methods: false,
+    indent_scripts: 'keep',
+    space_before_conditional: true,
+    unescape_strings: false,
+    jslint_happy: false,
+    end_with_newline: false,
+    wrap_line_length: 160,
+    indent_inner_html: false,
+    comma_first: false,
+    e4x: false,
+    indent_empty_lines: false
+  }
+}

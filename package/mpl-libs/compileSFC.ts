@@ -125,11 +125,11 @@ export function compileSFC(sfcString = '', subComps = {}, metaProps: any = {}) {
     return componentOptions
   }
 
-  const subComponentByPrefixName = {}
-  Object.keys(subComps).forEach((key) => {
+  const subComponentByPrefixName:any = {}
+  Object.keys(subComps).forEach((key: string) => {
     subComponentByPrefixName[`child-component-${key.replace('child-component-', '')}`] = defineComponent(subComps[key])
-    subComponentByPrefixName[key] = defineComponent(subComps[key])
-    window[key.replace('child-component-', '')] = subComps[key]
+    subComponentByPrefixName[key as keyof typeof subComps] = defineComponent(subComps[key as keyof typeof subComps])
+    window[key.replace('child-component-', '')] = subComps[key as keyof typeof subComps]
   })
 
   // // 子组件挂载window上
@@ -150,15 +150,15 @@ export function compileSFC(sfcString = '', subComps = {}, metaProps: any = {}) {
       // 提取 mixin 名称，如 "CounterMixin, LoggerMixin"
       const mixinNames = mixinMatch[1]
         .split(',')
-        .map((name) => name.trim())
-        .filter((name) => name)
+        .map((name: string) => name.trim())
+        .filter((name: string) => name)
 
       // 替换源码中的 mixin 名称为参数名（避免作用域找不到）
-      mixinNames.forEach((name, index) => {
+      mixinNames.forEach((name: string, index: number) => {
         const paramName = `__mixin_${index}`
         scriptContent = scriptContent.replace(new RegExp(`\\b${name}\\b`, 'g'), paramName)
         mixinParams.push(paramName)
-        mixinArgs.push(window[name.replace('window.', '')])
+        mixinArgs.push(window[name.replace('window.', '') as keyof typeof window as any])
       })
     }
 

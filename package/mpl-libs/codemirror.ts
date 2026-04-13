@@ -22,6 +22,7 @@ import {
 import { history } from '@codemirror/commands'
 import { oneDark } from '@codemirror/theme-one-dark'
 import { standardKeymap } from "@codemirror/commands"
+import { autocompletion, CompletionContext } from '@codemirror/autocomplete'
 
 /**
  * 在变量的嵌套对象中插入方法
@@ -403,7 +404,7 @@ export function insertToMplVar(sourceCode: string, insertStr: string) {
       // 找到 mpl.var
       const mplObj = node.init;
       const varProp = mplObj.properties.find(
-        p => t.isIdentifier(p.key, { name: 'var' })
+        (p: any) => t.isIdentifier(p.key, { name: 'var' })
       );
       if (!varProp) return;
 
@@ -606,12 +607,12 @@ export function getJavascriptNameAtPosition(code: string, lineNumber: number) {
   if (!foundNodes.length) return result;
 
   // 按距离排序，优先选择距离目标行最近的节点
-  foundNodes.sort((a, b) => {
+  foundNodes.sort((a: NameCode, b: NameCode) => {
     if (a.distance !== b.distance) {
       return a.distance - b.distance;
     }
     // 如果距离相同，优先选择更具体的节点类型
-    const typePriority = { method: 4, function: 3, property: 2, variable: 1, statement: 0 };
+    const typePriority: any = { method: 4, function: 3, property: 2, variable: 1, statement: 0 };
     return (typePriority[b.type] || 0) - (typePriority[a.type] || 0);
   });
 
@@ -715,13 +716,14 @@ export function getJavascriptNameAtPosition(code: string, lineNumber: number) {
 }
 
 export const defaultCodeMirrorExtensions = (extensions: any[] = []) => [
-  javascript({ jsx: true }), // 语法高亮
+  javascript(), // 语法高亮
   lineNumbers(),
   highlightActiveLine(),
   drawSelection(),
   history(),
   dropCursor(),
   indentUnit.of('  '),
+  autocompletion({ activateOnTyping: true }), // 配合开启打字激活
   indentOnInput(),
   // 标准快捷键映射，包含 Enter 键的处理
   keymap.of([...standardKeymap]),
@@ -753,7 +755,7 @@ export const defaultCodeMirrorExtensions = (extensions: any[] = []) => [
  * @param {string} code - 要校验的代码字符串
  * @returns {object} - 校验结果
  */
-export function validateWithBabel(code) {
+export function validateWithBabel(code: string) {
   try {
     const ast = parser.parse(code, {
       sourceType: 'module',
@@ -765,7 +767,7 @@ export function validateWithBabel(code) {
         'objectRestSpread'
       ]
     });
-    
+
     return {
       isValid: true,
       ast: ast,

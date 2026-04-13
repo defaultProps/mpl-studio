@@ -151,10 +151,10 @@ export const checkbox: ComponentBaseExport = {
   getTemplateCode,
   getNodeVar: (node: CheckboxFormProp) => {
     return [
-      { desc: '显示隐藏', key: `mpl.${node.cid}.visible`, value: true },
-      { desc: '绑定值', key: `mpl.${node.cid}.vModel`, value: '' },
-      { desc: '必填', key: `mpl.${node.cid}.required`, value: false },
-      { desc: '禁用', key: `mpl.${node.cid}.disabled`, value: false },
+      { desc: '显示隐藏', key: `mpl.${node.cid}.visible`, value: true, fullPath: 'visible' },
+      { desc: '绑定值', key: `mpl.${node.cid}.vModel`, value: '', fullPath: 'vModel' },
+      { desc: '必填', key: `mpl.${node.cid}.required`, value: false, fullPath: 'required' },
+      { desc: '禁用', key: `mpl.${node.cid}.disabled`, value: false, fullPath: 'disabled' },
     ]
   }
 }

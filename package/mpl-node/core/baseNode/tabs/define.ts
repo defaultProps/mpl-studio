@@ -150,8 +150,8 @@ export const tabsNode: ComponentBaseExport = {
   getTemplateCode,
   getNodeVar: (node: Tabs) => {
     return [
-      { desc: '显示隐藏', key: `mpl.${node.cid}.visible`, value: true },
-      { desc: '当前选择页签', key: `mpl.${node.cid}.vModel`, value: '' },
+      { desc: '显示隐藏', key: `mpl.${node.cid}.visible`, value: true, fullPath: 'visible' },
+      { desc: '当前选择页签', key: `mpl.${node.cid}.vModel`, value: '', fullPath: 'vModel' },
     ]
   }
 }

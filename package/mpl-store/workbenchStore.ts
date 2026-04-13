@@ -328,7 +328,8 @@ export const workbenchStore = defineStore('Workbench', {
 
       const id = newCid()
       // cid替换为id
-      const newNode: Node = JSON.parse(JSON.stringify(JSON.stringify(this.activeNode).replaceAll(cid, id)))
+      const stringifyStr = JSON.stringify(this.activeNode)
+      const newNode: Node = JSON.parse(stringifyStr.replace(cid, id))
       // 插入节点
       insertNodeRight(this.nodeList, newNode, cid)
       // 通知workbench

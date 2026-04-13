@@ -96,8 +96,8 @@ export const QrCode: ComponentBaseExport = {
   getTemplateCode,
   getNodeVar: (node: QrCodeBox) => {
     return [
-      { desc: '显示隐藏', key: `mpl.${node.cid}.visible`, value: true },
-      { desc: '绑定值', key: `mpl.${node.cid}.vModel`, value: '' },
+      { desc: '显示隐藏', key: `mpl.${node.cid}.visible`, value: true, fullPath: 'visible' },
+      { desc: '绑定值', key: `mpl.${node.cid}.vModel`, value: '', fullPath: 'vModel' },
     ]
   }
 }

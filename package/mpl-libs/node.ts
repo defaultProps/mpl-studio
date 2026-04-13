@@ -289,10 +289,10 @@ export function updateNodeListByMethodsCode(nodeList: Node[], parsed: ParseVueOp
       node.mpl_children.forEach(v => traverse(v))
     }
   }
-  result.forEach(v => traverse(v))
+  result.forEach((v: any) => traverse(v))
 
   // body节点挂载自定义事件和系统事件
-  const bodyNode = result.find(v => v.tag === 'mpl-body')
+  const bodyNode = result.find((v: any) => v.tag === 'mpl-body')
 
   if (bodyNode) {
     bodyNode.events = [...methodMap].map(([k, p]) => ({
@@ -310,7 +310,7 @@ export function updateNodeListByMethodsCode(nodeList: Node[], parsed: ParseVueOp
 export function updateEventListByNodeList(parsed: ParseVueOptions, eventList: EventNode[]) {
   const newEventList = JSON.parse(JSON.stringify(eventList))
   const methodMap = new Map(Object.entries(parsed.methods))
-  newEventList.forEach(t => {
+  newEventList.forEach((t: any) => {
     const p = methodMap.get(t.name)
     if (p) {
       t.code = p.fn

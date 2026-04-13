@@ -6,19 +6,13 @@ import type { ProjectDir } from '@mpl/typings'
 import localforage from 'localforage'
 import { mplRegister, generatorTemplate, generatorVars } from '@mpl/node'
 import ElementPlus from 'element-plus'
-import { beautifyCode, monacoFormatter, mplSystemRule } from '@mpl/const'
-import * as beautify from 'js-beautify'
-import type { editor } from 'monaco-editor/esm/vs/editor/editor.api'
-import * as monacoEditor from 'monaco-editor/esm/vs/editor/editor.api'
 import { compileSFC } from '@mpl/libs'
 
 const isLoading = ref(false)
-window.ref = ref
 const isCollapseMenu = ref(true)
 const defaultActiveMenu = ref<string>('')
 const projectTree = ref<ProjectDir[]>([])
 const defaultTheme = ref<string>('mpl-dfn')
-const drawerVisible = ref(false)
 let pageInfo: any = {}
 let app: any = null
 const vueString = ref('')
@@ -101,44 +95,9 @@ function changeTheme() {
 
 const emit = defineEmits(['change', 'close'])
 
-let monacoInstance: null | editor.IStandaloneCodeEditor = null
-
-function viewCode() {
-  drawerVisible.value = true
-}
-
-function handleClose() {
-  monacoInstance?.dispose()
-  drawerVisible.value = false
-}
-
-function opened() {
-  const dom = document.getElementById('designIDECode')
-
-  if (dom) {
-    monacoInstance = monacoEditor.editor.create(
-      dom,
-      Object.assign(monacoFormatter.html, {
-        value: beautify.html(vueString.value, beautifyCode.html),
-        readOnly: true,
-        fontSize: 16,
-        language: 'html',
-        tabSize: 2,
-        minimap: {
-          enabled: true
-        },
-      })
-    )
-  }
-}
-
 </script>
 
 <template>
-  <el-drawer v-model="drawerVisible" direction="rtl" class="drawer-ide" size="600px" :before-close="handleClose"
-    :with-header="false" @opened="opened">
-    <div id="designIDECode" style="width: 100%;height:100%;" />
-  </el-drawer>
   <div class="root-mp--box">
     <div class="sidebar-box">
       <div class="header-logo" :class="{ 'is-collapse': isCollapseMenu }">

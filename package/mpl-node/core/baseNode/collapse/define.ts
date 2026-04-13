@@ -87,8 +87,8 @@ export const collapse: ComponentBaseExport = {
   getTemplateCode,
   getNodeVar: (node: CollapseProp) => {
     return [
-      { desc: '显示隐藏', key: `mpl.${node.cid}.visible`, value: true },
-      { desc: '展开项', key: `mpl.${node.cid}.vModel`, value: '' }
+      { desc: '显示隐藏', key: `mpl.${node.cid}.visible`, value: true, fullPath: 'visible' },
+      { desc: '展开项', key: `mpl.${node.cid}.vModel`, value: '', fullPath: 'vModel' }
     ]
   }
 }

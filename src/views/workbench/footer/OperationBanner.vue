@@ -3,7 +3,6 @@ import { ref, onBeforeUnmount, computed } from 'vue'
 import PageCode from './PageCode.vue'
 import QuickConfigModel from './quickConfig/index.vue'
 import ServiceConfigModel from './ServiceConfigModel.vue'
-import SchemaPane from './SchemaPane.vue'
 import ThirdPkgPane from './ThirdPkgPane.vue'
 import IntelligentDetectionPane from './IntelligentDetectionPane.vue'
 import { workbenchViewList } from '@/utils/constant'
@@ -35,7 +34,6 @@ const project = projectStore()
       <QuickConfigModel v-if="coreView.activeWorkbenchModel === 'quickConfigPaneModel' && project.activeFile" />
       <ServiceConfigModel v-show="coreView.activeWorkbenchModel === 'serviceConfigPaneModel'" />
       <IntelligentDetectionPane v-show="coreView.activeWorkbenchModel === 'intelligentDetection'" />
-      <SchemaPane v-show="coreView.activeWorkbenchModel === 'schemaPaneModel'" />
       <ThirdPkgPane v-show="coreView.activeWorkbenchModel === 'packagePaneModel'" />
     </div>
   </div>

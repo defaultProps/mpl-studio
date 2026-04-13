@@ -119,7 +119,7 @@ function handleSearchIcon() {
       <button type="button" class="mpl-btn icon icon-search1 ml-5" />
     </div>
     <div class="icon-item mpl-scroll-none" @click="submitIcon($event)">
-      <component :is="getIconComponent(iconName as any)"
+      <component :is="getIconComponent(iconName)"
         v-for="iconName in iconNames.slice((currentPage - 1) * pageSize, currentPage * pageSize)"
         :class="{ select: modelValue === iconName }" class="icon" :aria-icon="iconName" :size="30" />
     </div>

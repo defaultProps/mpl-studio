@@ -16,20 +16,68 @@ const baseComponentList: PlatformNode[] = [
     value: 'container',
     children: [
       {
-        label: '登录表单',
-        value: 'mpl-platform-dv402r',
+        label: '登录表单', // 初始化UI功能, 支持多种登录模式配置
+        value: 'mpl-uu0pp1',
         icon: '',
         type: ['elementPlus']
       },
       {
-        label: '断点续传大文件DFX',
-        value: 'mpl-platform-we1124',
+        label: '单表excel编辑', // 单独窗口-编辑excel文件.
+        value: 'mpl-ee4uu8',
         icon: '',
         type: ['elementPlus']
       },
       {
-        label: '二维码弹窗分享MST',
-        value: 'mpl-platform-gg697',
+        label: 'AI聊天页',
+        value: 'mpl-df5jy7',
+        icon: '',
+        type: ['elementPlus']
+      },
+      {
+        label: 'AI聊天页',
+        value: 'mpl-df5jy7',
+        icon: '',
+        type: ['elementPlus']
+      },
+      {
+        label: 'AI聊天页',
+        value: 'mpl-df5jy7',
+        icon: '',
+        type: ['elementPlus']
+      },
+      {
+        label: 'AI聊天页',
+        value: 'mpl-df5jy7',
+        icon: '',
+        type: ['elementPlus']
+      },
+      {
+        label: 'AI聊天页',
+        value: 'mpl-df5jy7',
+        icon: '',
+        type: ['elementPlus']
+      },
+      {
+        label: 'AI聊天页',
+        value: 'mpl-df5jy7',
+        icon: '',
+        type: ['elementPlus']
+      },
+      {
+        label: 'AI聊天页',
+        value: 'mpl-df5jy7',
+        icon: '',
+        type: ['elementPlus']
+      },
+      {
+        label: 'AI聊天页',
+        value: 'mpl-df5jy7',
+        icon: '',
+        type: ['elementPlus']
+      },
+      {
+        label: 'AI聊天页',
+        value: 'mpl-df5jy7',
         icon: '',
         type: ['elementPlus']
       }

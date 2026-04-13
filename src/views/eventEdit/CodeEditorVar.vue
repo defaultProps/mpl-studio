@@ -96,6 +96,7 @@ onMounted(() => {
 
 onMounted(() => {
   window.addEventListener('message', messageIDE)
+  editorView?.destroy()
 })
 
 function messageIDE(event: MessageEvent<any>) {

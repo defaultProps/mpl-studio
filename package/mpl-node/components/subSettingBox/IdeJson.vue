@@ -1,37 +1,35 @@
 <script setup lang="ts">
 import * as beautify from 'js-beautify'
-import { onMounted, onUnmounted } from 'vue'
-import { beautifyCode, monacoFormatter } from '@mpl/const'
+import { onMounted, onUnmounted, ref } from 'vue'
+import { beautifyCode } from '@mpl/const'
 import { viewStore } from '@mpl/store'
-import type { editor } from 'monaco-editor/esm/vs/editor/editor.api'
-import * as monacoEditor from 'monaco-editor/esm/vs/editor/editor.api'
+import { EditorView } from '@codemirror/view'
+import { EditorState } from "@codemirror/state"
+import { defaultCodeMirrorExtensions } from '@mpl/libs'
 
 const modelValue = defineModel<string>({ default: '' })
 const emit = defineEmits(['change', 'close'])
-
-let monacoInstance: null | editor.IStandaloneCodeEditor = null
+const editorRef = ref(null)
+let editorView: EditorView | null = null
 
 onUnmounted(() => {
-  monacoInstance?.dispose()
+  editorView?.destroy()
 })
 
 onMounted(() => {
-  const dom = document.getElementById('IDE_JSON')
+  const state = EditorState.create({
+    doc: beautify.js(modelValue.value, beautifyCode.js),
+    extensions: defaultCodeMirrorExtensions()
+  })
 
-  if (dom) {
-    monacoInstance = monacoEditor.editor.create(
-      dom,
-      Object.assign(monacoFormatter.js, {
-        value: beautify.js(modelValue.value, beautifyCode.js),
-        readOnly: false,
-        fontSize: 13
-      })
-    )
-  }
+  editorView = new EditorView({
+    state,
+    parent: editorRef.value!
+  })
 })
 
 function saveIDE() {
-  emit('change', monacoInstance?.getValue())
+  emit('change', editorView!.state.doc.toString())
 }
 
 function cancelIDE() {
@@ -43,7 +41,7 @@ function cancelIDE() {
 </script>
 <template>
   <div class="ide-json--box mpl-scroll-none">
-    <div id="IDE_JSON" />
+    <div ref="editorRef" class="code-editor" />
     <!-- 全屏 -->
     <div class="icon-quanping1 icon full-btn" />
     <!-- 下载 -->
@@ -67,12 +65,12 @@ function cancelIDE() {
   overflow: hidden;
   position: relative;
 
-  #IDE_JSON {
+  > .code-editor {
     width: 100%;
     height: 100%;
   }
 
-  .full-btn {
+  > .full-btn {
     position: absolute;
     right: 20px;
     top: 10px;
@@ -85,7 +83,7 @@ function cancelIDE() {
     }
   }
 
-  .download-btn {
+  > .download-btn {
     position: absolute;
     right: 60px;
     top: 10px;
@@ -98,7 +96,7 @@ function cancelIDE() {
     }
   }
 
-  .save-btn {
+  > .save-btn {
     position: absolute;
     right: 20px;
     bottom: 10px;
@@ -115,7 +113,7 @@ function cancelIDE() {
     }
   }
 
-  .cancel-btn {
+  > .cancel-btn {
     position: absolute;
     right: 80px;
     bottom: 10px;

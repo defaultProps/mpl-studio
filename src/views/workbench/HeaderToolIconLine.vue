@@ -139,6 +139,11 @@ function handleWheel(e: any) {
 }
 
 
+// 生成页面
+function handleGeneratePage() {
+  // 1. 说明或导入图片, 进行分析.生成页面
+}
+
 
 
 // 直接鼠标横向滚动, 不需要按住shift键
@@ -237,7 +242,7 @@ onUnmounted(() => {
         <button type="button" class="mpl-btn mr-5 icon icon-moban" :disabled="user.authority !== 'enterprise'">
           页面分析
         </button>
-        <button class="mpl-btn mr-5 icon icon-moban" type="button" :disabled="user.authority !== 'enterprise'">
+        <button class="mpl-btn mr-5 icon icon-moban" type="button" :disabled="user.authority !== 'enterprise'" @click="handleGeneratePage">
           页面生成
         </button>
         <button class="mpl-btn icon icon-moban" type="button" :disabled="user.authority !== 'enterprise'">

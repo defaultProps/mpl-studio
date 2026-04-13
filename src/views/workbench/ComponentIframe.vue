@@ -16,7 +16,7 @@ function changeNode(newNode: Node) {
 }
 
 function removeActiveNodeEvent(event: { cid: string, name: string }) {
-  workbench.singleEventReduce(event)
+  workbench.singleEventReduce(event.name)
 }
 
 function resizeBy(type: 'up' | 'down') {

@@ -1,34 +1,33 @@
 <script setup lang="ts">
 import type { ServicePostMan } from '@mpl/typings'
 import { onMounted, ref, onUnmounted } from 'vue'
-import type { editor } from 'monaco-editor/esm/vs/editor/editor.api'
-import * as monacoEditor from 'monaco-editor/esm/vs/editor/editor.api'
-import { beautifyCode, monacoFormatter } from '@mpl/const'
+import { beautifyCode } from '@mpl/const'
 import * as beautify from 'js-beautify'
 import { viewStore } from '@mpl/store'
+import { EditorView } from '@codemirror/view'
+import { EditorState } from "@codemirror/state"
+import { defaultCodeMirrorExtensions } from '@mpl/libs'
 
 const servicePostMan = defineModel<ServicePostMan>({ default: { url: '', methods: 'get', params: [] } })
 const modelValue = ref('')
-let monacoInstance: null | editor.IStandaloneCodeEditor = null
 const emit = defineEmits(['close'])
+const editorRef = ref(null)
+let editorView: EditorView | null = null
 
 onUnmounted(() => {
-  monacoInstance?.dispose()
+  editorView?.destroy()
 })
 
 onMounted(() => {
-  const dom = document.getElementById('IDE_SERVICE')
+  const state = EditorState.create({
+    doc: beautify.js(modelValue.value, beautifyCode.js),
+    extensions: defaultCodeMirrorExtensions()
+  })
 
-  if (dom) {
-    monacoInstance = monacoEditor.editor.create(
-      dom,
-      Object.assign(monacoFormatter.js, {
-        value: beautify.js(modelValue.value, beautifyCode.js),
-        readOnly: false,
-        fontSize: 13
-      })
-    )
-  }
+  editorView = new EditorView({
+    state,
+    parent: editorRef.value!
+  })
 })
 
 const mplServiceTree = [
@@ -98,9 +97,6 @@ function handleCancel() {
   })
 }
 
-
-
-
 </script>
 <template>
   <div class="service-interface--box mpl-scroll-none">
@@ -122,9 +118,7 @@ function handleCancel() {
         服务参数【参数绑定】 => ui[apifox]
       </div>
     </div>
-    <div class="service-postman mb-5">
-      <div id="IDE_SERVICE" />
-    </div>
+    <div ref="editorRef" class="code-editor mb-5" />
     <div class="service-footer">
       <button type="button" class="mr-5 icon icon-close del-btn" @click="handleCancel">
         取消
@@ -169,17 +163,11 @@ function handleCancel() {
     }
   }
 
-  .service-postman {
+  .code-editor {
     width: 100%;
     height: 200px;
     box-sizing: border-box;
     border-top: 1px solid #ccc;
-
-    div {
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-    }
   }
 
   .service-footer {

@@ -1,20 +1,6 @@
 import type { EventNode } from '@mpl/typings'
 import { SERVICE_MODE } from '@mpl/const'
 
-// 通用指令
-export function getBaseDirectEventNodes(): EventNode[] {
-  return [
-    { name: 'v-if', desc: 'V-IF', code: '', open: false },
-    { name: 'v-else-if', desc: 'V-ELSE-IF', code: '', open: false },
-    { name: 'v-else', desc: 'V-ELSE', code: '', open: false },
-    { name: 'mpl-input-focus', desc: '自动聚焦输入表单', code: '', open: false },
-    { name: 'mpl-btn-focus', desc: '自动聚焦按钮', code: '', open: false },
-    { name: 'mpl-copy', desc: '点击复制内容', code: '', open: false },
-    { name: 'mpl-download', desc: '点击下载文件', code: '', open: false }
-    // others 系统自带指令或用户自定义全局指令
-  ]
-}
-
 export const labelPosWithClassName = new Map([
   ['l', 'mpl-label-left'],
   ['c', 'mpl-label-center'],

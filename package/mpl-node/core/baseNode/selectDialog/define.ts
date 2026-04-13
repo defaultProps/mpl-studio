@@ -329,7 +329,7 @@ export const selectDialogNode: ComponentBaseExport = {
   getTemplateCode,
   getNodeVar: (node: DialogProp) => {
     return [
-      { desc: '显示隐藏', key: `mpl.${node.cid}.visible`, value: true }
+      { desc: '显示隐藏', key: `mpl.${node.cid}.visible`, value: true, fullPath: 'visible' }
     ]
   }
 }

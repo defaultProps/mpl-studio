@@ -1,35 +1,35 @@
 <script lang="ts" setup>
 import * as beautify from 'js-beautify'
 import { onMounted, ref, onUnmounted } from 'vue'
-import { beautifyCode, monacoFormatter } from '@mpl/const'
-import type { editor } from 'monaco-editor/esm/vs/editor/editor.api'
-import * as monacoEditor from 'monaco-editor/esm/vs/editor/editor.api'
+import { beautifyCode } from '@mpl/const'
+import { EditorView } from '@codemirror/view'
+import { EditorState } from "@codemirror/state"
+import { defaultCodeMirrorExtensions } from '@mpl/libs'
 
-const monacoSchemaRef = ref(null)
-let monacoTemplateInstance: null | editor.IStandaloneCodeEditor = null
+const editorRef = ref(null)
+let editorView: EditorView | null = null
 
 const props = defineProps<{ value: any }>()
 
 onMounted(() => {
-  if (!monacoSchemaRef.value) {
-    return
-  }
+  const state = EditorState.create({
+    doc: beautify.js(props.value, beautifyCode.js),
+    extensions: defaultCodeMirrorExtensions()
+  })
 
-  monacoTemplateInstance = monacoEditor.editor.create(
-    monacoSchemaRef.value,
-    Object.assign(monacoFormatter.js, {
-      language: 'json',
-      value: beautify.js(JSON.stringify(props.value), beautifyCode.js)
-    })
-  )
+  editorView = new EditorView({
+    state,
+    parent: editorRef.value!
+  })
 })
 
 onUnmounted(() => {
-  monacoTemplateInstance?.dispose()
+  editorView?.destroy()
 })
 </script>
 <template>
-  <div ref="monacoSchemaRef" class="monaco-schema-box">
+  <div class="schema-box">
+    <div ref="editorRef" class="code-editor" />
     <div class="auxiliary-button-group">
       <button type="button" class="mr-5">
         下载
@@ -40,7 +40,7 @@ onUnmounted(() => {
     </div>
   </div>
 </template>
-<style lang="less">
+<style lang="less" scoped>
 .auxiliary-button-group {
   height: 30px;
   display: flex;
@@ -53,10 +53,16 @@ onUnmounted(() => {
   z-index: 10;
 }
 
-.monaco-schema-box {
+.schema-box {
   width: 100%;
   height: 100%;
   overflow: hidden;
   position: relative;
+
+  .code-editor {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
 }
 </style>

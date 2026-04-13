@@ -86,7 +86,7 @@ export const avatar: ComponentBaseExport = {
   getTemplateCode,
   getNodeVar: (node: BaseAvatar) => {
     return [
-      { desc: '显示隐藏', key: `mpl.${node.cid}.visible`, value: true },
+      { desc: '显示隐藏', key: `mpl.${node.cid}.visible`, value: true, fullPath: 'visible' },
     ]
   }
 }
