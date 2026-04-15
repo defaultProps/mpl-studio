@@ -55,6 +55,7 @@ export declare namespace MPL {
     | 'tableColumnSetting' // 表格列设置
     | 'staticJSON' // JSON静态设置
     | 'serviceMode' // 绑定接口配置
+    | 'aiChat' // AI聊天
 
   export type FormItemSize = 'small' | 'medium' | 'large' //
   export type FormItemLabelPos = 'l' | 'c' | 'r'

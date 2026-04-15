@@ -12,10 +12,12 @@
       <button type="button" class="ml-5 mpl-btn del-btn icon icon-close" @click="removeLimit(item.value, i)" />
     </FormItem>
   </VueDraggable>
-  <button type="button" class="mpl-btn plus-btn icon icon-plus mt-5" @click="addInputLimit">
+  <button type="button" class="mpl-btn plus-btn icon icon-plus" :disabled="limit.length >= 5" @click="addInputLimit">
     添加限制
   </button>
-  <button type="button" class="mpl-btn plus-btn icon icon-select5 ml-5" @click="addInputLimit">
+  <button type="button" :disabled="limit.length >= 5"
+    :class="{ 'is-active': view.subBoxSettingModel === 'aiChat' && view.subBoxSettingModelId === id }"
+    class="mpl-btn plus-btn icon icon-select5 ml-5" @click="changeSubBoxSetting('aiChat')">
     添加AI限制
   </button>
   <div v-if="activeLimit" class="mpl-sub-form-block">
@@ -23,13 +25,18 @@
       @change="changeLimitItemValue(activeLimit.callback)" />
     <button type="button" class="mpl-btn ml-5 icon icon-check" @click="openAIEditor" />
   </div>
+  <AIChat v-if="view.subBoxSettingModel === 'aiChat' && view.subBoxSettingModelId === id" type="limit"
+    @change="changeAIChat" @cancel="changeSubBoxSetting('')" />
 </template>
 <script lang="ts" setup>
 import { limitInputOption } from '@mpl/const'
 import { VueDraggable } from 'vue-draggable-plus'
 import FormItem from './FormItem.vue'
 import MiniMonacoJs from './MiniMonacoJs.vue'
-import { ref } from 'vue'
+import { ref, useId } from 'vue'
+import AIChat from './subSettingBox/AIChat.vue'
+import { viewStore } from '@mpl/store'
+import type { SUB_BOX_SETTING_MODEL } from '@mpl/typings'
 
 interface LimitItem {
   label: string
@@ -39,6 +46,20 @@ interface LimitItem {
 
 const limit = defineModel<Array<LimitItem>>({ default: () => [] })
 const activeLimit = ref<LimitItem | null>(null)
+const view = viewStore()
+const id = useId()
+
+function changeAIChat(val: string) {
+  console.log(val)
+  changeSubBoxSetting('')
+}
+
+function changeSubBoxSetting(model: SUB_BOX_SETTING_MODEL) {
+  view.$patch({
+    subBoxSettingModel: model,
+    subBoxSettingModelId: model === '' ? '' : id
+  })
+}
 
 function removeLimit(val: string, i: number) {
   if (val === activeLimit.value?.value) {

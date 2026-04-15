@@ -22,6 +22,6 @@ function handleBlur(event: FocusEvent) {
 </script>
 
 <template>
-	<textarea v-model="modelInput" class="mpl-textarea" :placeholder="placeholder || ''" rows="5" maxlength="200"
+	<textarea v-model="modelInput" class="mpl-textarea" :placeholder="placeholder || ''" rows="4" maxlength="200"
 		style="resize: none" @blur="handleBlur" />
 </template>
