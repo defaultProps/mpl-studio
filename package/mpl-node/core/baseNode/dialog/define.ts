@@ -77,7 +77,64 @@ export function newDialogNode(cid: string): DialogProp {
     mpl_children: [],
     events: [],
     variables: [],
-    defaultEvents: [],
+    defaultEvents: [
+      {
+        name: `mpl_dialog_open_${cid}`,
+        desc: '弹窗打开时',
+        code: `
+          mpl_dialog_open_${cid}(value) {
+            console.log(value)
+          }
+        `,
+        open: false,
+        type: 'baseComponent',
+        flowType: '',
+        cid,
+        tag: 'mpl-dialog'
+      },
+      {
+        name: `mpl_dialog_opened_${cid}`,
+        desc: '弹窗打开完成时',
+        code: `
+          mpl_dialog_opened_${cid}(value) {
+            console.log(value)
+          }
+        `,
+        open: false,
+        type: 'baseComponent',
+        flowType: '',
+        cid,
+        tag: 'mpl-dialog'
+      },
+      {
+        name: `mpl_dialog_close_${cid}`,
+        desc: '弹窗关闭时',
+        code: `
+          mpl_dialog_close_${cid}(value) {
+            console.log(value)
+          }
+        `,
+        open: false,
+        type: 'baseComponent',
+        flowType: '',
+        cid,
+        tag: 'mpl-dialog'
+      },
+      {
+        name: `mpl_dialog_closed_${cid}`,
+        desc: '弹窗关闭完成时',
+        code: `
+          mpl_dialog_closed_${cid}(value) {
+            console.log(value)
+          }
+        `,
+        open: false,
+        type: 'baseComponent',
+        flowType: '',
+        cid,
+        tag: 'mpl-dialog'
+      }
+    ],
     pos: pos(),
     classList: [],
     userClassName: [],
@@ -142,7 +199,23 @@ export const dialog: ComponentBaseExport = {
   comp: newDialogNode,
   pos: pos(),
   getTemplateCode,
+  getBaseVar: (cid: string) => {
+    return `
+      ${cid}: { 
+        vModel: ''
+      }
+    `
+  },
   getNodeVar: (node: DialogProp) => {
-    return []
+    const prefix = `${node.mpl_title} / ${node.mpl_zh}`
+
+    return [
+      { desc: `${prefix} / 显示隐藏`, key: 'visible', value: true, fullPath: `${node.cid}.visible` },
+      { desc: `${prefix} / 绑定值`, key: 'vModel', value: '', fullPath: `${node.cid}.vModel` },
+      { desc: `${prefix} / 必填`, key: 'required', value: false, fullPath: `${node.cid}.required` },
+      { desc: `${prefix} / 禁用`, key: 'disabled', value: false, fullPath: `${node.cid}.disabled` },
+      { desc: `${prefix} / 只读`, key: 'readonly', value: false, fullPath: `${node.cid}.readonly` },
+      { desc: prefix, key: 'cid', value: 'cid', fullPath: node.cid },
+    ]
   }
 }

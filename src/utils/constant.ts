@@ -375,6 +375,13 @@ export function getBaseComponentList(): CoreNodeList[] {
           authority: 'community'
         },
         {
+          label: '头像',
+          value: 'mpl-avatar',
+          icon: '',
+          type: ['elementPlus', 'vant4'],
+          authority: 'community'
+        },
+        {
           label: '颜色选择',
           value: 'mpl-color-picker',
           icon: 'icon-theme',
@@ -448,13 +455,6 @@ export function getBaseComponentList(): CoreNodeList[] {
           icon: '',
           type: ['elementPlus', 'vant4'],
           authority: 'enterprise'
-        },
-        {
-          label: '头像',
-          value: 'mpl-avatar',
-          icon: '',
-          type: ['elementPlus', 'vant4'],
-          authority: 'community'
         },
         {
           label: '文本',
@@ -846,26 +846,6 @@ export function getSeniorComponentList(): CoreNodeList[] {
       ]
     },
     {
-      label: '查询类',
-      value: 'searchModule',
-      children: [
-        {
-          label: '基础查询1',
-          value: 'mpl-baseSearchModule1',
-          icon: '',
-          type: ['elementPlus', 'vant4'],
-          authority: 'community'
-        },
-        {
-          label: '表格查询1',
-          value: 'mpl-tableSearchBaseModule1',
-          icon: '',
-          type: ['elementPlus', 'vant4'],
-          authority: 'community'
-        },
-      ]
-    },
-    {
       label: '通用类',
       value: 'commonModule',
       children: [
@@ -970,6 +950,52 @@ export function getSeniorComponentList(): CoreNodeList[] {
           type: ['elementPlus', 'vant4'],
           authority: 'enterprise'
         }
+      ]
+    },
+    {
+      label: '表格类',
+      value: 'tableModule',
+      children: [
+        {
+          label: '嵌套表格',
+          value: 'mpl-nestingTable1',
+          icon: '',
+          type: ['elementPlus', 'vant4'],
+          authority: 'enterprise'
+        }
+      ]
+    },
+    {
+      label: '树形类',
+      value: 'treeModule',
+      children: [
+        {
+          label: '目录树1',
+          value: 'mpl-treePage1',
+          icon: '',
+          type: ['elementPlus', 'vant4'],
+          authority: 'enterprise'
+        }
+      ]
+    },
+    {
+      label: '查询类',
+      value: 'searchModule',
+      children: [
+        {
+          label: '基础查询1',
+          value: 'mpl-baseSearchModule1',
+          icon: '',
+          type: ['elementPlus', 'vant4'],
+          authority: 'community'
+        },
+        {
+          label: '表格查询1',
+          value: 'mpl-tableSearchBaseModule1',
+          icon: '',
+          type: ['elementPlus', 'vant4'],
+          authority: 'community'
+        },
       ]
     },
     {
@@ -1128,32 +1154,6 @@ export function getSeniorComponentList(): CoreNodeList[] {
         {
           label: '消息列表',
           value: 'mpl-banner1',
-          icon: '',
-          type: ['elementPlus', 'vant4'],
-          authority: 'enterprise'
-        }
-      ]
-    },
-    {
-      label: '表格类',
-      value: 'tableModule',
-      children: [
-        {
-          label: '嵌套表格',
-          value: 'mpl-nestingTable1',
-          icon: '',
-          type: ['elementPlus', 'vant4'],
-          authority: 'enterprise'
-        }
-      ]
-    },
-    {
-      label: '树形类',
-      value: 'treeModule',
-      children: [
-        {
-          label: '目录树1',
-          value: 'mpl-treePage1',
           icon: '',
           type: ['elementPlus', 'vant4'],
           authority: 'enterprise'

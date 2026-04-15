@@ -162,7 +162,78 @@ export function newSelectNode(cid: string): SelectFormProp {
     },
     events: [],
     variables: [],
-    defaultEvents: [],
+    defaultEvents: [
+      {
+        name: `mpl_input_input_${cid}`,
+        desc: '输入时',
+        code: `
+          mpl_input_input_${cid}(value) {
+            console.log(value)
+          }
+        `,
+        open: false,
+        type: 'baseComponent',
+        flowType: '',
+        cid,
+        tag: 'mpl-input'
+      },
+      {
+        name: `mpl_input_focus_${cid}`,
+        desc: '聚焦时',
+        code: `
+          mpl_input_focus_${cid}(value) {
+            console.log(value)
+          }
+        `,
+        open: false,
+        type: 'baseComponent',
+        flowType: '',
+        cid,
+        tag: 'mpl-input'
+      },
+      {
+        name: `mpl_input_blur_${cid}`,
+        desc: '失焦时',
+        code: `
+          mpl_input_blur_${cid}(value) {
+            console.log(value)
+          }
+        `,
+        open: false,
+        type: 'baseComponent',
+        flowType: '',
+        cid,
+        tag: 'mpl-input'
+      },
+      {
+        name: `mpl_input_change_${cid}`,
+        desc: '内容改变',
+        code: `
+          mpl_input_change_${cid}(value) {
+            console.log(value)
+          }
+        `,
+        open: false,
+        type: 'baseComponent',
+        flowType: '',
+        cid,
+        tag: 'mpl-input'
+      },
+      {
+        name: `mpl_input_clear_${cid}`,
+        desc: '点击清空',
+        code: `
+          mpl_input_clear_${cid}(value) {
+            console.log(value)
+          }
+        `,
+        open: false,
+        type: 'baseComponent',
+        flowType: '',
+        cid,
+        tag: 'mpl-input'
+      },
+    ],
     pos: pos()
   }
 }
@@ -187,7 +258,24 @@ export const selectNode: ComponentBaseExport = {
   comp: newSelectNode,
   pos: pos(),
   getTemplateCode,
+  getBaseVar: (cid: string) => {
+    return `
+      ${cid}: { 
+        vModel: ''
+      }
+    `
+  },
   getNodeVar: (node: SelectFormProp) => {
-    return []
+    // 如果有子组件, 也根据该组件获取动态变量
+    const prefix = `${node.mpl_title} / ${node.mpl_zh}`
+
+    return [
+      { desc: `${prefix} / 显示隐藏`, key: 'visible', value: true, fullPath: `${node.cid}.visible` },
+      { desc: `${prefix} / 绑定值`, key: 'vModel', value: '', fullPath: `${node.cid}.vModel` },
+      { desc: `${prefix} / 必填`, key: 'required', value: false, fullPath: `${node.cid}.required` },
+      { desc: `${prefix} / 禁用`, key: 'disabled', value: false, fullPath: `${node.cid}.disabled` },
+      { desc: `${prefix} / 只读`, key: 'readonly', value: false, fullPath: `${node.cid}.readonly` },
+      { desc: prefix, key: 'cid', value: 'cid', fullPath: node.cid },
+    ]
   }
 }

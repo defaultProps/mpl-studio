@@ -73,7 +73,64 @@ export function newDrawerNode(cid: string): DrawerProp {
     mpl_children: [],
     events: [],
     variables: [],
-    defaultEvents: [],
+    defaultEvents: [
+      {
+        name: `mpl_drawer_open_${cid}`,
+        desc: '抽屉打开时',
+        code: `
+          mpl_drawer_open_${cid}(value) {
+            console.log(value)
+          }
+        `,
+        open: false,
+        type: 'baseComponent',
+        flowType: '',
+        cid,
+        tag: 'mpl-drawer'
+      },
+      {
+        name: `mpl_drawer_opened_${cid}`,
+        desc: '抽屉打开完成时',
+        code: `
+          mpl_drawer_opened_${cid}(value) {
+            console.log(value)
+          }
+        `,
+        open: false,
+        type: 'baseComponent',
+        flowType: '',
+        cid,
+        tag: 'mpl-drawer'
+      },
+      {
+        name: `mpl_drawer_close_${cid}`,
+        desc: '抽屉关闭时',
+        code: `
+          mpl_drawer_close_${cid}(value) {
+            console.log(value)
+          }
+        `,
+        open: false,
+        type: 'baseComponent',
+        flowType: '',
+        cid,
+        tag: 'mpl-drawer'
+      },
+      {
+        name: `mpl_drawer_closed_${cid}`,
+        desc: '抽屉关闭完成时',
+        code: `
+          mpl_drawer_closed_${cid}(value) {
+            console.log(value)
+          }
+        `,
+        open: false,
+        type: 'baseComponent',
+        flowType: '',
+        cid,
+        tag: 'mpl-drawer'
+      },
+    ],
     pos: pos(),
     classList: [],
     userClassName: [],

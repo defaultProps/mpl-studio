@@ -91,8 +91,6 @@ onMounted(() => {
     state,
     parent: editorRef.value!
   })
-
-  console.log(editorView, editorRef.value!)
 })
 
 

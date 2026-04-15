@@ -47,9 +47,10 @@ function messageEventList(event: MessageEvent<any>) {
 // 直接展开选中节点
 watch(() => workbench.activeNodeId, (newVal) => {
   if (newVal) {
-    treeRef.value?.setCurrentKey(newVal)
+    const node = document.querySelector(`.custom-tree-node[aria-node-cid="${newVal}"]`)
     nextTick(() => {
-      document.querySelector(`.custom-tree-node[aria-node-cid="${newVal}"]`)?.scrollIntoView({ block: 'center' })
+      treeRef.value?.setCurrentKey(newVal)
+      node?.scrollIntoView({ block: 'center' })
     })
   }
 })

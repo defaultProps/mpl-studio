@@ -62,7 +62,36 @@ export function newTimeRangePickerNode(cid: string): TimeRangePickerFormProp {
     mpl_children: [],
     events: [],
     variables: [],
-    defaultEvents: [],
+    defaultEvents: [
+      {
+        name: `mpl_timeRangePicker_change_${cid}`,
+        desc: '内容改变',
+        code: `
+          mpl_timeRangePicker_change_${cid}(value) {
+            console.log(value)
+          }
+        `,
+        open: false,
+        type: 'baseComponent',
+        flowType: '',
+        cid,
+        tag: 'mpl-time-range-picker'
+      },
+      {
+        name: `mpl_timeRangePicker_clear_${cid}`,
+        desc: '点击清空',
+        code: `
+          mpl_timeRangePicker_clear_${cid}(value) {
+            console.log(value)
+          }
+        `,
+        open: false,
+        type: 'baseComponent',
+        flowType: '',
+        cid,
+        tag: 'mpl-time-range-picker'
+      },
+    ],
     pos: pos(),
     classList: [],
     userClassName: [],

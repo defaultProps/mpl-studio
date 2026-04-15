@@ -241,15 +241,13 @@ export const singleInputNode: ComponentBaseExport = {
   getBaseVar: (cid: string) => {
     return `
       ${cid}: { 
-        vModel: '',
-        disabled: false,
+        vModel: ''
       }
     `
   },
   getNodeVar: (node: SingleInputFormProp): NodeVar[] => {
     // 如果有子组件, 也根据该组件获取动态变量
     const prefix = `${node.mpl_title} / ${node.mpl_zh}`
-    // >>
 
     return [
       { desc: `${prefix} / 显示隐藏`, key: 'visible', value: true, fullPath: `${node.cid}.visible` },

@@ -1,5 +1,5 @@
 import { defineAsyncComponent } from 'vue'
-import { avatar, type BaseAvatar, newAvatarBox as newNode } from './define'
+import { avatar, type BaseAvatar, newAvatarForm } from './define'
 import renderCode from './renderCode'
 import type { SettingMap } from '@mpl/typings'
 
@@ -8,7 +8,7 @@ export default <SettingMap>{
 	tag: 'mpl-avatar',
 	node: avatar,
 	renderCode,
-	newNode,
+	newNode: newAvatarForm,
 
 	componentModel: defineAsyncComponent(() => import('./SettingBox.vue')),
 	moduleModel: defineAsyncComponent(() => import('./ModuleBox.vue')),

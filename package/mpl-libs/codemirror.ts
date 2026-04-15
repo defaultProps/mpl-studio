@@ -22,7 +22,7 @@ import {
 import { history } from '@codemirror/commands'
 import { oneDark } from '@codemirror/theme-one-dark'
 import { standardKeymap } from "@codemirror/commands"
-import { autocompletion, CompletionContext } from '@codemirror/autocomplete'
+import { autocompletion } from '@codemirror/autocomplete'
 
 /**
  * 在变量的嵌套对象中插入方法
@@ -716,14 +716,16 @@ export function getJavascriptNameAtPosition(code: string, lineNumber: number) {
 }
 
 export const defaultCodeMirrorExtensions = (extensions: any[] = []) => [
-  javascript(), // 语法高亮
   lineNumbers(),
   highlightActiveLine(),
   drawSelection(),
   history(),
   dropCursor(),
   indentUnit.of('  '),
-  autocompletion({ activateOnTyping: true }), // 配合开启打字激活
+  autocompletion({
+    activateOnTyping: true
+  }),
+  javascript(),
   indentOnInput(),
   // 标准快捷键映射，包含 Enter 键的处理
   keymap.of([...standardKeymap]),

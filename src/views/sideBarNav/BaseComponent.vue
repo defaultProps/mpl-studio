@@ -58,14 +58,6 @@ function handleContextmenu(event: MouseEvent, key: string, authority: Authority)
           visibleDisplayNodeBox: true
         })
       }
-    },
-    {
-      label: '历史版本',
-      value: 'docs',
-      icon: '',
-      divider: false,
-      disabled: false,
-      onClick: () => { }
     }
   ]
 

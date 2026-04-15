@@ -89,7 +89,22 @@ export function newCheckboxNode(cid: string): CheckboxFormProp {
     mpl_children: [],
     events: [],
     variables: [],
-    defaultEvents: [],
+    defaultEvents: [
+        {
+        name: `mpl_checkbox_change_${cid}`,
+        desc: '选中项更改时',
+        code: `
+          mpl_checkbox_change_${cid}(value) {
+            console.log(value)
+          }
+        `,
+        open: false,
+        type: 'baseComponent',
+        flowType: '',
+        cid,
+        tag: 'mpl-checkbox'
+      }
+    ],
     pos: pos(),
     classList: [],
     userClassName: [],
@@ -149,12 +164,24 @@ export const checkbox: ComponentBaseExport = {
   comp: newCheckboxNode,
   pos: pos(),
   getTemplateCode,
+  getBaseVar: (cid: string) => {
+    return `
+      ${cid}: { 
+        vModel: ''
+      }
+    `
+  },
   getNodeVar: (node: CheckboxFormProp) => {
+    const prefix = `${node.mpl_title} / ${node.mpl_zh}`
+
     return [
-      { desc: '显示隐藏', key: `mpl.${node.cid}.visible`, value: true, fullPath: 'visible' },
-      { desc: '绑定值', key: `mpl.${node.cid}.vModel`, value: '', fullPath: 'vModel' },
-      { desc: '必填', key: `mpl.${node.cid}.required`, value: false, fullPath: 'required' },
-      { desc: '禁用', key: `mpl.${node.cid}.disabled`, value: false, fullPath: 'disabled' },
+      { desc: `${prefix} / 显示隐藏`, key: 'visible', value: true, fullPath: `${node.cid}.visible` },
+      { desc: `${prefix} / 绑定值`, key: 'vModel', value: false, fullPath: `${node.cid}.vModel` },
+      { desc: `${prefix} / 选项列表`, key: 'options', value: false, fullPath: `${node.cid}.options` },
+      { desc: `${prefix} / 必填`, key: 'required', value: false, fullPath: `${node.cid}.required` },
+      { desc: `${prefix} / 禁用`, key: 'disabled', value: false, fullPath: `${node.cid}.disabled` },
+      { desc: `${prefix} / 只读`, key: 'readonly', value: false, fullPath: `${node.cid}.readonly` },
+      { desc: prefix, key: 'cid', value: 'cid', fullPath: node.cid },
     ]
   }
 }

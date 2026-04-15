@@ -59,7 +59,22 @@ export function newCollapseNode(cid: string): CollapseProp {
     mpl_children: [],
     events: [],
     variables: [],
-    defaultEvents: [],
+    defaultEvents: [
+      {
+        name: `mpl_collapse_change_${cid}`,
+        desc: '展开项更改时',
+        code: `
+          mpl_collapse_change_${cid}(value) {
+            console.log(value)
+          }
+        `,
+        open: false,
+        type: 'baseComponent',
+        flowType: '',
+        cid,
+        tag: 'mpl-collapse'
+      }
+    ],
     pos: pos(),
     classList: [],
     userClassName: [],
@@ -85,10 +100,21 @@ export const collapse: ComponentBaseExport = {
   comp: newCollapseNode,
   pos: pos(),
   getTemplateCode,
+  getBaseVar: (cid: string) => {
+    return `
+      ${cid}: {
+        vModel: ''
+      }
+    `
+  },
   getNodeVar: (node: CollapseProp) => {
+
+    const prefix = `${node.mpl_title} / ${node.mpl_zh}`
+
     return [
       { desc: '显示隐藏', key: `mpl.${node.cid}.visible`, value: true, fullPath: 'visible' },
-      { desc: '展开项', key: `mpl.${node.cid}.vModel`, value: '', fullPath: 'vModel' }
+      { desc: '展开项', key: `mpl.${node.cid}.vModel`, value: '', fullPath: 'vModel' },
+      { desc: prefix, key: 'cid', value: 'cid', fullPath: node.cid },
     ]
   }
 }

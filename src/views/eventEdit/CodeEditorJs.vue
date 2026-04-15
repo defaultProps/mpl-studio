@@ -2,6 +2,12 @@
   <div ref="editorRef" class="code-editor" />
 </template>
 
+<!-- 
+   需要重构, 使用monaco-editor, 需要js api的智能提示,
+   另外, 需要一个特别的自定义智能提示, mpl包的内置api[包含中文的提示信息, 企业版/社区版的标识]
+   codemirror不提供智能提示.
+-->
+
 <script lang="ts" setup>
 import {
   parseVueOptions,
@@ -38,8 +44,6 @@ watch(() => workbench.pageJs, newVal => {
     })
   }
 })
-
-
 
 // 监听光标变化 和 选区变化
 const cursorPlugin = ViewPlugin.fromClass(

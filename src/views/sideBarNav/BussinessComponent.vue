@@ -114,14 +114,6 @@ function handleContextmenu(event: MouseEvent, key: string) {
       divider: false,
       disabled: false,
       onclick: () => { }
-    },
-    {
-      label: '历史版本',
-      value: 'docs',
-      icon: '',
-      divider: false,
-      disabled: false,
-      onclick: () => { }
     }
   ]
 

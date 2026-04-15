@@ -66,7 +66,22 @@ export function newButtonGroupNode(cid: string): ButtonGroupProp {
     visibleName: '',
     events: [],
     variables: [],
-    defaultEvents: [],
+    defaultEvents: [
+      {
+        name: `mpl_btnGroup_click_${cid}`,
+        desc: '输入时',
+        code: `
+          mpl_btnGroup_click_${cid}(index) {
+            console.log(index)
+          }
+        `,
+        open: false,
+        type: 'baseComponent',
+        flowType: '',
+        cid,
+        tag: 'mpl-btn-group'
+      },
+    ],
     pos: pos(),
     slotNodes: []
   }
@@ -85,7 +100,19 @@ export const buttonGroup: ComponentBaseExport = {
   comp: newButtonGroupNode,
   pos: pos(),
   getTemplateCode,
+  getBaseVar: (cid: string) => {
+    return `
+      ${cid}: { 
+        disabledKeys: [] // 根据按钮cid进行禁用
+      }
+    `
+  },
   getNodeVar: (node: ButtonGroupProp) => {
-    return []
+    const prefix = `${node.mpl_title} / ${node.mpl_zh}`
+
+    return [
+      { desc: `${prefix} / 显示隐藏`, key: 'visible', value: true, fullPath: `${node.cid}.visible` },
+      { desc: `${prefix} / 禁用`, key: 'disabled', value: false, fullPath: `${node.cid}.disabled` },
+    ]
   }
 }
