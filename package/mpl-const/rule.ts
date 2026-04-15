@@ -25,15 +25,115 @@ export const systemSelectRuleOption = [
 
 // 输入限制列表
 export const limitInputOption = [
-	{ label: '仅数字', value: 'onlyNumber', message: '仅允许数字', meta: { regexp: /^[0-9]+$/ } },
-	{ label: '仅字母', value: 'onlyChar', message: '仅允许字母', meta: { regexp: /^[a-zA-Z]+$/ } },
-	{ label: '禁止前后空格', value: 'trim', message: '禁止前后空格', meta: { regexp: /^\s*$/ } },
-	{ label: '仅中文', value: 'onlyChinese', message: '仅允许中文', meta: { regexp: /^[u4e00-\u9fa5]+$/ } },
-	{ label: '仅数字字母', value: 'onlyNumberChar', message: '仅允许数字0-9或字母a-z大小写', meta: { regexp: /^[0-9a-zA-Z]+$/ } },
-	{ label: '仅数字字母下划线', value: 'OnlyNumberCharUnderline', message: '仅允许数字0-9或字母a-z大小写或下划线', meta: { regexp: /^[0-9a-zA-Z_]+$/ } },
-	{ label: '合法变量名', value: 'legalVar', message: '仅允许数字0-9或字母a-z大小写或下划线，且首位非数字', meta: { regexp: /^[a-zA-Z_][0-9a-zA-Z_]*$/ } },
-	{ label: '自定义正则表达式', value: 'pattern', message: '输入内容必须符合正则表达式', meta: { regexp: '' } },
-	{ label: '自定义限制-input事件绑定', value: 'customEvent', message: '输入内容符合自定义事件', meta: null },
+	{
+		label: '仅数字',
+		value: 'mplOnlyNumber',
+		message: '仅允许数字0-9',
+		callback: `
+			function limit(str: string) {
+				return str.replace(/\D/g, '')
+			}
+		`
+	},
+	{
+		label: '仅字母',
+		value: 'mplOnlyChar',
+		message: '仅允许字母a-z或A-Z',
+		callback: `
+			function limit(str: string) {
+				return str.replace(/[^a-zA-Z]/g, '');
+			}
+		`
+	},
+	{
+		label: '禁止前后空格',
+		value: 'mplTrimSpace',
+		message: '禁止前后空格',
+		callback: `
+			function callback(str: string) {
+				return str.trim()
+			}
+		`
+	},
+	{
+		label: '仅中文',
+		value: 'mplOnlyChinese',
+		message: '仅允许中文字符',
+		callback: `
+			function limit(str: string) {
+				return str.replace(/[^\u4e00-\u9fa5]/g, '')
+			}
+		`
+	},
+	{
+		label: '仅数字字母',
+		value: 'mplOnlyNumberChar',
+		message: '仅允许数字0-9或字母a-z大小写',
+		callback: `
+			function limit(str: string) {
+				return str.replace(/[^a-zA-Z0-9]/g, '')
+			}
+		`
+	},
+	{
+		label: '仅数字字母下划线',
+		value: 'mplOnlyNumberCharUnderline',
+		message: '仅允许数字0-9或字母a-z大小写或下划线',
+		callback: `
+			function limit(str: string) {
+				return str.replace(/\W/g, '')
+			}
+		`
+	},
+	{
+		label: '合法变量名',
+		value: 'mplLegalVar',
+		message: '合法变量名, 数字字母下划线,首位非数字, 不能为关键字',
+		callback: `
+			function limit(str: string) {
+				// ECMAScript 标准保留字
+				const jsKeywords = new Set([
+					'break', 'case', 'catch', 'class', 'const', 'continue', 'debugger', 'default',
+					'delete', 'do', 'else', 'enum', 'export', 'extends', 'false', 'finally', 'for',
+					'function', 'if', 'implements', 'import', 'in', 'instanceof', 'interface', 'let',
+					'new', 'null', 'package', 'private', 'protected', 'public', 'return', 'static',
+					'super', 'switch', 'this', 'throw', 'true', 'try', 'typeof', 'var', 'void',
+					'while', 'with', 'yield', 'await', 'arguments'
+				])
+
+				// 仅允许数字、字母、下划线
+				let validName = str.replace(/\W/g, '')
+
+				// 处理空字符串或全非法字符的情况
+				if (!validName) {
+					return '_mpl_empty_var';
+				}
+
+				// 首位不能是数字
+				if (/^[0-9]/.test(validName)) {
+					validName = '_' + validName
+				}
+
+				// 不能为 JS 关键字
+				if (jsKeywords.has(validName)) {
+					validName = '_' + validName
+				}
+
+				return validName
+			}
+		`
+	},
+	{
+		label: '自定义限制',
+		value: 'mplCustomLimit',
+		message: '自定义输入限制, 绑定input事件',
+		callback: `
+			function limit(str: string) {
+				// todo: 实现自定义限制逻辑
+				return str
+			}
+		`
+	}
 ]
 
 // 表单控件规则通用校验

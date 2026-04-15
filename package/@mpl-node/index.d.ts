@@ -411,7 +411,7 @@ export declare namespace MPL {
   export interface LimitInputProp {
     label: string
     value: string
-    meta: any
+    callback: string
   }
 
   export interface NodePos {

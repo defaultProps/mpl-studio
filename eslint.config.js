@@ -25,6 +25,7 @@ export default [
       },
     },
     rules: {
+      'no-useless-escape': 'off',
       'vue/singleline-html-element-content-newline': 'off',
       "vue/html-indent": "off",
       "@typescript-eslint/no-require-imports": "off",

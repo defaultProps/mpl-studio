@@ -52,12 +52,9 @@ function onlyNumber(event: any) {
       <FormVModel v-model:value="activeNode.input.model" v-model:model-type="activeNode.input.modelType"
         :tag="activeNode.tag" type="string" desc="初始值" />
     </FormItem>
-    <FormItemSingle v-if="activeNode.input.width" label="输入位置">
-      <RadioBtnGroup v-model="activeNode.input.pos" :option="textAlignPosition" />
-    </FormItemSingle>
-    <FormItemSingle label="提示信息" var="mpl.rg5fv6.input.placeholder">
-      <InputNode v-model="activeNode.input.placeholder" class="reduce-80" />
-    </FormItemSingle>
+    <FormItem label="提示信息" var="mpl.rg5fv6.input.placeholder">
+      <InputNode v-model="activeNode.input.placeholder" />
+    </FormItem>
     <FormItemSingle label="显示长度限制">
       <input v-model="activeNode.input.showLimit" type="checkbox" class="mpl-input">
     </FormItemSingle>

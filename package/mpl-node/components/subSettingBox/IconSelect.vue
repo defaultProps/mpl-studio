@@ -140,7 +140,7 @@ function handleSearchIcon() {
   width: 300px;
   height: 100%;
   position: absolute;
-  z-index: 100;
+  z-index: 10;
   right: 300px;
   top: 0;
   color: #000;
