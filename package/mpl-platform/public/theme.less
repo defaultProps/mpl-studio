@@ -249,9 +249,12 @@ body[aria-theme="mpl-theme"] {
 
   // 弹窗优化
   .el-dialog.mpl-dialog {
+    &.no-padding .el-dialog__body {
+      padding: 0;
+    }
     .el-dialog__header {
-      height: 45px;
-      line-height: 45px;
+      height: 40px;
+      line-height: 40px;
       padding: 0 10px;
       background: #f0f0f0;
       border-bottom: 1px solid #ccc;

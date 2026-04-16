@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { provide, markRaw } from 'vue'
+import { provide, markRaw, watch } from 'vue'
 import { workbenchStore, projectStore, viewStore } from '@mpl/store'
 import { componentToolOptions } from '@/utils/constant'
 import { Node, EventNode } from '@mpl/typings'
@@ -12,6 +12,10 @@ const coreView = viewStore()
 function addActiveNodeEvent(event: EventNode & { cid?: string }) {
   workbench.singleNodeEventPlus(event)
 }
+
+watch(() => workbench.activeNode, (newVal) => {
+  console.log(newVal)
+})
 
 provide('addActiveNodeEvent', addActiveNodeEvent)
 

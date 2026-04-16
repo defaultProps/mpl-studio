@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import * as beautify from 'js-beautify'
-import { onMounted, ref, onUnmounted } from 'vue'
+import { onMounted, ref, onUnmounted, watch } from 'vue'
 import { beautifyCode } from '@mpl/const'
 import { EditorView } from '@codemirror/view'
 import { EditorState } from "@codemirror/state"
@@ -8,12 +8,24 @@ import { defaultCodeMirrorExtensions } from '@mpl/libs'
 
 const editorRef = ref(null)
 let editorView: EditorView | null = null
-
 const props = defineProps<{ value: any }>()
 
+watch(() => props.value, (newVal) => {
+  console.log(newVal)
+  if (!editorView) return
+  editorView.dispatch({
+    changes: {
+      from: 0,
+      to: editorView.state.doc.length,
+      insert: beautify.js(JSON.stringify(newVal), beautifyCode.js)
+    },
+  })
+})
+
 onMounted(() => {
+  console.log(props.value)
   const state = EditorState.create({
-    doc: beautify.js(props.value, beautifyCode.js),
+    doc: beautify.js(JSON.stringify(props.value), beautifyCode.js),
     extensions: defaultCodeMirrorExtensions()
   })
 

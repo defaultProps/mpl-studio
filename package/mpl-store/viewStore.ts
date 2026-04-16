@@ -31,6 +31,7 @@ export interface CoreView {
   subBoxSettingModel: SUB_BOX_SETTING_MODEL
   subBoxSettingModelId: string
   asyncSubSettingComponent: any
+  isOpenDialog: boolean
 }
 
 function initCoreView(): CoreView {
@@ -45,6 +46,7 @@ function initCoreView(): CoreView {
     visibleDisplayNodeBox: false,
     activeTheme: null,
     workbenchResizeType: 'normal',
+    isOpenDialog: false, // 是否显示弹框. 如果显示了, 那么画板的横向滚动条监听事件就不需要横向触发了.
 
     autoSave: true, // 自动保存
     visibleLayoutDialog: false, // 是否显示排版弹框

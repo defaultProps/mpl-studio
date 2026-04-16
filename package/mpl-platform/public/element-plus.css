@@ -8285,13 +8285,13 @@
   border: none;
   cursor: pointer;
   font-size: var(--el-message-close-size, 16px);
-  height: 48px;
+  height: 40px;
   outline: none;
   padding: 0;
   position: absolute;
   right: 0;
   top: 0;
-  width: 48px;
+  width: 40px;
 }
 
 .el-dialog__headerbtn .el-dialog__close {

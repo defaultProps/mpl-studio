@@ -15,8 +15,6 @@ import { dragOverElement } from '../../core/dragOverElement'
 import { useThrottleFn } from '@vueuse/core'
 import ContextMenu from '@imengyu/vue3-context-menu'
 
-
-
 const emits = defineEmits(['menu'])
 const nodeList = ref<Node[]>([])
 const activeNode = ref<Node | null>(null)
@@ -164,7 +162,6 @@ function nodeContextmenu(event: MouseEvent, node: Node) {
   platformFrame.selectNodeByCid(node.cid)
 
   if (selectNode) {
-
 
     ContextMenu.showContextMenu({
       x: event.x,

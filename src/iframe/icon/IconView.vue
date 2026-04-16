@@ -34,6 +34,7 @@ function updateIcon(value: string, url: string) {
     .then(res => res.text())
     .then(str => {
       iconList.value = [...str.matchAll(/(?<=(id=")).*?(?=(" viewBox=))/g)].map(v => v[0])
+
     })
 }
 

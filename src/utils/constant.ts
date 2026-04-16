@@ -46,8 +46,8 @@ export const componentToolOptions: Array<{
     {
       label: 'schema',
       value: 'schemaModel',
-      show: true,
-      disabled: true,
+      show: false,
+      disabled: false,
       icon: 'icon-gengduo'
     }
   ]

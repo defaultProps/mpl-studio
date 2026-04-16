@@ -344,6 +344,7 @@ export const workbenchStore = defineStore('Workbench', {
     },
     // 更新节点部分属性
     updateNodeProp(cid: string, prop: any) {
+      console.log('更新节点部分属性', cid, prop)
       if (!cid || this.activeNode?.cid === cid) {
         // nodeList与activeNode是同一个引用, 只需要更新activeNode
         Object.keys(prop).forEach(k => {
@@ -382,6 +383,8 @@ export const workbenchStore = defineStore('Workbench', {
       if (obj.node && obj.parentNode) {
         obj.parentNode.mpl_children[obj.position] = node // 直接替换nodeList
       }
+
+      this.activeNode = node
 
       mplIframePostMessage.workbench.updateNodeListWorkbench(this.nodeList)
 

@@ -31,7 +31,7 @@ onBeforeUnmount(() => {
 })
 
 function onlyNumber(event: any) {
-  // 去掉所有的 e + - .
+  // input原生输入框, 可以输入 + - e . 需要都排除, 仅仅保留正整数
   activeNode.value.input.maxlength = event.target.value.replace(/[^0-9]/g, '')
 }
 </script>
@@ -61,7 +61,8 @@ function onlyNumber(event: any) {
       <input v-model="activeNode.input.showLimit" type="checkbox" class="mpl-input">
     </FormItemSingle>
     <FormItem label="最大长度">
-      <InputNumber v-model="activeNode.input.maxlength" placeholder="默认无限制" @input="onlyNumber" />
+      <!-- Natural Number -->
+      <InputNumber v-model="activeNode.input.maxlength" natural-number placeholder="默认无限制" @input="onlyNumber" />
     </FormItem>
     <FormIconItem v-model="activeNode.input.prefixIcon" label="前置图标" />
     <FormIconItem v-model="activeNode.input.suffixIcon" label="后置图标" />

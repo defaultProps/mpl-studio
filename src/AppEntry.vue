@@ -1,5 +1,7 @@
 <script lang="ts" setup>
 import { onMounted } from 'vue'
+import ContextMenu from '@imengyu/vue3-context-menu'
+import { useThrottleFn } from '@vueuse/core'
 
 onMounted(() => {
   const theme = localStorage.getItem('theme')
@@ -10,6 +12,16 @@ onMounted(() => {
     document.body.classList.add('light-theme')
     document.body.classList.remove('dark-theme')
   }
+})
+
+function closeContextmenu() {
+  ContextMenu.closeContextMenu()
+}
+
+const closeContextmenuThrottle = useThrottleFn(closeContextmenu, 300)
+
+onMounted(() => {
+  window.addEventListener('resize', closeContextmenuThrottle)
 })
 </script>
 

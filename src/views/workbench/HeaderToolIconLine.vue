@@ -6,8 +6,10 @@ import { mplIframePostMessage } from '@mpl/const'
 import ClearPageDialog from '../../components/dialog/ClearPageDialog.vue'
 import { saveAs } from 'file-saver'
 import { ref, onMounted, onUnmounted } from 'vue'
+import AIAskDialog from '../../components/dialog/AIAskDialog.vue'
 
 const clearPageDialogVisible = ref<boolean>(false)
+const aiAskDialogVisible = ref<boolean>(false)
 const project = projectStore()
 const workbench = workbenchStore()
 const user = userStore()
@@ -127,6 +129,11 @@ function handleWheel(e: any) {
 
   dom.addEventListener('wheel', function (e: any) {
     // 阻止默认滚轮行为
+    // 如果出现弹框. 那么就不需要滚动了.
+    if (view.isOpenDialog) {
+      return
+    }
+
     e.preventDefault();
     // 控制滚动速度
     const speed = 30;
@@ -137,14 +144,6 @@ function handleWheel(e: any) {
     });
   });
 }
-
-
-// 生成页面
-function handleGeneratePage() {
-  // 1. 说明或导入图片, 进行分析.生成页面
-}
-
-
 
 // 直接鼠标横向滚动, 不需要按住shift键
 onMounted(() => {
@@ -162,11 +161,22 @@ onUnmounted(() => {
   }
   dom.removeEventListener('wheel', handleWheel)
 })
+
+function handleAskAI() {
+  aiAskDialogVisible.value = true
+  view.$patch({
+    isOpenDialog: true
+  })
+}
+
+
 </script>
 <template>
   <header class="header-tool-btn--container mpl-scroll-x">
     <!-- 清空页面弹框确定 -->
     <ClearPageDialog v-if="clearPageDialogVisible" v-model="clearPageDialogVisible" />
+    <!-- AI提问 -->
+    <AIAskDialog v-if="aiAskDialogVisible" v-model="aiAskDialogVisible" />
     <div class="workbench-tool-container" aria-label="工作台">
       <div class="line-box">
         <button type="button" class="mpl-btn del-btn mr-5 icon icon-qingkongshanchu"
@@ -216,13 +226,13 @@ onUnmounted(() => {
     <div class="workbench-tool-container" aria-label="插入/更新">
       <div class="line-box">
         <button type="button" class="mpl-btn mr-5 icon icon-moban">
-          背景/图片
+          图标/图片
         </button>
         <button class="mpl-btn mr-5 icon icon-moban" type="button" title="同步更新swagger接口文档" @click="handleSyncSwagger">
-          接口/交互
+          接口/服务
         </button>
         <button class="mpl-btn icon icon-moban" type="button" :disabled="user.authority !== 'enterprise'">
-          推荐模板
+          控件/模板
         </button>
       </div>
       <div class="line-box">
@@ -239,13 +249,16 @@ onUnmounted(() => {
     </div>
     <div class="workbench-tool-container" aria-label="AI">
       <div class="line-box">
-        <button type="button" class="mpl-btn mr-5 icon icon-moban" :disabled="user.authority !== 'enterprise'">
+        <button type="button" title="分析优化页面UI, 交互, 事件, 服务等" class="mpl-btn mr-5 icon icon-moban"
+          :disabled="user.authority !== 'enterprise'">
           页面分析
         </button>
-        <button class="mpl-btn mr-5 icon icon-moban" type="button" :disabled="user.authority !== 'enterprise'" @click="handleGeneratePage">
-          页面生成
+        <button class="mpl-btn mr-5 icon icon-moban" title="分析页面并大数据查询相似模板页面" type="button"
+          :disabled="user.authority !== 'enterprise'">
+          推荐模板
         </button>
-        <button class="mpl-btn icon icon-moban" type="button" :disabled="user.authority !== 'enterprise'">
+        <button class="mpl-btn icon icon-moban" type="button" :disabled="user.authority !== 'enterprise'"
+          @click="handleAskAI">
           AI提问
         </button>
       </div>
@@ -363,7 +376,8 @@ onUnmounted(() => {
       justify-content: flex-start;
       align-items: center;
       grid-column: 1;
-      & +.line-box {
+
+      &+.line-box {
         margin-top: 5px;
       }
 
