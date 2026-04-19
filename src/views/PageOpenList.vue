@@ -99,6 +99,14 @@ function handleDblclick(item: File) {
   // 页面为空，画板绘制页面， 当用户点击ctrl+s时，保存页面, 用户选择保存的页面位置\
   // 方便用户快速保存新建页面.
 }
+
+function handleActiveFile(item: File) {
+  project.updateActiveFile(item, true)
+  window.postMessage({
+    type: 'ACTIVE_FILE_PROJECT_DIRECTORY',
+    payload: item.id
+  }, '*')
+}
 </script>
 
 
@@ -116,7 +124,7 @@ function handleDblclick(item: File) {
     @dblclick.stop.prevent="newEmptyPage">
     <div v-for="item in project.openFileList" :key="item.id" class="page" :title="item.title" :data-page-id="item.id"
       :class="{ select: item.id === project.activeFile?.id }" @contextmenu="handleContextmenu($event, item)"
-      @click="project.updateActiveFile(item, true)" @dblclick.stop.prevent="handleDblclick(item)">
+      @click="handleActiveFile(item)" @dblclick.stop.prevent="handleDblclick(item)">
       <!-- 不用svg-icon是因为dom标签太多, 导致性能问题.
       所以这里用img标签来展示图标. -->
       <img v-if="item.type === 'basePage'" src="@/assets/page.svg" alt="-">

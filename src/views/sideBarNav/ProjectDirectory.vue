@@ -2,8 +2,10 @@
 import { projectStore } from '@mpl/store'
 import ContextMenu from '@imengyu/vue3-context-menu'
 import { File } from '@mpl/typings'
+import { ref, onMounted, onUnmounted } from 'vue'
 
 const project = projectStore()
+const treeRef = ref<any>(null)
 
 function clickTreeNode(node: any) {
   if (node.type !== 'folder') {
@@ -28,6 +30,11 @@ function handleNodeContextmenu(event: any, data: any) {
     items: [
       {
         label: "锁定编辑",
+        icon: 'icon-lock-fill icon',
+        onClick: () => { }
+      },
+      {
+        label: "释放锁",
         icon: 'icon-lock-fill icon',
         onClick: () => { }
       },
@@ -139,6 +146,22 @@ function handleProjectDetail() {
   project.updateActiveFile(newProjectFile, true)
 }
 
+function messageHandler(event: MessageEvent) {
+  if (event.data.type === 'ACTIVE_FILE_PROJECT_DIRECTORY') {
+    treeRef.value.setCurrentKey(event.data.payload)
+  }
+}
+
+onMounted(() => {
+  window.addEventListener('message', messageHandler)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('message', messageHandler)
+})
+
+
+
 </script>
 
 <template>
@@ -153,8 +176,8 @@ function handleProjectDetail() {
         <img src="@/assets/expand.svg" alt="">
       </button>
     </div>
-    <el-tree :data="project.projectTree" highlight-current @node-click="clickTreeNode"
-      @node-contextmenu="handleNodeContextmenu">
+    <el-tree ref="treeRef" :data="project.projectTree" highlight-current node-key="id"
+      @node-click="clickTreeNode" @node-contextmenu="handleNodeContextmenu">
       <template #default="{ data }">
         <div class="mpl-tree-line-node" :title="pageTitle(data)">
           <img v-if="data.type === 'folder'" src="@/assets/file.png" alt="">
@@ -162,6 +185,7 @@ function handleProjectDetail() {
           <span class="tree-node--title">
             {{ data.title }}
           </span>
+          <i v-if="project.lockedFileList.includes(data.id)" class="icon-lock icon mr-5" />
         </div>
       </template>
     </el-tree>

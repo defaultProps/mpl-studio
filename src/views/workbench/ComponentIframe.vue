@@ -161,6 +161,7 @@ provide('changeNode', changeNode)
         padding: 0px 3px;
         border-radius: 1px;
         cursor: pointer;
+        color: #606266;
 
         &:hover {
           background: #ccc;

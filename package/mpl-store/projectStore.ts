@@ -304,8 +304,6 @@ export const projectStore = defineStore('ProjectDirectory', {
       }
 
       const view = viewStore()
-      const workbench = workbenchStore()
-      const isLockFile = this.lockedFileList.includes(file?.id || '')
 
       view.$patch({
         subBoxSettingModel: '',
@@ -314,13 +312,6 @@ export const projectStore = defineStore('ProjectDirectory', {
 
       this.activeFile = file
       this.activeFileId = file?.id || ''
-
-      workbench.$patch({
-        footerOperation: {
-          size: isLockFile ? 370 : 0,
-          visible: isLockFile
-        }
-      })
 
       if (!file) return
 

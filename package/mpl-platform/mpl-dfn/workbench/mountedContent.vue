@@ -227,27 +227,12 @@ function nodeContextmenu(event: MouseEvent, node: Node) {
               disabled: false
             },
             {
-              label: '替换',
+              label: '替换', // 不同的控件只能替换部分同类型控件.
               icon: 'icon icon-d-caret',
               disabled: false,
               children: [
                 {
                   label: '基础输入框',
-                  icon: 'icon icon-d-caret',
-                  disabled: false
-                },
-                {
-                  label: '密码输入框',
-                  icon: 'icon icon-d-caret',
-                  disabled: false
-                },
-                {
-                  label: '单选框',
-                  icon: 'icon icon-d-caret',
-                  disabled: false
-                },
-                {
-                  label: '多选框',
                   icon: 'icon icon-d-caret',
                   disabled: false
                 },
@@ -272,7 +257,12 @@ function nodeContextmenu(event: MouseEvent, node: Node) {
                   disabled: false
                 },
                 {
-                  label: '更多控件',
+                  label: '弹框选择',
+                  icon: 'icon icon-d-caret',
+                  disabled: false
+                },
+                {
+                  label: '其他控件',
                   icon: 'icon icon-d-caret',
                   disabled: false
                 }

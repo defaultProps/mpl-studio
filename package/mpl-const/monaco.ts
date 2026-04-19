@@ -107,7 +107,7 @@ export const monacoFormatter: {
     },
     tabSize: 2,
     theme: 'quiet',
-    fontSize: 12,
+    fontSize: 14,
     folding: true,
     automaticLayout: true,
     readOnly: false
@@ -119,7 +119,7 @@ export const monacoFormatter: {
     },
     tabSize: 2,
     theme: 'quiet',
-    fontSize: 12,
+    fontSize: 14,
     folding: true,
     automaticLayout: true,
     readOnly: false
@@ -131,7 +131,7 @@ export const monacoFormatter: {
     },
     theme: 'quiet',
     tabSize: 2,
-    fontSize: 12,
+    fontSize: 14,
     folding: true,
     automaticLayout: true,
     readOnly: false

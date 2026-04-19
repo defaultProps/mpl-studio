@@ -2,123 +2,49 @@
   <div ref="editorRef" class="code-editor" />
 </template>
 
-<!-- 
-   需要重构, 使用monaco-editor, 需要js api的智能提示,
-   另外, 需要一个特别的自定义智能提示, mpl包的内置api[包含中文的提示信息, 企业版/社区版的标识]
-   codemirror不提供智能提示.
--->
-
 <script lang="ts" setup>
 import {
   parseVueOptions,
   updateNodeListByMethodsCode,
   updateEventListByNodeList,
   removeMethodFromVueOptions,
-  defaultCodeMirrorExtensions,
   getJavascriptNameAtPosition,
   validateWithBabel
 } from '@mpl/libs'
 import { ref, onMounted, onUnmounted, watch } from 'vue'
-import { EditorState } from "@codemirror/state"
-import * as beautify from 'js-beautify'
-import { beautifyCode } from '@mpl/const'
 import { workbenchStore } from '@mpl/store'
-import { EditorView, ViewUpdate, ViewPlugin } from '@codemirror/view'
-import { undo, redo } from '@codemirror/commands'
-import { useDebounceFn } from '@vueuse/core'
+import * as beautify from 'js-beautify'
+import { beautifyCode, monacoFormatter } from '@mpl/const'
+import type { editor } from 'monaco-editor/esm/vs/editor/editor.api.js'
+import * as monacoEditor from 'monaco-editor/esm/vs/editor/editor.api.js'
 
 const workbench = workbenchStore()
 const editorRef = ref(null)
-let editorView: EditorView | null = null
 const codeStr = ref(workbench.pageJs)
+let monacoInstance: null | editor.IStandaloneCodeEditor = null
 
 watch(() => workbench.pageJs, newVal => {
-  if (editorView && newVal !== editorView.state.doc.toString()) {
+  if (monacoInstance) {
     codeStr.value = beautify.js(newVal, beautifyCode.js) || ''
-    editorView.dispatch({
-      changes: {
-        from: 0,
-        to: editorView.state.doc.length,
-        insert: codeStr.value
-      }
-    })
+    monacoInstance.setValue(codeStr.value)
   }
 })
 
-// 监听光标变化 和 选区变化
-const cursorPlugin = ViewPlugin.fromClass(
-  class {
-    throttleUpdate: any
-    constructor() {
-      this.throttleUpdate = useDebounceFn(this.realUpdate.bind(this), 350);
-    }
-    update(update: ViewUpdate) {
-      // 只拦截 选区/光标 变化
-      if (update.selectionSet) {
-        this.throttleUpdate(update);
-      }
-    }
-    realUpdate(update: ViewUpdate) {
-      const state = update.state;
-      const selection = state.selection.main;
-      const head = selection.head;
-      const line = state.doc.lineAt(head);
-      const obj = getJavascriptNameAtPosition(codeStr.value, line.number);
-
-      // 空值不处理
-      if (!obj.variableName || !obj.fullPath) {
-        return
-      }
-
-      // 光标在方法内
-      if (obj.variableName && obj.fullPath.indexOf('mpl.methods.') === 0) {
-        // 跳转到左侧事件节点
-        window.postMessage({
-          type: 'FOCUS_CATEGORY_METHOD',
-          payload: obj.variableName
-        }, '*')
-      }
-      // 光标在props内
-      else if (obj.variableName && obj.fullPath.indexOf('mpl.props.') === 0) {
-        //
-      }
-      // 光标在watch位置
-      else if (obj.variableName && obj.fullPath.indexOf('mpl.watch.') === 0) {
-        //
-      }
-      // 光标在created位置
-      else if (obj.variableName && obj.fullPath.indexOf('mpl.created.') === 0) {
-        //
-      }
-    }
-  }
-);
+onUnmounted(() => {
+  monacoInstance?.dispose()
+})
 
 onMounted(() => {
-  const state = EditorState.create({
-    doc: beautify.js(codeStr.value, beautifyCode.js),
-    extensions: defaultCodeMirrorExtensions([
-      EditorView.domEventHandlers({
-        keydown(_e: KeyboardEvent) {
-          if ((_e.ctrlKey || _e.metaKey) && _e.key === 'z') {
-            undo(editorView!)
-            return true
-          }
-          if ((_e.ctrlKey || _e.metaKey) && _e.key === 'y') {
-            redo(editorView!)
-            return true
-          }
-          return false
-        }
-      }),
-      cursorPlugin
-    ])
-  })
-
-  editorView = new EditorView({
-    state,
-    parent: editorRef.value!
-  })
+  monacoInstance = monacoEditor.editor.create(
+    editorRef.value!,
+    {
+      ...monacoFormatter.js,
+      lineNumbers: 'off',
+      folding: false,
+      readOnly: true,
+      value: beautify.js(workbench.pageJs, beautifyCode.js)
+    }
+  )
 })
 
 onMounted(() => {
@@ -128,15 +54,12 @@ onMounted(() => {
 function messageIDE(event: MessageEvent<any>) {
   // 删除事件
   if (event.data.type === 'REMOVE_IDE_METHOD') {
-    if (editorView) {
-      // 删除事件
-      const code = editorView.state.doc.toString()
+    if (monacoInstance) {
       // 删除code中的，eventName方法
       const eventName = event.data.payload
-      const newCode = removeMethodFromVueOptions(code, eventName)
-      editorView.dispatch({
-        changes: { from: 0, to: editorView.state.doc.length, insert: newCode },
-      });
+      const oldCode = monacoInstance.getValue()
+      const newCode = removeMethodFromVueOptions(oldCode, eventName)
+      monacoInstance?.setValue(beautify.js(newCode, beautifyCode.js))
       workbench.pageJs = newCode
     }
   }
@@ -144,17 +67,10 @@ function messageIDE(event: MessageEvent<any>) {
   // 外部更新脚本IDE模式
   else if (event.data.type === 'UPDATE_IDE_PAGE_JAVASCRIPT') {
     const { code = '', focusName = '' } = event.data.payload
-    if (editorView) {
+    if (monacoInstance) {
       //只读模式只需要覆盖.
       if (!code) {
-        // 不存在则默认取workbench.pageJs
-        editorView.dispatch({
-          changes: {
-            from: 0,
-            to: editorView.state.doc.length,
-            insert: beautify.js(workbench.pageJs, beautifyCode.js) || ''
-          }
-        })
+        monacoInstance.setValue(beautify.js(workbench.pageJs, beautifyCode.js) || '')
       }
 
       // focusName有值则聚焦到具体方法
@@ -173,26 +89,10 @@ function messageIDE(event: MessageEvent<any>) {
 }
 
 function focusOnMethod(methodName: string) {
-  if (!editorView || !methodName) return;
+  if (!monacoInstance || !methodName) return;
 
-  const doc = editorView.state.doc;
-  const text = doc.toString();
-  const index = text.indexOf(methodName);
-
-  if (index === -1) return false;
-
-  // 找到字符所在的行
-  const line = doc.lineAt(index);
   // 核心：把光标设置为【该行最后一列】
-  editorView.dispatch({
-    selection: {
-      anchor: line.to, // 行尾位置
-      head: line.to,
-    },
-    scrollIntoView: true,
-  });
-
-  editorView.focus()
+  monacoInstance.focus()
 
   return true;
 
@@ -203,9 +103,9 @@ function saveCode(): { msg: string } {
   // 更改事件名称 = 删除事件 + 增加页面级别事件.
   // 删除事件同步组件UI
   // 事件代码格式不正确时不保存同步代码.
-  if (!editorView) return { msg: '编辑器不存在' }
+  if (!monacoInstance) return { msg: '编辑器不存在' }
 
-  const code = editorView.state.doc.toString()
+  const code = monacoInstance.getValue()
   let msg = ''
 
   // 校验js字符串的合法性
@@ -237,7 +137,7 @@ defineExpose({
 
 // 销毁
 onUnmounted(() => {
-  editorView?.destroy()
+  monacoInstance?.dispose()
   window.removeEventListener('message', messageIDE)
 })
 </script>

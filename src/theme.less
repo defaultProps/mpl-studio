@@ -26,7 +26,7 @@ div {
     padding: 0 10px;
     background: #f0f0f0;
     border-bottom: 1px solid #ccc;
-    
+    box-sizing: border-box;
     overflow: hidden;
   }
 
@@ -34,7 +34,7 @@ div {
     height: 45px;
     line-height: 45px;
     padding: 0 10px;
-    
+    box-sizing: border-box;
     border-top: 1px solid #ccc;
 
     .dialog-footer {
@@ -88,7 +88,7 @@ div {
     overflow: hidden;
     height: 100%;
     align-items: center;
-    
+    box-sizing: border-box;
 
     img {
       width: 16px;
@@ -101,6 +101,7 @@ div {
       white-space: nowrap;
       overflow: hidden;
       color: #333;
+      flex: 1;
     }
   }
 }
@@ -307,7 +308,7 @@ textarea.mpl-textarea {
   border: 1px solid #767676;
   border-radius: var(--radius-2);
   background: #fff;
-  
+  box-sizing: border-box;
   background: #e6e6e6;
 
   &:not([readonly]):not([disabled]) {
@@ -336,7 +337,7 @@ input.mpl-input {
   border: 1px solid #767676;
   border-radius: var(--radius-2);
   background: #fff;
-  
+  box-sizing: border-box;
   display: inline-block;
   background: #e6e6e6;
   text-indent: 3px;
@@ -628,7 +629,7 @@ button.mpl-btn {
   background: buttonface;
   border: 1px solid #767676;
   border-radius: var(--radius-2);
-  
+  box-sizing: border-box;
   padding: 0 6px;
   overflow: hidden;
   text-overflow: ellipsis;

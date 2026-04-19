@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import CodeEditorJs from './CodeEditorJs.vue'
 import CodeEditorVar from './CodeEditorVar.vue'
 import { workbenchStore } from '@mpl/store'
+import * as monaco from 'monaco-editor/esm/vs/editor/editor.api.js'
 
 interface CodeEditorJsAPI {
   saveCode(): { msg: string }
