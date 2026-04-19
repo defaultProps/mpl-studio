@@ -13,7 +13,7 @@ const project = projectStore()
     <el-splitter-panel>
       <ComponentIframe />
     </el-splitter-panel>
-    <el-splitter-panel v-model:size="workbench.footerOperation.size" :min="workbench.footerOperation.visible ? 300 : 0"
+    <el-splitter-panel v-model:size="workbench.footerOperation.size" :min="workbench.footerOperation.visible ? 200 : 0"
       :max="700" :collapsible="workbench.footerOperation.visible">
       <OperationBanner v-if="project.lockedFileList.includes(project.activeFileId)" />
     </el-splitter-panel>

@@ -13,10 +13,6 @@ function addActiveNodeEvent(event: EventNode & { cid?: string }) {
   workbench.singleNodeEventPlus(event)
 }
 
-watch(() => workbench.activeNode, (newVal) => {
-  console.log(newVal)
-})
-
 provide('addActiveNodeEvent', addActiveNodeEvent)
 
 </script>

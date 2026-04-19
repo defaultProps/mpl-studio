@@ -317,7 +317,7 @@ export const projectStore = defineStore('ProjectDirectory', {
 
       workbench.$patch({
         footerOperation: {
-          size: isLockFile ? 600 : 0,
+          size: isLockFile ? 370 : 0,
           visible: isLockFile
         }
       })

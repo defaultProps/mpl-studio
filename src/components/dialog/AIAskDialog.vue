@@ -50,6 +50,8 @@ const defaultSuggestionList = ref([
 
 function handleClose() {
   visible.value = false
+  question.value = ''
+
   view.$patch({
     isOpenDialog: false
   })
@@ -137,10 +139,25 @@ function handleSelectQA(title: string) {
   })
 }
 
+function handleKeydown(event) {
+  if (event.key === 'Enter') {
+    if (event.shiftKey) {
+      // Shift+Enter 换行，不阻止默认行为
+      return
+    } else {
+      // 只按 Enter 发送消息
+      event.preventDefault()
+      handleSubmit()
+    }
+  }
+}
+
 function handleSubmit() {
   if (!question.value.trim()) {
     return
   }
+  console.log(question.value)
+  alert('未完成等待后台AI接入')
 }
 </script>
 
@@ -151,8 +168,10 @@ function handleSubmit() {
     <div class="ai-ask--box">
       <div class="ai-ask-sidebar">
         <div class="header-new-conversation">
-          <button class="new-conversation-btn">新建新建对话</button>
-          <button title="临时对话" style="width: 35px" class="ml-5 icon icon-select5" />
+          <button class="new-conversation-btn">新建对话</button>
+          <button title="临时私密对话, 不存储在服务器中" class="ml-5">
+            <svg-icon name="secret" size="20" />
+          </button>
         </div>
         <div class="menu-item" :class="{ 'is-active': activeConversation?.id === 'mySpace' }"
           @click="activeConversation = { title: '我的空间', id: 'mySpace' }">
@@ -179,13 +198,13 @@ function handleSubmit() {
             </div>
           </div>
           <div class="search-box">
-            <textarea ref="textareaRef" v-model="question" rows="1" placeholder="请输入你的需求或问题" />
-            <button class="file-btn icon icon-picture" />
-            <button class="clear-btn" @click="question = ''">
-              <img src="@/assets/clear.svg" alt="">
+            <textarea ref="textareaRef" v-model="question" rows="1" placeholder="请输入你的需求或问题" @keydown="handleKeydown" />
+            <button class="file-btn icon icon-picture" title="导入图片,可根据图片生成对应页面" />
+            <button class="clear-btn" title="清除内容" @click="question = ''">
+              <svg-icon name="clear" size="18" />
             </button>
-            <button class="submit-btn" :disabled="!question.trim()" @click="handleSubmit">
-              <img src="@/assets/submit.svg" alt="">
+            <button class="submit-btn" title="AI解析输入内容" :disabled="!question.trim()" @click="handleSubmit">
+              <svg-icon name="submit" size="18" />
             </button>
           </div>
         </div>
@@ -329,7 +348,11 @@ function handleSubmit() {
       }
 
       button {
+        width: 35px;
         height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
     }
 
@@ -342,7 +365,7 @@ function handleSubmit() {
       display: flex;
       align-items: center;
       padding: 0 5px;
-      box-sizing: border-box;
+      
 
       &:hover {
         button {
@@ -365,7 +388,7 @@ function handleSubmit() {
         flex: 1;
         overflow: hidden;
         text-overflow: ellipsis;
-        box-sizing: border-box;
+        
         white-space: nowrap;
       }
 
@@ -397,7 +420,7 @@ function handleSubmit() {
       align-items: center;
       flex-direction: column;
       padding-bottom: 60px;
-      box-sizing: border-box;
+      
 
       >.ai-title {
         font-size: 27px;
@@ -425,7 +448,7 @@ function handleSubmit() {
           align-items: center;
           justify-content: flex-start;
           overflow: hidden;
-          box-sizing: border-box;
+          
           left: 0;
           width: 100%;
           font-size: 12px;
@@ -481,9 +504,10 @@ function handleSubmit() {
           resize: none;
           outline: none;
           background: #f6f8fa;
-          box-sizing: border-box;
+          
           padding: 5px;
           border: none;
+          max-height: 380px;
         }
 
         button {
@@ -497,10 +521,6 @@ function handleSubmit() {
 
           &.file-btn {
             left: 5px;
-          }
-
-          img {
-            width: 18px;
           }
 
           &.clear-btn {
@@ -523,14 +543,14 @@ function handleSubmit() {
       flex: 1;
       width: 100%;
       padding: 10px;
-      box-sizing: border-box;
+      
     }
 
     .footer-question {
       height: 42px;
       line-height: 42px;
       padding: 0 10px;
-      box-sizing: border-box;
+      
     }
 
   }

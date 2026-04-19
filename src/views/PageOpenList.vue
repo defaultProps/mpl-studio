@@ -117,6 +117,8 @@ function handleDblclick(item: File) {
     <div v-for="item in project.openFileList" :key="item.id" class="page" :title="item.title" :data-page-id="item.id"
       :class="{ select: item.id === project.activeFile?.id }" @contextmenu="handleContextmenu($event, item)"
       @click="project.updateActiveFile(item, true)" @dblclick.stop.prevent="handleDblclick(item)">
+      <!-- 不用svg-icon是因为dom标签太多, 导致性能问题.
+      所以这里用img标签来展示图标. -->
       <img v-if="item.type === 'basePage'" src="@/assets/page.svg" alt="-">
       <img v-else-if="item.type === 'theme'" src="@/assets/theme2.png" alt="-">
       <img v-else-if="item.type === 'doc'" src="@/assets/logo.png" alt="-">
@@ -139,7 +141,7 @@ function handleDblclick(item: File) {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  box-sizing: border-box;
+  
   background: #e6e6e6;
   position: relative;
 

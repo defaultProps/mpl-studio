@@ -92,7 +92,7 @@ export const workbenchStore = defineStore('Workbench', {
       noteList: [], // 注解列表
       nodeList: [], // 节点列表, 初始化body根节点
       footerOperation: {
-        size: 600,
+        size: 370,
         visible: true
       },
       activeNode: null, // 当前选中的节点

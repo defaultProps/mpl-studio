@@ -7,7 +7,7 @@ import { newCid } from '@mpl/libs'
 import { inject } from 'vue'
 
 const removeActiveNodeEvent = inject('removeActiveNodeEvent') as any
-const activeNode = defineModel<any>()
+const activeSlotNode = defineModel<any>()
 
 function btnClickOrGo(btn: any) {
   if (btn.click.name) {
@@ -66,38 +66,38 @@ function btnVisibleOrGo(btn: any) {
 }
 </script>
 <template>
-  <template v-if="activeNode">
+  <template v-if="activeSlotNode">
     <FormItem label="标题">
-      <InputNode v-model="activeNode.txt" />
+      <InputNode v-model="activeSlotNode.txt" />
     </FormItem>
-    <FormIconItem v-model="activeNode.icon" label="图标" />
+    <FormIconItem v-model="activeSlotNode.icon" label="图标" />
     <FormItem label="按钮主题">
-      <select v-model="activeNode.ui" class="mpl-select">
+      <select v-model="activeSlotNode.ui" class="mpl-select">
         <option v-for="n in mplBtnThemeList" :value="n.value">
           {{ n.label }}
         </option>
       </select>
     </FormItem>
     <FormItem label="点击事件">
-      <InputNode v-model="activeNode.click.name" readonly />
-      <button v-if="activeNode.click.name" type="button" class="mpl-btn del-btn ml-5 icon icon-close1"
-        @click="removeClickEvent(activeNode)" />
-      <button type="button" class="mpl-btn ml-5 icon" :class="[activeNode.click.name ? 'icon-select5' : 'icon-add']"
-        @click="btnClickOrGo(activeNode)" />
+      <InputNode v-model="activeSlotNode.click.name" readonly />
+      <button v-if="activeSlotNode.click.name" type="button" class="mpl-btn del-btn ml-5 icon icon-close1"
+        @click="removeClickEvent(activeSlotNode)" />
+      <button type="button" class="mpl-btn ml-5 icon" :class="[activeSlotNode.click.name ? 'icon-select5' : 'icon-add']"
+        @click="btnClickOrGo(activeSlotNode)" />
     </FormItem>
     <FormItem label="禁用事件">
-      <InputNode v-model="activeNode.disabled.name" readonly />
-      <button v-if="activeNode.disabled.name" type="button" class="mpl-btn del-btn ml-5 icon icon-close1"
-        @click="removeDisabledEvent(activeNode)" />
-      <button type="button" class="mpl-btn ml-5 icon" :class="[activeNode.disabled.name ? 'icon-select5' : 'icon-add']"
-        @click="btnDisabledOrGo(activeNode)" />
+      <InputNode v-model="activeSlotNode.disabled.name" readonly />
+      <button v-if="activeSlotNode.disabled.name" type="button" class="mpl-btn del-btn ml-5 icon icon-close1"
+        @click="removeDisabledEvent(activeSlotNode)" />
+      <button type="button" class="mpl-btn ml-5 icon" :class="[activeSlotNode.disabled.name ? 'icon-select5' : 'icon-add']"
+        @click="btnDisabledOrGo(activeSlotNode)" />
     </FormItem>
     <FormItem label="显示/隐藏">
-      <InputNode v-model="activeNode.visible.name" readonly />
-      <button v-if="activeNode.visible.name" type="button" class="mpl-btn del-btn ml-5 icon icon-close1"
-        @click="removeVisibleEvent(activeNode)" />
-      <button type="button" class="mpl-btn ml-5 icon" :class="[activeNode.visible.name ? 'icon-select5' : 'icon-add']"
-        @click="btnVisibleOrGo(activeNode)" />
+      <InputNode v-model="activeSlotNode.visible.name" readonly />
+      <button v-if="activeSlotNode.visible.name" type="button" class="mpl-btn del-btn ml-5 icon icon-close1"
+        @click="removeVisibleEvent(activeSlotNode)" />
+      <button type="button" class="mpl-btn ml-5 icon" :class="[activeSlotNode.visible.name ? 'icon-select5' : 'icon-add']"
+        @click="btnVisibleOrGo(activeSlotNode)" />
     </FormItem>
   </template>
 </template>

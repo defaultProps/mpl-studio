@@ -30,6 +30,7 @@ onMounted(() => {
       ...monacoFormatter.js,
       lineNumbers: 'off',
       folding: false,
+      readOnly: true,
       value: beautify.js(modelValue.value, beautifyCode.js)
     }
   )

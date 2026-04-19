@@ -20,11 +20,12 @@
     class="mpl-btn plus-btn icon icon-select5 ml-5" @click="changeSubBoxSetting('aiChat')">
     添加AI限制
   </button>
-  <div v-if="activeLimit" class="mpl-sub-form-block">
-    <MiniMonacoJs v-model="activeLimit.callback" style="width: 100%;height: 130px;"
+  <template v-if="activeLimit">
+    <MiniMonacoJs v-model="activeLimit.callback"
+      style="width: 270px;height: 130px;margin-top: 5px; border: 1px solid #767676;display: inline-block"
       @change="changeLimitItemValue(activeLimit.callback)" />
-    <button type="button" class="mpl-btn ml-5 icon icon-check" @click="openAIEditor" />
-  </div>
+    <button type="button" class="mpl-btn full-w icon icon-check mt-2" @click="openAIEditor" />
+  </template>
   <AIChat v-if="view.subBoxSettingModel === 'aiChat' && view.subBoxSettingModelId === id" type="limit"
     @change="changeAIChat" @cancel="changeSubBoxSetting('')" />
 </template>

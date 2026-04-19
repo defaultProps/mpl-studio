@@ -32,6 +32,11 @@ function handleNodeContextmenu(event: any, data: any) {
         onClick: () => { }
       },
       {
+        label: "导入模板文件",
+        icon: 'icon-upload2 icon',
+        onClick: () => { }
+      },
+      {
         label: "新建文件夹"
       },
       {
@@ -190,7 +195,7 @@ function handleProjectDetail() {
     width: 100%;
     font-size: 18px;
     font-weight: 600;
-    box-sizing: border-box;
+    
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
@@ -208,7 +213,7 @@ function handleProjectDetail() {
     justify-content: center;
     align-items: center;
     padding: 0 5px;
-    box-sizing: border-box;
+    
     overflow: inherit;
     margin-bottom: 10px;
 

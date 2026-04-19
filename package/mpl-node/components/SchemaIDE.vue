@@ -11,7 +11,6 @@ let editorView: EditorView | null = null
 const props = defineProps<{ value: any }>()
 
 watch(() => props.value, (newVal) => {
-  console.log(newVal)
   if (!editorView) return
   editorView.dispatch({
     changes: {
@@ -58,7 +57,7 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   padding: 0 5px;
-  box-sizing: border-box;
+  
   position: absolute;
   top: 10px;
   left: 10px;
