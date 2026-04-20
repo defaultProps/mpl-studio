@@ -199,7 +199,7 @@ function handleSubmit() {
           </div>
           <div class="search-box">
             <textarea ref="textareaRef" v-model="question" rows="1" placeholder="请输入你的需求或问题" @keydown="handleKeydown" />
-            <button class="file-btn icon icon-picture" title="导入图片,可根据图片生成对应页面" />
+            <button class="img-btn icon icon-picture" title="导入图片,可根据图片生成相似页面" />
             <button class="clear-btn" title="清除内容" @click="question = ''">
               <svg-icon name="clear" size="18" />
             </button>
@@ -365,7 +365,7 @@ function handleSubmit() {
       display: flex;
       align-items: center;
       padding: 0 5px;
-      
+
 
       &:hover {
         button {
@@ -388,7 +388,7 @@ function handleSubmit() {
         flex: 1;
         overflow: hidden;
         text-overflow: ellipsis;
-        
+
         white-space: nowrap;
       }
 
@@ -420,7 +420,7 @@ function handleSubmit() {
       align-items: center;
       flex-direction: column;
       padding-bottom: 60px;
-      
+
 
       >.ai-title {
         font-size: 27px;
@@ -448,7 +448,7 @@ function handleSubmit() {
           align-items: center;
           justify-content: flex-start;
           overflow: hidden;
-          
+
           left: 0;
           width: 100%;
           font-size: 12px;
@@ -504,7 +504,7 @@ function handleSubmit() {
           resize: none;
           outline: none;
           background: #f6f8fa;
-          
+          box-sizing: border-box;
           padding: 5px;
           border: none;
           max-height: 380px;
@@ -519,7 +519,7 @@ function handleSubmit() {
           justify-content: center;
           bottom: 5px;
 
-          &.file-btn {
+          &.img-btn {
             left: 5px;
           }
 
@@ -543,14 +543,14 @@ function handleSubmit() {
       flex: 1;
       width: 100%;
       padding: 10px;
-      
+
     }
 
     .footer-question {
       height: 42px;
       line-height: 42px;
       padding: 0 10px;
-      
+
     }
 
   }

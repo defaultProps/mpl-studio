@@ -3,11 +3,17 @@ import FormItem from './FormItem.vue'
 import { ruleOption, ruleTriggerOption } from '../libs'
 import { FormItemRule } from '@mpl/typings'
 import RadioBtnGroup from './RadioBtnGroup.vue'
-import { userStore } from '@mpl/store'
+import CustomValidate from './subSettingBox/CustomValidate.vue'
+import { viewStore, userStore } from '@mpl/store'
+import type { SUB_BOX_SETTING_MODEL } from '@mpl/typings'
+import { useId } from 'vue'
 
 const user = userStore()
 const rule = defineModel<FormItemRule>({ default: { type: 'system', option: [] } })
 const props = defineProps<{ options: any[] }>()
+const view = viewStore()
+const id = useId()
+const modelValue = defineModel<string>('modelValue', { default: '' })
 
 function addRule() {
   rule.value.option.push({
@@ -17,12 +23,6 @@ function addRule() {
   })
 }
 
-function changeRule() {
-  if (rule.value.type === 'custom') {
-    //
-  }
-}
-
 function removeRule(i: number) {
   rule.value.option.splice(i, 1)
 }
@@ -30,10 +30,25 @@ function removeRule(i: number) {
 function locationIDEByMethodName() {
   //
 }
+
+function changeRule(icon: string) {
+  modelValue.value = icon
+  if (view.subBoxSettingModel === 'iconSelect' && view.subBoxSettingModelId === id) {
+    changeSubBoxSetting('')
+  }
+}
+
+function changeSubBoxSetting(model: SUB_BOX_SETTING_MODEL) {
+  view.$patch({
+    subBoxSettingModel: model,
+    subBoxSettingModelId: model === '' ? '' : id
+  })
+}
 </script>
 <template>
   <FormItem label="规则类型">
-    <RadioBtnGroup v-model="rule.type" :option="ruleOption" :disabled="user.authority !== 'enterprise'" @change="changeRule" />
+    <RadioBtnGroup v-model="rule.type" :option="ruleOption" :disabled="user.authority !== 'enterprise'"
+      @change="changeRule" />
   </FormItem>
   <template v-if="rule.type === 'system'">
     <div v-for="(r, i) in rule.option" class="mpl-sub-form-block">
@@ -63,6 +78,8 @@ function locationIDEByMethodName() {
     </button>
   </template>
   <FormItem v-else label="自定义校验">
+    <CustomValidate v-if="view.subBoxSettingModel === 'iconSelect' && view.subBoxSettingModelId === id"
+      v-model="modelValue" @change="changeRule" @cancel="changeSubBoxSetting('')" />
     <button class="mpl-btn ml-2 icon icon-select5" type="button" @click="locationIDEByMethodName" />
   </FormItem>
 </template>

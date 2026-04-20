@@ -1,3 +1,4 @@
+<!-- 服务绑定 -->
 <script setup lang="ts">
 import type { ServicePostMan } from '@mpl/typings'
 import { onMounted, ref, onUnmounted } from 'vue'

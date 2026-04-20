@@ -22,9 +22,17 @@ export default defineConfig({
     'process.env': {},
     global: 'globalThis'
   },
+  optimizeDeps: {
+    include: [
+      'monaco-editor'
+    ]
+  },
+  worker: {
+    format: 'es'
+  },
   plugins: [
     monacoEditorPlugin({
-      languageWorkers: ['json', 'css', 'html', 'typescript']
+      languageWorkers: ['json', 'css', 'html', 'typescript'],
     }),
     vue(),
     vueJsx(),

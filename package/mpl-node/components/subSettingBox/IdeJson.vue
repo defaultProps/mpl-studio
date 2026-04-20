@@ -1,3 +1,4 @@
+<!-- json-ide配置 -->
 <script setup lang="ts">
 import * as beautify from 'js-beautify'
 import { onMounted, onUnmounted } from 'vue'

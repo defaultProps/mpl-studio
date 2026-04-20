@@ -1,3 +1,4 @@
+<!-- 自动计算绑定值 -->
 <script setup lang="ts">
 import InputNode from '../InputNode.vue'
 import { ref, watch, onMounted } from 'vue'
