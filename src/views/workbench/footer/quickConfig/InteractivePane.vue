@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { workbenchStore, userStore } from '@mpl/store'
+import { workbenchStore, userStore, viewStore } from '@mpl/store'
 import { ref, onMounted, onUnmounted, watch, nextTick } from 'vue'
 import NodeIDE from '@/views/eventEdit/NodeIDE.vue'
 import FlowRoot from '@/views/eventEdit/FlowRoot.vue'
@@ -9,6 +9,7 @@ import { ElTree, ElMessageBox } from 'element-plus'
 import { pageIDEOptions } from '@mpl/const'
 import { getBaseComponentList, getSeniorComponentList } from '@/utils/constant'
 import ContextMenu from '@imengyu/vue3-context-menu'
+import AIChat from '@/views/workbench/ai/AIChat.vue'
 
 interface CategoryTreeNode {
   name: string
@@ -17,6 +18,7 @@ interface CategoryTreeNode {
 }
 
 const user = userStore()
+const view = viewStore()
 const baseComponentList = getBaseComponentList().map(v => v.children.map(v => ({ tag: v.value, label: v.label }))).flat()
 const seniorComponentList = getSeniorComponentList().map(v => v.children.map(v => ({ tag: v.value, label: v.label }))).flat()
 const allComponentList = [...baseComponentList, ...seniorComponentList]
@@ -336,6 +338,10 @@ function clickTreeNode(cid: string) {
     workbench.selectNodeByCid(cid)
   }
 }
+
+function openAISidebar() {
+  view.visibleAISidebar = !view.visibleAISidebar
+}
 </script>
 
 <template>
@@ -389,30 +395,31 @@ function clickTreeNode(cid: string) {
         </template>
       </el-tree>
     </div>
-    <div class="event-edit-box">
+    <div class="event-edit-box" :class="{ 'open-ai-sidebar': view.visibleAISidebar }">
       <div class="header-tool-line">
         <select v-model="editModel" class="mpl-select mr-5" disabled>
           <option label="流程模式" value="workflowMode" />
           <option label="目录模式" value="catalogMode" />
           <option label="IDE模式" value="IDEMode" />
         </select>
-        <template v-if="editModel === 'IDEMode'">
+        <div v-if="editModel === 'IDEMode'">
           <template v-for="item in pageIDEOptions">
-            <input v-if="item.value === 'aiQuestion'" :disabled="user.authority !== 'enterprise'" placeholder="AI提问"
-              class="mpl-input fff-input" style="max-width: 200px;min-width: 200px;">
-            <button v-else class="mpl-btn mr-5" :class="[{ 'is-active': item.value === workbench.ideModel }]"
+            <button class="mpl-btn mr-5" :class="[{ 'is-active': item.value === workbench.ideModel }]"
               @click="changeIDEModel(item.value)">
               {{ item.label }}
             </button>
           </template>
-        </template>
-        <div class="error-msg">
+        </div>
+        <div class="error-msg" :title="errorMsg">
           {{ errorMsg }}
         </div>
+        <button type="button" :class="{ 'is-active': view.visibleAISidebar }" title="AI侧栏"
+          class="fixed-right mpl-btn icon icon-youcelan" @click="openAISidebar" />
       </div>
       <FlowRoot v-if="['workflowMode', 'catalogMode'].includes(editModel)" v-model="editModel" />
       <NodeIDE v-else-if="editModel === 'IDEMode'" v-model:error-msg="errorMsg"
         v-model:ide-model="workbench.ideModel" />
+      <AIChat v-if="user.authority === 'enterprise' && view.visibleAISidebar" />
     </div>
   </div>
 </template>
@@ -557,13 +564,22 @@ function clickTreeNode(cid: string) {
   .event-edit-box {
     flex: 1;
     height: 100%;
-    position: relative;
     overflow: hidden;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 35px auto;
+    grid-template-areas:
+      "top-dynamic top-dynamic"
+      "bottom-left-dynamic bottom-right-dynamic";
+    box-sizing: border-box;
+
+    &.open-ai-sidebar {
+      grid-template-columns: 1fr 300px;
+    }
   }
 
   .header-tool-line {
+    grid-area: top-dynamic;
     height: 35px;
     width: 100%;
     display: flex;
@@ -580,7 +596,7 @@ function clickTreeNode(cid: string) {
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-      text-align: right;
+      text-align: left;
       color: #c3002f;
     }
 

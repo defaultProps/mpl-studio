@@ -122,7 +122,10 @@ export const monacoFormatter: {
     fontSize: 14,
     folding: true,
     automaticLayout: true,
-    readOnly: false
+    readOnly: false,
+    stickyScroll: {
+      enabled: false, // 关闭滚动时, 上下文的占位, 在小屏幕时不需要
+    }
   },
   html: {
     language: 'html',

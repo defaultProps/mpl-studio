@@ -103,9 +103,7 @@ function changeSubBoxSetting(model: SUB_BOX_SETTING_MODEL) {
     <div v-else-if="props.layout" class="layout-line">
       <LayoutSelect v-if="view.subBoxSettingModel === 'boxLayout'" v-model="modelValue" @change="changeLayout"
         @cancel="changeSubBoxSetting('')" />
-      <div class="label">
-        {{ formatLayoutLabel(modelValue || '') }}
-      </div>
+      {{ formatLayoutLabel(modelValue || '') }}
       <button v-if="modelValue && !props.layout" type="button" class="mpl-btn mr-5 del-btn icon icon-close1"
         @click="changeVModel('')" />
       <button class="mpl-btn edit-btn icon icon-select5" type="button"

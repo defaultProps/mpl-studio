@@ -32,6 +32,7 @@ export interface CoreView {
   subBoxSettingModelId: string
   asyncSubSettingComponent: any
   isOpenDialog: boolean
+  visibleAISidebar: boolean
 }
 
 function initCoreView(): CoreView {
@@ -55,7 +56,8 @@ function initCoreView(): CoreView {
     subBoxSettingModel: '', // 右侧配置项-子项配置容器
     subBoxSettingModelId: '', // 右侧配置下-子项配置容器-打开目标id
     asyncSubSettingComponent: null, // 右侧配置项-子项配置组件
-    visibleDraftDialog: false // 是否显示草稿区弹框
+    visibleDraftDialog: false, // 是否显示草稿区弹框
+    visibleAISidebar: false, // 是否显示AI侧栏
   }
 }
 

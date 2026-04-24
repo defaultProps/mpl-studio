@@ -9,7 +9,7 @@ import { predefineColors } from '@mpl/const'
 const props = defineProps<{ value: BaseBoxProp }>()
 const activeNode = ref<BaseBoxProp>(JSON.parse(JSON.stringify(props.value)))
 const changeNode = inject('changeNode') as any
-const stopWatcher = watchDebounced(activeNode.value, val => { changeNode(val);console.log(val) }, { debounce: 500 })
+const stopWatcher = watchDebounced(activeNode.value, val => { changeNode(val) }, { debounce: 500 })
 
 onBeforeUnmount(() => {
   stopWatcher()
@@ -21,7 +21,7 @@ onBeforeUnmount(() => {
     <FormItem :label="`宽度 ${activeNode.pos.pc.wType === '%' ? activeNode.pos.pc.w : ''}`">
       <SliderNode v-model:slider="activeNode.pos.pc.w" v-model:unit="activeNode.pos.pc.wType" />
     </FormItem>
-    <FormItem :label="`高度比例 ${activeNode.pos.pc.h}`">
+    <FormItem :label="`高度 ${activeNode.pos.pc.h}`">
       <SliderNode v-model:slider="activeNode.pos.pc.h" v-model:unit="activeNode.pos.pc.hType" is-height />
     </FormItem>
     <FormItem label="背景色">

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { layouts } from '@mpl/node'
 import SubSettingHeaderUI from './SubSettingHeaderUI.vue'
 import { viewStore } from '@mpl/store'
 import { ref } from 'vue'

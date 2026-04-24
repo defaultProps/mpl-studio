@@ -44,7 +44,7 @@ function changeIsUnitRange() {
   </template>
   <template v-else>
     <!-- 插槽容器中, 此属性是无效的 -->
-    <select v-model="vModelType" class="mpl-select mr-5" style="max-width: 70px; min-width: 70px;"
+    <select v-model="vModelType" class="mpl-select mr-5" style="max-width: 50px; min-width: 50px;"
       @change="changeIsUnitRange">
       <option value="%">比例</option>
       <option value="px">像素</option>

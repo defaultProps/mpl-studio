@@ -71,12 +71,14 @@ interface LayoutProps {
 // 容器布局控件
 export const layouts: LayoutProps[] = [
 	{
-		label: '基础布局',
+		label: '常用布局',
 		category: [
 			{ label: '1-1', value: '1-1', img: '' },
 			{ label: '1-2', value: '1-2', img: '' },
 			{ label: '1-3', value: '1-3', img: '' },
-			{ label: '1-4', value: '1-4', img: '' }
+			{ label: '1-4', value: '1-4', img: '' },
+			{ label: '1-5', value: '1-5', img: '' },
+			{ label: '1-6', value: '1-6', img: '' }
 		]
 	},
 	{

@@ -5,34 +5,40 @@ import { viewStore } from '@mpl/store'
 import { ref } from 'vue'
 
 const modelValue = defineModel<string>({ default: '' })
-function submitIcon(layout = '') {
-  modelValue.value = layout
+const currentLayout = ref(modelValue.value)
+
+function submitIcon() {
+  modelValue.value = currentLayout.value
+  closeSubBox()
+}
+function closeSubBox() {
   viewStore().$patch({
     subBoxSettingModel: '',
     subBoxSettingModelId: ''
   })
 }
-const currentLayout = ref(modelValue.value)
+
 </script>
 
 <template>
   <div class="layout-select--box mpl-scroll-none">
-    <SubSettingHeaderUI label="排版布局" @close="submitIcon(modelValue || '')" />
+    <SubSettingHeaderUI label="排版布局" @close="submitIcon" />
     <template v-for="layout in layouts" :key="layout.label">
       <div class="view-box">
         {{ layout.label }}
       </div>
       <div class="setting-group-btn">
-        <button v-for="p in layout.category" :key="p.value" type="button" class="mpl-btn ml-5 icon icon-line"
+        <button v-for="p in layout.category" :key="p.value" type="button" class="mpl-btn ml-5"
           :class="{ 'is-select': currentLayout === p.value }" @click="currentLayout = p.value">
           {{ p.label }}
         </button>
-        <button v-if="layout.category.findIndex(v => v.value === currentLayout) >= 0" type="button"
-          class="mpl-btn mr-5 float-r icon icon-check" @click="submitIcon(currentLayout)">
-          确认
-        </button>
       </div>
     </template>
+    <div class="footer-line">
+      <button type="button" class="mpl-btn mr-5 float-r" @click="submitIcon">
+        确认
+      </button>
+    </div>
   </div>
 </template>
 
@@ -48,7 +54,6 @@ const currentLayout = ref(modelValue.value)
   bottom: 0;
   overflow: hidden auto;
   border-left: 1px solid #2c2c2c;
-  padding-bottom: 20px;
   box-sizing: border-box;
   background: #fff;
 
@@ -84,6 +89,24 @@ const currentLayout = ref(modelValue.value)
       color: #999;
       font-weight: normal;
     }
+  }
+
+  >.footer-line {
+    height: 30px;
+    display: flex;
+    background-color: #fff;
+    justify-content: flex-end;
+    align-items: center;
+    position: sticky;
+    bottom: 0;
+    z-index: 12;
+    font-size: 14px;
+    user-select: text;
+    padding: 0 5px;
+    box-sizing: border-box;
+    font-weight: 600;
+    border-top: 1px solid #ccc;
+    margin-top: 10px;
   }
 }
 </style>

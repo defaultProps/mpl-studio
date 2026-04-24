@@ -55,6 +55,7 @@ function formatCode() {
 <style lang="less" scoped>
 .node-code-pane--container {
   overflow: hidden;
+  grid-area: bottom-left-dynamic;
   width: 100%;
   height: 100%;
   overflow: hidden;
@@ -83,7 +84,7 @@ function formatCode() {
     align-items: center;
     justify-content: center;
     position: absolute;
-    left: 80px;
+    right: 40px;
     bottom: 10px;
     z-index: 10;
 
