@@ -9,7 +9,7 @@ export interface SlotBoxProp extends Node {
   bgColor: string
   layoutRow: number
   layoutCol: number
-  selectNodePos: [number, number] | ''
+  selectNodePos: [number, number] | '' // 画板需要的临时字段, 最终保存时不需要此字段.
   // k: 1-2 v: cid // 组件位置映射关系
   layoutMapNode: {
     [k: string]: string

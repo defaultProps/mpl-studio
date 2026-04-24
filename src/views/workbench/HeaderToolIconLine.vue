@@ -121,27 +121,26 @@ function handleSyncSwagger() {
   alert('同步更新swagger接口文档,弹窗. 并显示组件绑定的接口文档')
 }
 
-function handleWheel(e: any) {
+
+const handleWheel = (e: any) => {
   const dom = document.querySelector('header.header-tool-btn--container')
   if (!dom) {
     return
   }
 
-  dom.addEventListener('wheel', function (e: any) {
-    // 阻止默认滚轮行为
-    // 如果出现弹框. 那么就不需要滚动了.
-    if (view.isOpenDialog) {
-      return
-    }
+  // 阻止默认滚轮行为
+  // 如果出现弹框. 那么就不需要滚动了.
+  if (view.isOpenDialog) {
+    return
+  }
 
-    e.preventDefault();
-    // 控制滚动速度
-    const speed = 30;
-    // 滚轮纵向偏移 转为横向滚动
-    dom.scrollBy({
-      left: e.deltaY * speed,
-      behavior: 'smooth'
-    });
+  e.preventDefault();
+  // 控制滚动速度
+  const speed = 2.5;
+  // 滚轮纵向偏移 转为横向滚动
+  dom.scrollBy({
+    left: e.deltaY * speed,
+    behavior: 'smooth'
   });
 }
 
@@ -363,7 +362,7 @@ function handleAskAI() {
     }
 
     .preview-btn {
-      min-height: 48px;
+      min-height: 100%;
       margin-top: 1px;
       width: 50px;
       font-size: 16px;

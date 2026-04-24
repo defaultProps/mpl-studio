@@ -7,6 +7,16 @@ const visible = defineModel<boolean>()
 const view = viewStore()
 const question = ref('')
 const textareaRef = ref()
+const currentHistory = ref([
+  {
+    role: 'user',
+    description: '生成标准查询页面, 上下结构, 上层一个查询面板, 下层一个表格+分页'
+  },
+  {
+    role: 'system',
+    description: '你是一个专业的前端开发, 你好'
+  }
+])
 
 interface Conversation {
   title: string
@@ -159,6 +169,12 @@ function handleSubmit() {
   console.log(question.value)
   alert('未完成等待后台AI接入')
 }
+
+function handleSelectConversation(item: Conversation) {
+  activeConversation.value = item
+  // currentHistory.value = []
+  // 请求查看历史记录.
+}
 </script>
 
 <template>
@@ -183,7 +199,7 @@ function handleSubmit() {
         </div>
         <div class="sub-menu">历史对话</div>
         <div v-for="item in conversationList" :key="item.id" class="menu-item"
-          :class="{ 'is-active': activeConversation?.id === item.id }" @click="activeConversation = item">
+          :class="{ 'is-active': activeConversation?.id === item.id }" @click="handleSelectConversation(item)">
           <div class="menu-item-title" :title="item.title">{{ item.title }}</div>
           <button type="button" class="plaintext-btn mpl-btn icon icon-more-outline"
             @click.stop="handleContextmenuMenu($event, item.id)" />
@@ -200,6 +216,7 @@ function handleSubmit() {
           <div class="search-box">
             <textarea ref="textareaRef" v-model="question" rows="1" placeholder="请输入你的需求或问题" @keydown="handleKeydown" />
             <button class="img-btn icon icon-picture" title="导入图片,可根据图片生成相似页面" />
+            <button class="file-btn icon icon-file" title="导入图片,可根据图片生成相似页面" />
             <button class="clear-btn" title="清除内容" @click="question = ''">
               <svg-icon name="clear" size="18" />
             </button>
@@ -208,6 +225,12 @@ function handleSubmit() {
             </button>
           </div>
         </div>
+        <template v-else>
+          <div v-for="(item, i) in currentHistory" :key="i" class="conversation-node"
+            :class="`conversation-node-${item.role}`">
+            {{ item.description }}
+          </div>
+        </template>
       </div>
     </div>
   </el-dialog>
@@ -421,7 +444,6 @@ function handleSubmit() {
       flex-direction: column;
       padding-bottom: 60px;
 
-
       >.ai-title {
         font-size: 27px;
         margin-bottom: 22px;
@@ -523,6 +545,10 @@ function handleSubmit() {
             left: 5px;
           }
 
+          &.file-btn {
+            left: 42px;
+          }
+
           &.clear-btn {
             right: 48px;
           }
@@ -537,22 +563,10 @@ function handleSubmit() {
         }
       }
     }
-
-    .ai-conversation-box {
-      overflow: hidden auto;
-      flex: 1;
-      width: 100%;
-      padding: 10px;
-
+    .conversation-node {
+      margin: 0 10px;
+      border: 1px solid red;
     }
-
-    .footer-question {
-      height: 42px;
-      line-height: 42px;
-      padding: 0 10px;
-
-    }
-
   }
 }
 </style>

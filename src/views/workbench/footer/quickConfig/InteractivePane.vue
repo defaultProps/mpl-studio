@@ -229,14 +229,12 @@ function handleRemoveEvent(data: any) {
 function handleAddEvent(data: EventNode, node: any) {
   let currentEventNodeCode = ''
   // 一般来说activeNode就是当前选中的节点概率高,为了提高效率先校验选中高亮组件
-  if (workbench.activeNode) {
-    if (workbench.activeNode.cid === node.parent.data.id) {
-      const obj = workbench.activeNode.defaultEvents.find(s => s.name === data.name)!
-      currentEventNodeCode = obj.code
-    }
+  if (workbench.activeNode && workbench.activeNode.cid === node.data.cid) {
+    const obj = workbench.activeNode.defaultEvents.find(s => s.name === data.name)!
+    currentEventNodeCode = obj.code
   } else {
     // nodeList中查找Node
-    const { node: selectNode } = queryNodeByCid(workbench.nodeList, node.parent.data.id)
+    const { node: selectNode } = queryNodeByCid(workbench.nodeList, node.data.cid)
     const obj = selectNode!.defaultEvents.find(s => s.name === data.name)!
     currentEventNodeCode = obj.code
   }

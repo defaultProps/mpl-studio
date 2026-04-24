@@ -13,7 +13,6 @@ const rule = defineModel<FormItemRule>({ default: { type: 'system', option: [] }
 const props = defineProps<{ options: any[] }>()
 const view = viewStore()
 const id = useId()
-const modelValue = defineModel<string>('modelValue', { default: '' })
 
 function addRule() {
   rule.value.option.push({
@@ -32,7 +31,6 @@ function locationIDEByMethodName() {
 }
 
 function changeRule(icon: string) {
-  modelValue.value = icon
   if (view.subBoxSettingModel === 'iconSelect' && view.subBoxSettingModelId === id) {
     changeSubBoxSetting('')
   }
@@ -79,7 +77,7 @@ function changeSubBoxSetting(model: SUB_BOX_SETTING_MODEL) {
   </template>
   <FormItem v-else label="自定义校验">
     <CustomValidate v-if="view.subBoxSettingModel === 'iconSelect' && view.subBoxSettingModelId === id"
-      v-model="modelValue" @change="changeRule" @cancel="changeSubBoxSetting('')" />
+      @change="changeRule" @cancel="changeSubBoxSetting('')" />
     <button class="mpl-btn ml-2 icon icon-select5" type="button" @click="locationIDEByMethodName" />
   </FormItem>
 </template>

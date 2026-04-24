@@ -5,6 +5,7 @@ import RadioBtnGroup from './RadioBtnGroup.vue'
 import { layouts } from '@mpl/node'
 import { viewStore } from '@mpl/store'
 import type { SUB_BOX_SETTING_MODEL } from '@mpl/typings'
+import { useThrottleFn } from '@vueuse/core'
 
 const view = viewStore()
 const id = useId()
@@ -29,13 +30,16 @@ const isCopy = ref(false)
 const visibleTooltip = ref(false)
 
 // 复制操作
-function onCopy(text: string) {
+const onCopy = useThrottleFn((text: string) => {
+  if(isCopy.value) {
+    return
+  }
   navigator.clipboard.writeText(text)
   isCopy.value = true
   setTimeout(() => {
     isCopy.value = false
   }, 300)
-}
+}, 300)
 
 function changeVModel(val: string) {
   modelValue.value = val

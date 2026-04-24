@@ -248,14 +248,24 @@ export const singleInputNode: ComponentBaseExport = {
   getNodeVar: (node: SingleInputFormProp): NodeVar[] => {
     // 如果有子组件, 也根据该组件获取动态变量
     const prefix = `${node.mpl_title} / ${node.mpl_zh}`
-
-    return [
-      { desc: `${prefix} / 显示隐藏`, key: 'visible', value: true, fullPath: `${node.cid}.visible` },
-      { desc: `${prefix} / 绑定值`, key: 'vModel', value: '', fullPath: `${node.cid}.vModel` },
-      { desc: `${prefix} / 必填`, key: 'required', value: false, fullPath: `${node.cid}.required` },
-      { desc: `${prefix} / 禁用`, key: 'disabled', value: false, fullPath: `${node.cid}.disabled` },
-      { desc: `${prefix} / 只读`, key: 'readonly', value: false, fullPath: `${node.cid}.readonly` },
-      { desc: prefix, key: 'cid', value: 'cid', fullPath: node.cid },
+    const allVars = [
+      { desc: `${prefix} / 显示隐藏`, fullPath: `${node.cid}.visible` },
+      { desc: `${prefix} / 绑定值`, fullPath: `${node.cid}.vModel` },
+      { desc: `${prefix} / 必填`, fullPath: `${node.cid}.required` },
+      { desc: `${prefix} / 禁用`, fullPath: `${node.cid}.disabled` },
+      { desc: `${prefix} / 只读`, fullPath: `${node.cid}.readonly` },
+      { desc: prefix, fullPath: node.cid },
     ]
+
+    node.slotNodes.forEach(slot => {
+      if (slot.tag === 'btn') {
+        allVars.push({
+          desc: `${prefix} / 插槽 / 按钮 / 文本`,
+          fullPath: `${node.cid}.slot.${slot.cid}.text`,
+        })
+      }
+    })
+
+    return allVars
   }
 }

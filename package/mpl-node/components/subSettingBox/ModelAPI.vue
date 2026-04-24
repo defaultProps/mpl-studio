@@ -21,7 +21,11 @@ interface MiniNodeCategory {
   mpl_children: MiniNode[] | undefined
 }
 
-function getNodeListPartFieldsToTree(nodeList: Node[]) {
+// 获取页面所有的变量[包含组件变量-页面变量, 平台变量等]
+
+
+function getAllVarList() {
+  const nodeList = workbench.nodeList
   const result: MiniNode[] = []
 
   function _miniNode(node: Node, target: MiniNode) {
@@ -66,7 +70,7 @@ const emit = defineEmits(['change', 'close'])
 const modelValue = ref<string>('')
 const searchNode = ref('')
 const workbench = workbenchStore()
-const treeNodeList = ref<any[]>([])
+const allVarList = ref<any[]>([])
 
 function submitClient() {
   modelValue.value = ''
@@ -74,9 +78,9 @@ function submitClient() {
 }
 
 onMounted(() => {
-  treeNodeList.value = getNodeListPartFieldsToTree(workbench.nodeList)
-  console.log(treeNodeList.value, workbench.nodeList)
+  allVarList.value = getAllVarList()
 })
+
 </script>
 
 <template>
@@ -92,9 +96,7 @@ onMounted(() => {
           </select>
           <InputNode v-model="searchNode" class="fff-input" style="max-width: 100px;" placeholder="查询变量" />
         </div>
-        <div v-for="node in treeNodeList" class="node-item">
-          {{ node.mpl_zh }}
-        </div>
+        <el-tree :data="allVarList" default-expand-all />
       </div>
       <div class="right-client-api">
         <div class="title-bar flex">

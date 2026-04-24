@@ -429,8 +429,6 @@ export declare namespace MPL {
   // 组件向外提供的变量
   export interface NodeVar {
     desc: string
-    key: string
-    value: any
     fullPath: string
   }
 

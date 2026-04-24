@@ -9,22 +9,17 @@ import type { ActiveSidebarTag } from '@mpl/typings'
 
 const coreView = viewStore()
 
-function handleSelect(event: MouseEvent) {
-  const dom = event.target as HTMLElement
-  const value = dom.getAttribute('mpl-menu') as ActiveSidebarTag
-
+function handleSelect(value: ActiveSidebarTag) {
   coreView.setSideBarTag(value)
 }
 </script>
 
 <template>
   <nav class="mpl-nav-menu">
-    <div @click="handleSelect($event)">
-      <span v-for="item in navHeaderList" :key="item.value" :mpl-menu="item.value"
-        :class="{ select: item.value === coreView.activeNavTag }">
-        {{ item.title }}
-      </span>
-    </div>
+    <span v-for="item in navHeaderList" :key="item.value" :mpl-menu="item.value"
+      :class="{ select: item.value === coreView.activeNavTag }" @click="handleSelect(item.value)">
+      {{ item.title }}
+    </span>
   </nav>
   <nav v-show="coreView.activeNavTag !== ''" class="mpl-nav-main">
     <!-- 保证DOM数量够少，且需要存储用户编辑状态 -->

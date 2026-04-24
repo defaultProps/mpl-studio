@@ -17,6 +17,8 @@ let pageInfo: any = {}
 let app: any = null
 const vueString = ref('')
 
+window.ref = ref
+
 onMounted(async () => {
   const pageId = new URL(window.parent.document.location.href).searchParams.get('id')
 

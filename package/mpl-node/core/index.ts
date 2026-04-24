@@ -190,5 +190,5 @@ export function searchNodeListVarsByFullPath(fullPath: string, nodeList: Node[])
 
   queryNode(nodeList)
 
-  return allVars.find(v => fullPath.indexOf(v.fullPath) >= 0)?.desc || ''
+  return allVars.find(v => fullPath.replace('mpl.var.', '') === v.fullPath)?.desc || ''
 }
