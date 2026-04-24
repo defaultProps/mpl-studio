@@ -97,40 +97,6 @@ export function insertNodeChild(nodeList: Node[], node: Node, pid: string, posit
 }
 
 /**
- * @description 查询折叠面板mpl_children是否存在子节点
- * @param nodeList 节点列表
- * @param cid  折叠面板cid
- * @param paneValue 折叠面板子节点value
- * @returns boolean 是否有子节点
- */
-export function hasMultipleChildrenInCollapse(nodeList: Node[], cid: string, paneValue: string): boolean {
-  let result = false
-  function queryNode(list: Node[]) {
-    list.forEach((v: any) => {
-      // 折叠面板
-      if (v.tag === 'mpl-collapse') {
-        if (v.cid == cid) {
-          const paneNode = v.itemList.find((v: any) => v.value === paneValue)
-          if (paneNode) {
-            result = paneNode.mpl_children.length > 1
-          }
-        } else {
-          v.itemList.forEach((s: any) => {
-            queryNode(s.mpl_children)
-          })
-        }
-      }
-      // 其他容器
-      queryNode(v.mpl_children)
-    })
-  }
-
-  queryNode(nodeList)
-
-  return result
-}
-
-/**
  * @description 查询cid节点的父节点
  * @param nodeList 节点列表
  * @param cid 节点cid

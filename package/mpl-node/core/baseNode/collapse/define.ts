@@ -84,8 +84,8 @@ export function newCollapseNode(cid: string): CollapseProp {
     model: `activeCollapse_${cid}`,
     accordion: true,
     itemList: [
-      { title: '面板标题1', value: newCid('collapseItem'), disabled: false, visible: true, mpl_children: [] },
-      { title: '面板标题2', value: newCid('collapseItem'), disabled: false, visible: true, mpl_children: [] }
+      { title: '面板标题1', value: newCid(), disabled: false, visible: true, mpl_children: [] },
+      { title: '面板标题2', value: newCid(), disabled: false, visible: true, mpl_children: [] }
     ]
   }
 }

@@ -7,7 +7,7 @@ import MaskLoading from './components/MaskLoading.vue'
 import './platform-size.less'
 import type { File } from '@mpl/typings'
 import { workbenchStore, projectStore, viewStore } from '@mpl/store'
-import { newCid, hasMultipleChildrenInCollapse } from '@mpl/libs'
+import { newCid } from '@mpl/libs'
 import keymaster from 'keymaster'
 import { platformFrame } from './core/util'
 
@@ -60,23 +60,6 @@ window.addEventListener(
 
     else if (type === 'MOVE_TO_RIGHT_ACTION') {
       //
-    }
-
-    else if (type === 'DELETE_COLLAPSE_OPTION_CONFIRM') {
-      const result = hasMultipleChildrenInCollapse(workbench.nodeList, payload.cid, payload.paneValue)
-      const workbenchFrame = window.frames.workbench
-
-      if (workbenchFrame) {
-        workbenchFrame.postMessage(
-          {
-            type: 'DELETE_COLLAPSE_OPTION_RECEIVE',
-            payload: {
-              isMultipleCollapseChildren: result
-            }
-          },
-          '*'
-        )
-      }
     }
 
     else if (type === 'CLICK_MENU_ACTION') {

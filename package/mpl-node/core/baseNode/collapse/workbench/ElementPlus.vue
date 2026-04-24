@@ -25,7 +25,7 @@ const dragoverBaseBox = (el: DragEvent) => {
   <div class="mpl-collapse" @click.stop="nodeClick(props.node.cid)">
     <el-collapse v-model="activeNames">
       <el-collapse-item v-for="p in props.node.itemList" :key="p.value" :title="p.title" :name="p.value">
-        <div v-if="p.mpl_children.length === 0 && !dragStartNode" class="mpl-empty-collapse" description="">
+        <div v-if="p.mpl_children.length === 0 && !dragStartNode" class="mpl-empty-collapse">
           请拖入控件或&nbsp;
           <button class="mpl-empty-collapse-btn" type="button">
             选择模板
