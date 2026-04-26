@@ -40,7 +40,10 @@
     "src/**/*.vue",
     "src/**/*.tsx",
     "vite.config.ts",
-    "package/mpl-const/iframe.ts"
+    "package/mpl-const/iframe.ts",
+    "package/**/*",
+    "package/**/**/*.vue",
+    "package/**/**/*.ts"
   ],
   "types": [
     "vite/client"

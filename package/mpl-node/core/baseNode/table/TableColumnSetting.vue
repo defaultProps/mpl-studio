@@ -5,7 +5,7 @@ import { getTableColumnUIOptions, tableColumnValueFormatOptions, newColumn } fro
 import type { TableColumn } from './define'
 import { ref } from 'vue'
 import FormItem from '../../../components/FormItem.vue'
-import { viewStore } from '@mpl/store'
+import { viewStore, userStore } from '@mpl/store'
 import TableColumnAllSetting from './TableColumnAllSetting.vue'
 import RadioBtnGroup from '../../../components/RadioBtnGroup.vue'
 import { textAlignPosition } from '../../../libs'
@@ -14,6 +14,7 @@ import { ElMessageBox } from 'element-plus'
 const columns = defineModel<TableColumn[]>({ default: [] })
 const { cid } = defineProps<{ cid: string }>()
 const view = viewStore()
+const user = userStore()
 const columnUIOptions = getTableColumnUIOptions()
 
 function addColumn() {
@@ -92,7 +93,7 @@ function removeAllColumn() {
       </FormItem>
       <FormItem var="mpl.rg5fv6.label.icon.info" label="图标信息">
         <InputNode v-model="activeColumn.label.iconText" />
-        <button type="button" class="icon-in1 icon mpl-btn ml-5" />
+        <button v-if="user.authority === 'enterprise'" type="button" class="icon-in1 icon mpl-btn ml-5" />
       </FormItem>
     </template>
     <FormItem label="内容字段">

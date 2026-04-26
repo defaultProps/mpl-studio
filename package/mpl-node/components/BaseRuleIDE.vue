@@ -57,7 +57,7 @@ function changeSubBoxSetting(model: SUB_BOX_SETTING_MODEL) {
       </FormItem>
       <FormItem label="错误提示">
         <input v-model="r.message" autocomplete="off" class="mpl-input" maxlength="100">
-        <button type="button" class="icon-in1 icon mpl-btn ml-5" />
+        <button v-if="user.authority === 'enterprise'" type="button" class="icon-in1 icon mpl-btn ml-5" />
       </FormItem>
       <FormItem label="触发条件">
         <RadioBtnGroup v-model="r.trigger" :option="ruleTriggerOption" checkbox />

@@ -9,8 +9,9 @@ import RadioBtnGroup from './RadioBtnGroup.vue'
 import FormIconItem from './FormIconItem.vue'
 import FormItemSingle from './FormItemSingle.vue'
 import FormItemLabelI18n from './FormItemLabelI18n.vue'
-import { workbenchStore } from '@mpl/store'
+import { workbenchStore, userStore } from '@mpl/store'
 
+const user = userStore()
 const props = defineProps<{ cid: string }>()
 const label = defineModel<FormLabelProp>({ default: {} })
 const mpl_zh = defineModel<string>('mpl_zh')
@@ -53,7 +54,7 @@ function blueLabelText() {
       </FormItem>
       <FormItem :var="`mpl.${props.cid}.label.icon.info`" label="图标信息">
         <InputNode v-model="label.iconText" />
-        <button type="button" class="icon-in1 icon mpl-btn ml-5" />
+        <button v-if="user.authority === 'enterprise'" type="button" class="icon-in1 icon mpl-btn ml-5" />
       </FormItem>
     </template>
   </template>

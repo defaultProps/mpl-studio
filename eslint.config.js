@@ -3,6 +3,11 @@ import pluginJs from "@eslint/js";
 import testLint from "typescript-eslint";
 import pluginVue from "eslint-plugin-vue";
 import parserVue from "vue-eslint-parser";
+import { fileURLToPath } from "url";
+import path from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 export default [
   // eslint 默认推荐规则
@@ -12,6 +17,7 @@ export default [
   // vue3 基础推荐规则
   ...pluginVue.configs["flat/recommended"],
   {
+    files: ['**/*.vue', '**/*.ts'],
     languageOptions: {
       globals: {
         ...globals.browser,
@@ -22,6 +28,11 @@ export default [
       parser: parserVue,
       parserOptions: {
         parser: testLint.parser,
+        projectService: {
+          allowDefaultProject: ['*.vue', '*.ts'],
+        },
+        tsconfigRootDir: __dirname,
+        extraFileExtensions: ['.vue'],
       },
     },
     rules: {

@@ -4,7 +4,9 @@ import InputNode from '../InputNode.vue'
 import { inject } from 'vue'
 import { newCid } from '@mpl/libs'
 import FormIconItem from '../FormIconItem.vue'
+import { userStore } from '@mpl/store'
 
+const user = userStore()
 const activeNode = defineModel<any>()
 const removeActiveNodeEvent = inject('removeActiveNodeEvent') as any
 
@@ -73,7 +75,7 @@ function btnVisibleOrGo(btn: any) {
     </FormItem>
     <FormItem var="mpl.rg5fv6.label.icon.info" label="图标信息">
       <InputNode v-model="activeNode.popoverText" />
-      <button type="button" class="icon-in1 icon mpl-btn ml-5" />
+      <button v-if="user.authority === 'enterprise'" type="button" class="icon-in1 icon mpl-btn ml-5" />
     </FormItem>
   </template>
   <FormItem label="点击事件">
