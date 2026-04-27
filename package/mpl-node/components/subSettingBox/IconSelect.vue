@@ -135,6 +135,13 @@ function handleSearchIcon() {
   </div>
 </template>
 
+<style lang="less">
+// svg内部标签点击无法触发click冒泡, 需要手动关闭所有子标签的点击属性.
+.icon-select--box .icon-item svg * {
+  pointer-events: none;
+}
+</style>
+
 <style lang="less" scoped>
 .icon-select--box {
   width: 300px;

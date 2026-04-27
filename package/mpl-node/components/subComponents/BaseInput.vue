@@ -17,7 +17,7 @@ const activeNode = defineModel<any>()
       <InputNumber v-model="activeNode.maxlength" placeholder="默认无限制" />
     </FormItem>
     <FormItem v-model="activeNode.prefixIcon" var="mpl.rg5fv6.input.prefixIcon" label="前置图标" icon />
-    <FormItem v-model="activeNode.suffixIcon" var="mpl.rg5fv6.input.suffixIcon" label="后置图标" icon />
+    <!-- <FormItem v-model="activeNode.suffixIcon" var="mpl.rg5fv6.input.suffixIcon" label="后置图标" icon /> -->
     <FormItem label="可清空" var="mpl.rg5fv6.input.clearable">
       <input v-model="activeNode.clearable" type="checkbox" class="mpl-input">
     </FormItem>

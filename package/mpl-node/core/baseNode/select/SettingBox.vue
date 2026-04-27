@@ -52,7 +52,7 @@ onBeforeUnmount(() => {
       <InputNode v-model="activeNode.select.placeholder" class="reduce-80" />
     </FormItemSingle>
     <FormIconItem v-model="activeNode.select.prefixIcon" label="前置图标" />
-    <FormIconItem v-model="activeNode.select.suffixIcon" label="后置图标" />
+    <!-- <FormIconItem v-model="activeNode.select.suffixIcon" label="后置图标" /> -->
     <FormItemSingle label="可清空" var="mpl.rg5fv6.input.clearable">
       <input v-model="activeNode.select.clearable" type="checkbox" class="mpl-input">
     </FormItemSingle>

@@ -62,7 +62,7 @@ function onlyNumber(event: any) {
       <InputNumber v-model="activeNode.input.maxlength" placeholder="默认无限制" @input="onlyNumber" />
     </FormItem>
     <FormIconItem v-model="activeNode.input.prefixIcon" label="前置图标" />
-    <FormIconItem v-model="activeNode.input.suffixIcon" label="后置图标" />
+    <!-- <FormIconItem v-model="activeNode.input.suffixIcon" label="后置图标" /> -->
     <FormItemSingle label="可清空" var="mpl.rg5fv6.input.clearable">
       <input v-model="activeNode.input.clearable" type="checkbox" class="mpl-input">
     </FormItemSingle>
