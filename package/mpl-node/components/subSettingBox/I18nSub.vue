@@ -38,9 +38,6 @@ function handleTranslate() {
         <i :class="loadingBtn ? 'icon-loading' : 'icon-search1'" class="icon" />
       </button>
     </FormItem>
-    <button type="button" class="mpl-btn plus-btn icon icon-plus mt-5 ml-5">
-      添加多语言
-    </button>
   </div>
 </template>
 

@@ -41,7 +41,7 @@ function handleCancel() {
 
 <style lang="less" scoped>
 .ai-chat--box {
-  width: 300px;
+  width: 600px;
   height: 100%;
   position: absolute;
   z-index: 10;

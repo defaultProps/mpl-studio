@@ -1170,7 +1170,8 @@ export const marketList: File[] = [
   { title: '图标管理', id: 'iconMarket', type: 'iconMarket', pageInfo: {} },
   { title: '图片管理', id: 'imageMarket', type: 'imageMarket', pageInfo: {} },
   { title: '服务管理', id: 'serviceMarket', type: 'serviceMarket', pageInfo: {} },
-  { title: '脚本管理', id: 'javascriptMarket', type: 'javascriptMarket', pageInfo: {} }
+  { title: '脚本管理', id: 'javascriptMarket', type: 'javascriptMarket', pageInfo: {} },
+  { title: '多语言管理', id: 'i18nMarket', type: 'i18nMarket', pageInfo: {} }
 ]
 
 // 模板市场

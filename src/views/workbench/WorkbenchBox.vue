@@ -13,6 +13,7 @@ import JsPackageMarket from './JsPackageMarket.vue'
 import { projectStore } from '@mpl/store'
 import CssCode from './CssCode.vue'
 import ProjectDetail from './ProjectDetail.vue'
+import I18nMarket from './I18nMarket.vue'
 
 const project = projectStore()
 
@@ -34,6 +35,7 @@ const project = projectStore()
       <ImageMarket v-if="project.activeFile?.type === 'imageMarket'" />
       <JsPackageMarket v-if="project.activeFile?.type === 'javascriptMarket'" />
       <ProjectDetail v-if="project.activeFile?.type === 'projectDetail'" />
+      <I18nMarket v-if="project.activeFile?.type === 'i18nMarket'" />
       <!-- 命令面板 -->
       <!-- serviceMarket -->
     </section>

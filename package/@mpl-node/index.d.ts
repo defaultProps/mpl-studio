@@ -82,6 +82,7 @@ export declare namespace MPL {
     | 'themeMarket'
     | 'imageMarket'
     | 'iconMarket'
+    | 'i18nMarket'
     | 'javascriptMarket'
     | 'serviceMarket'
     | 'projectDetail'

@@ -24,7 +24,13 @@ export default defineConfig({
   },
   optimizeDeps: {
     include: [
-      'monaco-editor'
+      'vue',
+      'vue-router',
+      'pinia',
+      'element-plus'
+    ],
+    exclude: [
+      '@xenova/transformers',
     ]
   },
   worker: {
@@ -41,19 +47,14 @@ export default defineConfig({
       lintOnStart: false,
       exclude: ['**/node_modules/**', 'pnpm-lock.yaml', 'tsconfig.tsbuildinfo', 'vite-env.d.ts'],
       failOnWarning: true,
-      cache: false
+      cache: true
     }),
-    VueDevTools(),
+    // VueDevTools(),
     createSvgIconsPlugin({
-      // 1. 指定 SVG 图标存放目录（必填）
       iconDirs: [path.resolve(process.cwd(), 'src/assets/svg')],
-      // 2. 指定 Sprite 图的 symbol id 前缀（避免冲突）
       symbolId: 'icon-[dir]-[name]',
-      // 3. 可选配置：自定义 SVG 加载器
       svgoOptions: {
         plugins: [
-          // 移除 SVG 内硬编码的 fill 属性（方便后续修改颜色）
-          // { name: 'removeAttrs', params: { attrs: ['fill'] } }
         ]
       }
     })
