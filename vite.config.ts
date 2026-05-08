@@ -79,11 +79,23 @@ export default defineConfig({
         }
       }
     },
-    hmr: false
+    hmr: {
+      timeout: 30000,
+      overlay: true,
+    },
+    // 启用热更新
+    // warmup: {
+    //   clientFiles: [
+    //     './package/mpl-node/**/!(*.ts)',
+    //     './src/**/!(*.css)',
+    //   ],
+    // },
   },
   build: {
+    // 开发模式下跳过类型检查
+    minify: false,
     target: 'es2020',
-    minify: 'terser',
+    // minify: 'terser',
     rollupOptions: {
       input: {
         main: resolvePath('index.html'),

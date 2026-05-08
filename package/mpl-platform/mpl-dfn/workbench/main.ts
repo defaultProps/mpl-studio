@@ -6,20 +6,17 @@ import mplCloudPlatform from './index.vue'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import { initStore } from '@mpl/store'
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
-import { ModuleRegistry } from 'ag-grid-community'
-import { AllEnterpriseModule, LicenseManager } from 'ag-grid-enterprise'
-import { ClientSideRowModelModule, CsvExportModule } from 'ag-grid-community'
-// 批量导入所有 Lucide Vue 图标
-import * as LucideIcons from 'lucide-vue-next'
+import * as LucideIcons from 'lucide-vue-next' // 批量导入所有 Lucide Vue 图标
 import '../../public/element-plus.css'
 import '../../public/theme.less'
 import '../../public/layout.less'
 import '../../public/contextmenu.css'
+import { ModuleRegistry, AllCommunityModule } from 'ag-grid-community'
+import { AllEnterpriseModule, LicenseManager } from 'ag-grid-enterprise'
 
-ModuleRegistry.registerModules([ClientSideRowModelModule, CsvExportModule, AllEnterpriseModule])
-
+ModuleRegistry.registerModules([AllCommunityModule, AllEnterpriseModule])
 // 购买企业版许可证
-// LicenseManager.setLicenseKey('')
+LicenseManager.setLicenseKey('[v3][RELEASE][0102]_NDg2Njc4MzY3MDgzNw==16d78ca762fb5d2ff740aed081e2af7b')
 
 initEventBindCloseAllContextMenu()
 const app = createApp(mplCloudPlatform)

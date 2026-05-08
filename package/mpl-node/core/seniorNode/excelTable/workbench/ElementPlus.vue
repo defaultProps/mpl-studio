@@ -2,9 +2,8 @@
 import type { ExcelTableProp } from '../define'
 import { inject, ref } from 'vue'
 import { AgGridVue } from "ag-grid-vue3"
-import { AllCommunityModule, ModuleRegistry, themeQuartz } from "ag-grid-community"
-
-ModuleRegistry.registerModules([AllCommunityModule])
+import { themeQuartz } from "ag-grid-community"
+// import {} from ''
 
 const theme = themeQuartz.withParams({
   borderColor: "#cccccc",

@@ -221,8 +221,8 @@ watch(() => workbench.visibleNote, (newVal) => {
   <MaskLoading v-if="loading" />
 
   <!-- 草稿 -->
-  <iframe v-if="workbench.visibleDraft" src="/src/iframe/draft/index.html" name="draftIframe" frameBorder="0"
-    @load="loadIframe" />
+  <!-- <iframe v-if="workbench.visibleDraft" src="/src/iframe/draft/index.html" name="draftIframe" frameBorder="0"
+    @load="loadIframe" /> -->
 
   <!-- mpl 标准桌面应用中台 -->
   <iframe v-if="workbench.activePlatform.includes('MPL-DFN')" id="workbench"
@@ -237,8 +237,8 @@ watch(() => workbench.visibleNote, (newVal) => {
     sandbox="allow-same-origin allow-forms allow-downloads-without-user-activation allow-modals allow-popups allow-popups-to-escape-sandbox allow-scripts"
     seamless src="/package/mpl-platform/mpl-app/workbench/index.html" name="workbench" @load="loadIframe" /> -->
   <!-- 注解/评论 -->
-  <iframe v-if="visibleNote" ref="noteIframe" :src="noteIframeSrc" name="annotationIframe" frameBorder="0"
-    @load="loadIframe" />
+  <!-- <iframe v-if="visibleNote" ref="noteIframe" :src="noteIframeSrc" name="annotationIframe" frameBorder="0"
+    @load="loadIframe" /> -->
 </template>
 
 <style lang="less" scoped>

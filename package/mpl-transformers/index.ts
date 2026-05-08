@@ -1,5 +1,5 @@
-import { pipeline } from '@huggingface/transformers'
+// import { pipeline } from '@huggingface/transformers'
 
-const classifier = await pipeline('sentiment-analysis');
+// const classifier = await pipeline('sentiment-analysis');
 
-classifier('I love this movie!');
+// classifier('I love this movie!');

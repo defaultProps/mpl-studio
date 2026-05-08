@@ -17,6 +17,13 @@ import 'virtual:svg-icons-register'
 import i18n from '@mpl/i18n'
 import './style/floating.css'
 import SvgIcon from '@/components/SvgIcon.vue'
+import { ModuleRegistry, AllCommunityModule } from 'ag-grid-community'
+import { AllEnterpriseModule, LicenseManager } from 'ag-grid-enterprise'
+
+ModuleRegistry.registerModules([AllCommunityModule, AllEnterpriseModule])
+
+// 购买企业版许可证
+LicenseManager.setLicenseKey('[v3][RELEASE][0102]_NDg2Njc4MzY3MDgzNw==16d78ca762fb5d2ff740aed081e2af7b')
 
 // localforage.config({
 //   driver: localforage.INDEXEDDB,

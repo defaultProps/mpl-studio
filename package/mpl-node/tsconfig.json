@@ -95,7 +95,11 @@
     "isolatedModules": true /* Ensure that each file can be safely transpiled without relying on other imports. */,
     /* Completeness */
     "skipDefaultLibCheck": true /* Skip type checking .d.ts files that are included with TypeScript. */,
-    "skipLibCheck": true /* Skip type checking all .d.ts files. */
+    "skipLibCheck": true /* Skip type checking all .d.ts files. */,
+    "types": [],
+    "typeRoots": [
+      "../../../node_modules/@types"
+    ]
   },
   "include": [
     "typing/*.d.ts",
