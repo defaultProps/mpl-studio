@@ -429,8 +429,9 @@ export declare namespace MPL {
   }
   // 组件向外提供的变量
   export interface NodeVar {
-    desc: string
-    fullPath: string
+    label: string
+    value: string,
+    type: 'string' | 'number' | 'boolean' | 'object' | 'array' | 'null' | string // 值类型。 string自定义, 比如枚举
   }
 
   export interface ContextMenuNode {

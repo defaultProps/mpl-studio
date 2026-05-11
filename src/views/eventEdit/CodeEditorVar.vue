@@ -11,8 +11,7 @@ import { workbenchStore } from '@mpl/store'
 import { parse } from '@babel/parser'
 import traverse from '@babel/traverse'
 import generate from '@babel/generator'
-import { getVariableNameAtPosition, defaultCodeMirrorExtensions } from '@mpl/libs'
-import { searchNodeListVarsByFullPath } from '@mpl/node'
+import { getVariableNameAtPosition, defaultCodeMirrorExtensions, getAllVarsByNodeList } from '@mpl/libs'
 import { EditorView, WidgetType, ViewPlugin, Decoration } from '@codemirror/view'
 
 const workbench = workbenchStore()
@@ -65,7 +64,7 @@ const lineTipPlugin = ViewPlugin.fromClass(class {
 
     let textTip = ''
     if (obj.fullPath?.indexOf('mpl.var.') >= 0) {
-      textTip = searchNodeListVarsByFullPath(obj.fullPath, workbench.nodeList)
+      textTip = getAllVarsByNodeList(workbench.nodeList).find(v => obj.fullPath.replace('mpl.var.', '') === v.value)?.label || ''
     }
 
     const widget = new LineEndTipWidget(textTip)

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, inject, onBeforeUnmount, provide, onMounted } from 'vue'
+import { ref, inject, onBeforeUnmount, provide } from 'vue'
 import { watchDebounced } from '@vueuse/core'
 import FormItem from '../../../components/FormItem.vue'
 import NodeLabel from '../../../components/NodeFormLabel.vue'
@@ -37,7 +37,7 @@ function onlyNumber(event: any) {
 </script>
 <template>
   <div class="right-bar-setting--box">
-    <FormItem :label="`宽度 ${activeNode.pos.pc.wType === '%' ? activeNode.pos.pc.w : ''}`">
+    <FormItem :label="`宽度 ${activeNode.pos.pc.wType === '%' ? activeNode.pos.pc.w + '/24' : ''}`">
       <SliderNode v-model:slider="activeNode.pos.pc.w" v-model:unit="activeNode.pos.pc.wType" />
     </FormItem>
     <FormItem label="显示隐藏" :var="`mpl.var.${activeNode.cid}_visible`">

@@ -131,10 +131,10 @@ export const avatar: ComponentBaseExport = {
   getTemplateCode,
   getNodeVar: (node: avatarFormProp) => {
     return [
-      { desc: '显示隐藏', key: `mpl.${node.cid}.visible`, value: true, fullPath: 'visible' },
-      { desc: '绑定值', key: `mpl.${node.cid}.vModel`, value: '', fullPath: 'vModel' },
-      { desc: '必填', key: `mpl.${node.cid}.required`, value: false, fullPath: 'required' },
-      { desc: '禁用', key: `mpl.${node.cid}.disabled`, value: false, fullPath: 'disabled' },
+      { label: '头像表单 / 显示隐藏', value: `mpl.var.${node.cid}.visible`, type: 'boolean' },
+      { label: '头像表单 / 绑定值', value: `mpl.var.${node.cid}.vModel`, type: 'string' },
+      { label: '头像表单 / 必填', value: `mpl.var.${node.cid}.required`, type: 'boolean' },
+      { label: '头像表单 / 禁用', value: `mpl.var.${node.cid}.disabled`, type: 'boolean' },
     ]
   }
 }

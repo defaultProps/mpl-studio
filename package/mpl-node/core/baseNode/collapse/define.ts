@@ -1,4 +1,4 @@
-import type { ComponentBaseExport, Node, NodePos } from '@mpl/typings'
+import type { ComponentBaseExport, Node, NodePos, NodeVar } from '@mpl/typings'
 import { newCid } from '@mpl/libs'
 
 function pos(): { pc: NodePos; mobile: NodePos } {
@@ -107,14 +107,14 @@ export const collapse: ComponentBaseExport = {
       }
     `
   },
-  getNodeVar: (node: CollapseProp) => {
+  getNodeVar: (node: CollapseProp): NodeVar[] => {
 
     const prefix = `${node.mpl_title} / ${node.mpl_zh}`
 
     return [
-      { desc: '显示隐藏', key: `mpl.${node.cid}.visible`, value: true, fullPath: 'visible' },
-      { desc: '展开项', key: `mpl.${node.cid}.vModel`, value: '', fullPath: 'vModel' },
-      { desc: prefix, key: 'cid', value: 'cid', fullPath: node.cid },
+      { label: `折叠面板 / ${prefix} / 显示隐藏`, value: `mpl.var.${node.cid}.visible`, type: 'boolean' },
+      { label: `折叠面板 / ${prefix} / 展开项`, value: `mpl.var.${node.cid}.vModel`, type: 'string' },
+      { label: `折叠面板 / ${prefix} / 展开项`, value: `activeCollapse_${node.cid}`, type: 'string' },
     ]
   }
 }

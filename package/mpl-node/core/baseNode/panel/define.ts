@@ -1,4 +1,4 @@
-import type { ComponentBaseExport, Node, NodePos, BaseBtn } from '@mpl/typings'
+import type { ComponentBaseExport, Node, NodePos, BaseBtn, NodeVar } from '@mpl/typings'
 
 // 顶部右侧挂载节点类型。仅适配挂载常用组件，特殊组件根据公司业务自行补充
 
@@ -133,9 +133,9 @@ export const panel: ComponentBaseExport = {
   comp: newPanel,
   pos: pos(),
   getTemplateCode,
-  getNodeVar: (node: PanelProp) => {
+  getNodeVar: (node: PanelProp): NodeVar[] => {
     return [
-      { desc: '显示隐藏', key: `mpl.${node.cid}.visible`, value: true, fullPath: 'visible' },
+      { label: '显示隐藏', value: `mpl.${node.cid}.visible`, type: 'boolean' },
     ]
   }
 }

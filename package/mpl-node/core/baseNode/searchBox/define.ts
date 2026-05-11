@@ -1,4 +1,4 @@
-import type { ComponentBaseExport, FormItemSize, SLOT_NODE, Node, NodePos } from '@mpl/typings'
+import type { ComponentBaseExport, FormItemSize, SLOT_NODE, Node, NodePos, NodeVar } from '@mpl/typings'
 
 function pos(): { pc: NodePos; mobile: NodePos } {
   return {
@@ -90,15 +90,14 @@ export const searchBox: ComponentBaseExport = {
   comp: newSearchBoxNode,
   pos: pos(),
   getTemplateCode,
-  getNodeVar: (node: SearchBoxProp) => {
+  getNodeVar: (node: SearchBoxProp): NodeVar[] => {
     return [
-      { desc: '显示隐藏', key: 'visible', value: true },
-      { desc: '禁用', key: 'disabled', value: false },
-      { desc: '重置', key: 'reset', value: false },
-      { desc: '重置', key: 'reset', value: false },
-      { desc: '展开', key: 'expand', value: false },
-      { desc: '查询', key: 'submit', value: false },
-      { desc: '收起', key: 'collapse', value: false },
+      { label: '显示隐藏', value: `${node.cid}.visible`, type: 'boolean' },
+      { label: '禁用', value: `${node.cid}.disabled`, type: 'boolean' },
+      { label: '重置', value: `${node.cid}.reset`, type: 'boolean' },
+      { label: '展开', value: `${node.cid}.expand`, type: 'boolean' },
+      { label: '查询', value: `${node.cid}.submit`, type: 'boolean' },
+      { label: '收起', value: `${node.cid}.collapse`, type: 'boolean' },
     ]
   }
 }

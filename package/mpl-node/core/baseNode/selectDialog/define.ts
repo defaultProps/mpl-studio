@@ -6,7 +6,8 @@ import type {
   NodePos,
   LimitInputProp,
   SLOT_NODE,
-  FormItemRule
+  FormItemRule,
+  NodeVar
 } from '@mpl/typings'
 import { DialogProp } from '../dialog/define'
 import { BaseTableProp } from '../table/define'
@@ -327,9 +328,9 @@ export const selectDialogNode: ComponentBaseExport = {
   comp: newSelectDialogNode,
   pos: pos(),
   getTemplateCode,
-  getNodeVar: (node: DialogProp) => {
+  getNodeVar: (node: SelectDialogFormProp): NodeVar[] => {
     return [
-      { desc: '显示隐藏', key: `mpl.${node.cid}.visible`, value: true, fullPath: 'visible' }
+      { label: '显示隐藏', value: `mpl.${node.cid}.visible`, type: 'boolean' }
     ]
   }
 }

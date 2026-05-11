@@ -1,4 +1,4 @@
-import { NodePos, Node, ComponentBaseExport } from '@mpl/typings'
+import type { NodePos, Node, ComponentBaseExport, NodeVar } from '@mpl/typings'
 
 
 export function newNode(): Node {
@@ -133,11 +133,13 @@ export const bodyNode: ComponentBaseExport = {
   comp: newNode,
   pos: pos(),
   getTemplateCode,
-  getNodeVar: (node: Node) => {
-    return [
-      { desc: `页面变量 / 禁用`, key: 'disabledPage', value: true, fullPath: `disabledPage` },
-      { desc: `页面变量 / 全屏加载中`, key: 'loadingPage', value: true, fullPath: `loadingPage` },
-      { desc: `页面变量 / 页面所有表单规则`, key: 'rules', value: true, fullPath: `rules` }
+  getNodeVar: (node: Node): NodeVar[] => {
+    // 自定义页面变量
+    const result: NodeVar[] = [
+      { label: `页面变量 / 禁用`, value: `mpl.disabledPage`, type: 'boolean' },
+      { label: `页面变量 / 全屏加载中`, value: `mpl.loadingPage`, type: 'boolean' },
+      { label: `页面变量 / 页面所有表单规则`, value: `mpl.rules`, type: 'array' },
     ]
+    return result
   }
 }

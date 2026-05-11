@@ -3,7 +3,8 @@ import type {
   ComponentBaseExport,
   Node,
   NODE_TAG,
-  NodePos
+  NodePos,
+  NodeVar
 } from '@mpl/typings'
 
 export interface ButtonGroupProp extends BaseBtn, Node {
@@ -107,12 +108,12 @@ export const buttonGroup: ComponentBaseExport = {
       }
     `
   },
-  getNodeVar: (node: ButtonGroupProp) => {
+  getNodeVar: (node: ButtonGroupProp): NodeVar[] => {
     const prefix = `${node.mpl_title} / ${node.mpl_zh}`
 
     return [
-      { desc: `${prefix} / 显示隐藏`, key: 'visible', value: true, fullPath: `${node.cid}.visible` },
-      { desc: `${prefix} / 禁用`, key: 'disabled', value: false, fullPath: `${node.cid}.disabled` },
+      { label: `按钮组 / ${prefix} / 显示隐藏`, value: `mpl.var.${node.cid}.visible`, type: 'boolean' },
+      { label: `按钮组 / ${prefix} / 禁用`, value: `mpl.var.${node.cid}.disabled`, type: 'boolean' },
     ]
   }
 }

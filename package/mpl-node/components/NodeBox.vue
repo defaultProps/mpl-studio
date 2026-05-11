@@ -31,10 +31,14 @@ function componentWrapperClassName() {
 }
 
 function getStyleLen() {
-  if (props.isMobile || props.node.pos.pc.wType === '%') {
+  const wType = props.node.pos.pc.wType
+  const w = props.node.pos.pc.w
+  if (props.isMobile || wType === '%') {
     return ''
   }
-  return { width: `${props.node.pos.pc.w}px` }
+  
+  const width = wType === 'px' ? (Number.isNaN(+w) ? w : `${w}px`): `${w}`
+  return { width }
 }
 
 const dragover = useThrottleFn((el: DragEvent) => {

@@ -1,4 +1,4 @@
-import type { BaseBtn, ComponentBaseExport, FormItemSize, FormLabelProp, Node, NodePos } from '@mpl/typings'
+import type { BaseBtn, ComponentBaseExport, FormItemSize, FormLabelProp, Node, NodePos, NodeVar } from '@mpl/typings'
 
 export interface DatePickerNode {
   model: string
@@ -128,16 +128,16 @@ export const datePicker: ComponentBaseExport = {
       }
     `
   },
-  getNodeVar: (node: DatePickerFormProp) => {
+  getNodeVar: (node: DatePickerFormProp): NodeVar[] => {
     const prefix = `${node.mpl_title} / ${node.mpl_zh}`
 
     return [
-      { desc: `${prefix} / 显示隐藏`, key: 'visible', value: true, fullPath: `${node.cid}.visible` },
-      { desc: `${prefix} / 绑定值`, key: 'vModel', value: '', fullPath: `${node.cid}.vModel` },
-      { desc: `${prefix} / 必填`, key: 'required', value: false, fullPath: `${node.cid}.required` },
-      { desc: `${prefix} / 禁用`, key: 'disabled', value: false, fullPath: `${node.cid}.disabled` },
-      { desc: `${prefix} / 只读`, key: 'readonly', value: false, fullPath: `${node.cid}.readonly` },
-      { desc: prefix, key: 'cid', value: 'cid', fullPath: node.cid },
+      { label: `${prefix} / 显示隐藏`, value: `${node.cid}.visible`, type: 'boolean' },
+      { label: `${prefix} / 绑定值`, value: `${node.cid}.vModel`, type: 'string' },
+      { label: `${prefix} / 必填`, value: `${node.cid}.required`, type: 'boolean' },
+      { label: `${prefix} / 禁用`, value: `${node.cid}.disabled`, type: 'boolean' },
+      { label: `${prefix} / 只读`, value: `${node.cid}.readonly`, type: 'boolean' },
+      { label: prefix, value: `${node.cid}.cid`, type: 'string' },
     ]
   }
 }

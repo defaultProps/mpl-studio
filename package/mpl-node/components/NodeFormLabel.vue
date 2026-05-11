@@ -9,9 +9,13 @@ import RadioBtnGroup from './RadioBtnGroup.vue'
 import FormIconItem from './FormIconItem.vue'
 import FormItemSingle from './FormItemSingle.vue'
 import FormItemLabelI18n from './FormItemLabelI18n.vue'
-import { workbenchStore, userStore } from '@mpl/store'
+import { workbenchStore, userStore, viewStore } from '@mpl/store'
+import I18nSub from './subSettingBox/I18nSub.vue'
 
+const view = viewStore()
 const user = userStore()
+const id = useId()
+const emit = defineEmits(['blur'])
 const props = defineProps<{ cid: string }>()
 const label = defineModel<FormLabelProp>({ default: {} })
 const mpl_zh = defineModel<string>('mpl_zh')
@@ -29,6 +33,13 @@ function blueLabelText() {
     cid: props.cid
   })
   label.value.text = mpl_zh.value = labelText.value
+}
+
+function handleSelectI18n() {
+  view.$patch({
+    subBoxSettingModel: 'i18n',
+    subBoxSettingModelId: id
+  })
 }
 </script>
 
@@ -50,11 +61,14 @@ function blueLabelText() {
       <!-- 使用第三方库支持颜色选择-透明度, 已使用颜色, 常用颜色等 -->
       <FormItem label="图标颜色">
         <input v-model="label.iconTheme" type="color" class="mpl-input mr-5" autocomplete="off">
-        <InputNode v-model="label.iconTheme" :readonly="true" />
+        <InputNode :model-value="label.iconTheme.toLocaleUpperCase()" :readonly="true" />
       </FormItem>
       <FormItem :var="`mpl.${props.cid}.label.icon.info`" label="图标信息">
         <InputNode v-model="label.iconText" />
-        <button v-if="user.authority === 'enterprise'" type="button" class="icon-in1 icon mpl-btn ml-5" />
+        <button v-if="user.authority === 'enterprise'" type="button" class="icon-in1 icon mpl-btn ml-5"
+          :class="{ 'is-active': view.subBoxSettingModel === 'i18n' && view.subBoxSettingModelId === id }"
+          @click="handleSelectI18n" />
+        <I18nSub v-if="view.subBoxSettingModel === 'i18n' && view.subBoxSettingModelId === id" v-model="label.iconText" />
       </FormItem>
     </template>
   </template>

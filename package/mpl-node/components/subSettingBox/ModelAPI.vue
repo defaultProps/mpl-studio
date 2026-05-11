@@ -3,7 +3,7 @@
 import InputNode from '../InputNode.vue'
 import { ref, watch, onMounted } from 'vue'
 import { workbenchStore } from '@mpl/store'
-import { filterNodeListWithClientAPI } from '@mpl/libs'
+import { filterNodeListWithClientAPI, getAllVarsByNodeList } from '@mpl/libs'
 import type { Node, NODE_TAG, SENIOR_TAG } from '@mpl/typings'
 import SubSettingHeaderUI from '../SubSettingHeaderUI.vue'
 
@@ -19,46 +19,6 @@ interface MiniNodeCategory {
   mpl_title: string
   cid: string | undefined
   mpl_children: MiniNode[] | undefined
-}
-
-// 获取页面所有的变量[包含组件变量-页面变量, 平台变量等]
-
-
-function getAllVarList() {
-  const nodeList = workbench.nodeList
-  const result: MiniNode[] = []
-
-  function _miniNode(node: Node, target: MiniNode) {
-    const _obj = {
-      tag: node.tag,
-      cid: node.cid,
-      mpl_title: node.mpl_title,
-      mpl_children: Array.isArray(node.mpl_children) ? [] : undefined
-    }
-    target.mpl_children?.push(_obj)
-    if (Array.isArray(node.mpl_children)) {
-      node.mpl_children.forEach(child => {
-        _miniNode(child, _obj)
-      })
-    }
-  }
-
-  nodeList.forEach(node => {
-    const obj: MiniNode = {
-      tag: node.tag,
-      cid: node.cid,
-      mpl_title: node.mpl_title,
-      mpl_children: Array.isArray(node.mpl_children) ? [] : undefined
-    }
-    result.push(obj)
-    if (Array.isArray(node.mpl_children)) {
-      node.mpl_children.forEach(child => {
-        _miniNode(child, obj)
-      })
-    }
-  })
-
-  return result
 }
 
 const props = defineProps<{
@@ -78,34 +38,126 @@ function submitClient() {
 }
 
 onMounted(() => {
-  allVarList.value = getAllVarList()
+  allVarList.value = getAllVarsByNodeList(workbench.nodeList)
+  const vars = [
+    {
+      label: '页面变量',
+      children: [
+        {
+          label: '页面禁用',
+          value: 'disabledPage'
+        },
+        {
+          label: '页面加载状态',
+          value: 'loadingPage'
+        },
+        {
+          label: '页面所有表单规则',
+          value: 'rules'
+        }
+      ]
+    },
+    {
+      label: '系统方法',
+      children: [
+        {
+          label: '提交前校验',
+          value: 'validatePageBeforeSubmit'
+        },
+        {
+          label: '页面加载前',
+          value: 'pageBeforeLoad'
+        },
+        {
+          label: '清空页面表单校验',
+          value: 'clearAllValidate'
+        },
+        {
+          label: '重置页面表单值',
+          value: 'resetAllFormValues'
+        },
+        {
+          label: '页面加载完成后',
+          value: 'pageAfterLoad'
+        },
+        {
+          label: '页面提交后',
+          value: 'pageAfterSubmit'
+        },
+        {
+          label: '页面销毁前',
+          value: 'pageBeforeDestroy'
+        }
+      ]
+    },
+    {
+      label: '平台变量',
+      // 通过文档导入平台变量。 这个需要挂载平台和mpl-studio平台对接。
+      children: [
+        {
+          label: '用户信息{userInfo包含用户信息字段： username, password, email, phone, role, id}',
+          value: 'getPlatformUserInfo()', // 该方法是第三方平台提供。存在value字段表示可以使用。
+          children: [
+            {
+              label: '用户名',
+              value: 'getPlatformUserInfo().username'
+            },
+            {
+              label: '密码',
+              value: 'getPlatformUserInfo().password'
+            },
+            {
+              label: '邮箱',
+              value: 'getPlatformUserInfo().email'
+            },
+            {
+              label: '手机号',
+              value: 'getPlatformUserInfo().phone'
+            },
+            {
+              label: '角色',
+              value: 'getPlatformUserInfo().role'
+            },
+            {
+              label: '用户ID',
+              value: 'getPlatformUserInfo().id'
+            },
+          ]
+        },
+        {
+          label: '平台token',
+          value: 'getTokenPlatform()'
+        },
+        {
+          label: '平台所有表单规则',
+          value: 'rulesPlatform'
+        }
+      ]
+    }
+  ]
 })
 
 </script>
 
 <template>
   <div id="modelClientAPIBox" class="model-api--box">
-    <SubSettingHeaderUI :label="`自动计算值绑定 ${props.desc}`" @close="emit('close')" />
+    <SubSettingHeaderUI :label="`公式计算 ${props.desc}`" @close="emit('close')" />
     <div class="content-box">
       <div class="left-form-node">
         <div class="title-bar flex">
-          <span class="flex-1">页面变量</span>
+          <span class="flex-1">页面字段</span>
           <select class="mpl-select mr-5" style="max-width: 100px">
-            <option value="currentPage">组件变量</option>
-            <option value="otherPage">类别变量</option>
+            <option value="currentPage">组件字段</option>
+            <option value="otherPage">类别字段</option>
           </select>
-          <InputNode v-model="searchNode" class="fff-input" style="max-width: 100px;" placeholder="查询变量" />
+          <InputNode v-model="searchNode" class="fff-input" style="max-width: 200px;" placeholder="查询字段" />
         </div>
         <el-tree :data="allVarList" default-expand-all />
       </div>
       <div class="right-client-api">
         <div class="title-bar flex">
-          <span class="flex-1">公式列表</span>
-          <select class="mpl-select mr-5" style="max-width: 100px">
-            <option value="currentPage">组件变量</option>
-            <option value="otherPage">类别变量</option>
-          </select>
-          <InputNode v-model="searchNode" class="fff-input" style="max-width: 100px;" placeholder="查询变量" />
+          公式列表
+          <InputNode v-model="searchNode" class="fff-input" style="max-width: 200px;" placeholder="查询公式" />
         </div>
         {{ props.tag }}
       </div>

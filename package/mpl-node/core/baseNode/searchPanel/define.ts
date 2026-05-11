@@ -1,4 +1,4 @@
-import type { ComponentBaseExport, Node, NodePos, BaseBtnType, BTN_THEME_TYPE } from '@mpl/typings'
+import type { ComponentBaseExport, Node, NodePos, BaseBtnType, BTN_THEME_TYPE, NodeVar } from '@mpl/typings'
 
 import { newCid } from '@mpl/libs'
 
@@ -103,9 +103,9 @@ export const searchPanel: ComponentBaseExport = {
   getTemplateCode: (node: SearchPanel) => {
     return ``
   },
-  getNodeVar: (node: SearchPanel) => {
+  getNodeVar: (node: SearchPanel): NodeVar[] => {
     return [
-      { desc: '显示隐藏', key: `mpl.${node.cid}.visible`, value: true },
+      { label: '显示隐藏', value: `${node.cid}.visible`, type: 'boolean' },
     ]
   }
 }

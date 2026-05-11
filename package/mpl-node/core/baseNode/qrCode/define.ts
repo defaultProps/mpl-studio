@@ -1,4 +1,4 @@
-import type { ComponentBaseExport, NodePos, Node } from '@mpl/typings'
+import type { ComponentBaseExport, NodePos, Node, NodeVar } from '@mpl/typings'
 
 export interface QrCodeNode {
   color: string // 码颜色
@@ -94,10 +94,10 @@ export const QrCode: ComponentBaseExport = {
   pos: pos(),
 
   getTemplateCode,
-  getNodeVar: (node: QrCodeBox) => {
+  getNodeVar: (node: QrCodeBox): NodeVar[] => {
     return [
-      { desc: '显示隐藏', key: `mpl.${node.cid}.visible`, value: true, fullPath: 'visible' },
-      { desc: '绑定值', key: `mpl.${node.cid}.vModel`, value: '', fullPath: 'vModel' },
+      { label: '显示隐藏', value: `${node.cid}.visible`, type: 'boolean' },
+      { label: '绑定值', value: `${node.cid}.vModel`, type: 'string' },
     ]
   }
 }

@@ -1,4 +1,4 @@
-import type { BaseBtn, ComponentBaseExport, Node, NodePos } from '@mpl/typings'
+import type { BaseBtn, ComponentBaseExport, Node, NodePos, NodeVar } from '@mpl/typings'
 import { newCid } from '@mpl/libs'
 
 export interface TabsPaneProp {
@@ -148,10 +148,10 @@ export const tabsNode: ComponentBaseExport = {
   comp: newTabsNode,
   pos: pos(),
   getTemplateCode,
-  getNodeVar: (node: Tabs) => {
+  getNodeVar: (node: Tabs): NodeVar[] => {
     return [
-      { desc: '显示隐藏', key: `mpl.${node.cid}.visible`, value: true, fullPath: 'visible' },
-      { desc: '当前选择页签', key: `mpl.${node.cid}.vModel`, value: '', fullPath: 'vModel' },
+      { label: '显示隐藏', value: `mpl.${node.cid}.visible`, type: 'boolean' },
+      { label: '当前选择页签', value: `mpl.${node.cid}.activeModel`, type: 'string' },
     ]
   }
 }

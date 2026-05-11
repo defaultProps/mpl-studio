@@ -175,13 +175,13 @@ export const checkbox: ComponentBaseExport = {
     const prefix = `${node.mpl_title} / ${node.mpl_zh}`
 
     return [
-      { desc: `${prefix} / 显示隐藏`, key: 'visible', value: true, fullPath: `${node.cid}.visible` },
-      { desc: `${prefix} / 绑定值`, key: 'vModel', value: false, fullPath: `${node.cid}.vModel` },
-      { desc: `${prefix} / 选项列表`, key: 'options', value: false, fullPath: `${node.cid}.options` },
-      { desc: `${prefix} / 必填`, key: 'required', value: false, fullPath: `${node.cid}.required` },
-      { desc: `${prefix} / 禁用`, key: 'disabled', value: false, fullPath: `${node.cid}.disabled` },
-      { desc: `${prefix} / 只读`, key: 'readonly', value: false, fullPath: `${node.cid}.readonly` },
-      { desc: prefix, key: 'cid', value: 'cid', fullPath: node.cid },
+      { label: `多选控件 / ${prefix} / 显示隐藏`, value: `mpl.var.${node.cid}.visible`, type: 'boolean' },
+      { label: `多选控件 / ${prefix} / 绑定值`, value: `mpl.var.${node.cid}.vModel`, type: 'string' },
+      { label: `多选控件 / ${prefix} / 选项列表`, value: `mpl.var.${node.cid}.options`, type: 'array' },
+      { label: `多选控件 / ${prefix} / 必填`, value: `mpl.var.${node.cid}.required`, type: 'boolean' },
+      { label: `多选控件 / ${prefix} / 禁用`, value: `mpl.var.${node.cid}.disabled`, type: 'boolean' },
+      { label: `多选控件 / ${prefix} / 只读`, value: `mpl.var.${node.cid}.readonly`, type: 'boolean' },
+      { label: `多选控件 / ${prefix} / 选中项`, value: `mpl.var.${node.cid}.model`, type: 'array' },
     ]
   }
 }

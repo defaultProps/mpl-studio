@@ -127,8 +127,8 @@ function handleSearchIcon() {
       <span>{{ total }}</span>
       <div class="prev-page-btn">
         {{ currentPage + '/' + Math.ceil(total / pageSize) }}
-        <button type="button" class="mpl-btn icon icon-minus ml-5" :disabled="currentPage <= 1" @click="prevPage" />
-        <button type="button" class="mpl-btn icon icon-plus ml-5" :disabled="currentPage >= maxPage"
+        <button type="button" class="mpl-btn icon icon-arrow-left ml-5" :disabled="currentPage <= 1" @click="prevPage" />
+        <button type="button" class="mpl-btn icon icon-arrow-right ml-5" :disabled="currentPage >= maxPage"
           @click="nextPage" />
       </div>
     </div>

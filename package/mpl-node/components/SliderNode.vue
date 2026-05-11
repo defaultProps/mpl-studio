@@ -27,8 +27,7 @@ function changeIsUnitRange() {
     return
   }
 
-  vModelType.value = vModelType.value === '%' ? 'px' : '%'
-  vModel.value = vModelType.value === 'px' ? 24 : 600 // 默认600px
+  vModel.value = vModelType.value === '%' ? 8 : '600px' // 默认600px
 }
 </script>
 
@@ -48,6 +47,11 @@ function changeIsUnitRange() {
       @change="changeIsUnitRange">
       <option value="%">比例</option>
       <option value="px">像素</option>
+      <!--
+        快捷配置, 不需要设置基础容器包裹，直接通过自动计算占据宽度。
+        使用的css并不是flex-1, 而是width: calc(100% - (100% / 24 * 4 + ...多个计算节点)))
+      -->
+      <option disabled value="flex-row">单行占满</option>
     </select>
     <template v-if="vModelType === '%' && !props.isHeight">
       <input :value="vModel" :min="props.min" :max="props.max" type="range" class="mpl-slider" autocomplete="off"

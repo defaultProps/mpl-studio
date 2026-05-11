@@ -163,32 +163,3 @@ export function generatorRule(nodes: Node[]) {
 
   return rules
 }
-
-// 根据ide代码变量路径查找所有组件对应的变量描述
-export function searchNodeListVarsByFullPath(fullPath: string, nodeList: Node[]): string {
-  // 递归查询所有组件列表
-  const allVars: NodeVar[] = []
-  function queryNode(list: Node[]) {
-    list.forEach((v: any) => {
-      const vars: NodeVar[] = mapNodeSetting[v.tag]!.node.getNodeVar?.(v) || []
-      allVars.push(...vars)
-
-      // 折叠面板
-      if (['mpl-collapse', 'mpl-tabs'].includes(v.tag)) {
-        v.itemList.forEach((s: any) => {
-          if (Array.isArray(s.mpl_children) && s.mpl_children.length > 0) {
-            queryNode(s.mpl_children)
-          }
-        })
-      }
-      // 其他容器
-      else if (Array.isArray(v.mpl_children) && v.mpl_children.length > 0) {
-        queryNode(v.mpl_children)
-      }
-    })
-  }
-
-  queryNode(nodeList)
-
-  return allVars.find(v => fullPath.replace('mpl.var.', '') === v.fullPath)?.desc || ''
-}

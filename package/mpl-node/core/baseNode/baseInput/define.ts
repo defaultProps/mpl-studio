@@ -248,21 +248,39 @@ export const singleInputNode: ComponentBaseExport = {
   getNodeVar: (node: SingleInputFormProp): NodeVar[] => {
     // 如果有子组件, 也根据该组件获取动态变量
     const prefix = `${node.mpl_title} / ${node.mpl_zh}`
-    const allVars = [
-      { desc: `${prefix} / 显示隐藏`, fullPath: `${node.cid}.visible` },
-      { desc: `${prefix} / 绑定值`, fullPath: `${node.cid}.vModel` },
-      { desc: `${prefix} / 必填`, fullPath: `${node.cid}.required` },
-      { desc: `${prefix} / 禁用`, fullPath: `${node.cid}.disabled` },
-      { desc: `${prefix} / 只读`, fullPath: `${node.cid}.readonly` },
-      { desc: prefix, fullPath: node.cid },
+    const allVars: NodeVar[] = [
+      { label: `基础输入 / ${prefix} / 显示隐藏`, value: `mpl.var.${node.cid}.visible`, type: 'boolean' },
+      { label: `基础输入 / ${prefix} / 绑定值`, value: `mpl.var.${node.cid}.vModel`, type: 'string' },
+      { label: `基础输入 / ${prefix} / 必填`, value: `mpl.var.${node.cid}.required`, type: 'boolean' },
+      { label: `基础输入 / ${prefix} / 禁用`, value: `mpl.var.${node.cid}.disabled`, type: 'boolean' },
+      { label: `基础输入 / ${prefix} / 只读`, value: `mpl.var.${node.cid}.readonly`, type: 'boolean' },
+      { label: `基础输入 / ${prefix} / 唯一标识`, value: node.cid, type: 'string' },
     ]
 
     node.slotNodes.forEach(slot => {
       if (slot.tag === 'btn') {
-        allVars.push({
-          desc: `${prefix} / 插槽 / 按钮 / 文本`,
-          fullPath: `${node.cid}.slot.${slot.cid}.text`,
-        })
+        allVars.push(
+          {
+            label: `基础输入-插槽 / 按钮 / ${prefix} / 文本`,
+            value: `mpl.var.${node.cid}.slot.${slot.cid}.text`,
+            type: 'string'
+          },
+          {
+            label: `基础输入-插槽 / 按钮 / ${prefix} / 禁用`,
+            value: `mpl.var.${node.cid}.slot.${slot.cid}.disabled`,
+            type: 'boolean'
+          },
+          {
+            label: `基础输入-插槽 / 按钮 / ${prefix} / 显隐`,
+            value: `mpl.var.${node.cid}.slot.${slot.cid}.visible`,
+            type: 'boolean'
+          },
+          {
+            label: `基础输入-插槽 / 按钮 / ${prefix} / 加载状态`,
+            value: `mpl.var.${node.cid}.slot.${slot.cid}.loading`,
+            type: 'boolean'
+          }
+        )
       }
     })
 
