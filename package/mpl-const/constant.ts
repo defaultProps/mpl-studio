@@ -3,17 +3,12 @@ import { newId } from '@mpl/libs'
 // 基础颜色列表
 export const predefineColorsList = ['#ff4500', '#ff8c00', '#ffd700', '#90ee90', '#00ced1', '#1e90ff', '#c71585']
 
-export enum SERVICE_MODE {
-  STATIC = 'static', // 静态数据配置。初始化配置
-  DYNAMICS = 'dynamics', // 接口绑定。默认onMounted触发
-  CONNECT = 'connect', // 通过其他关联绑定。举例：前端添加列动态添加行数据
-  CUSTOM = 'custom' // 自定义
-}
+export type SERVICE_MODE = 'static' | 'dynamics' | 'connect' | 'custom'
 
 export const serviceOption: Array<{ label: string; value: SERVICE_MODE }> = [
-  { label: '静态', value: SERVICE_MODE.STATIC },
-  { label: '服务', value: SERVICE_MODE.DYNAMICS },
-  { label: '自定义', value: SERVICE_MODE.CUSTOM }
+  { label: '静态', value: 'static' },
+  { label: '服务', value: 'dynamics' },
+  { label: '自定义', value: 'custom' }
 ]
 
 // 预留颜色

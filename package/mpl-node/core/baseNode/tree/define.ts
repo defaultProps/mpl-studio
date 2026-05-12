@@ -1,7 +1,5 @@
 import type { ComponentBaseExport, Node, NodePos, ServiceFormBindNode } from '@mpl/typings'
 
-import { SERVICE_MODE } from '@mpl/const'
-
 export function getDefaultTreeOptions() {
   return []
 }
@@ -118,7 +116,7 @@ export function newTreeNode(cid: string): TreeNodeProp {
         classKey: ''
       },
       service: {
-        mode: SERVICE_MODE.STATIC,
+        mode: 'static',
         staticData: getDefaultTreeOptions(),
         methodName: '',
         methodCode: '',

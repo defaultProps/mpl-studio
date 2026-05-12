@@ -53,14 +53,12 @@ function addPredefineColors() {
   </div>
 </template>
 
-<style lang="less">
-.right-bar-setting--box {
-  .predefine-line {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    height: 30px;
-    overflow: hidden;
-  }
+<style lang="less" scoped>
+.predefine-line {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 30px;
+  overflow: hidden;
 }
 </style>

@@ -427,11 +427,25 @@ export declare namespace MPL {
     type: ComponentPosType // 组件宽高拖拉拽配置【所有容器】
     mod?: 'popover' | 'box' | 'normal' | 'form' | 'dialog' | 'drawer' | 'formItem' | 'slot' // 画板UI定位 默认 normal
   }
+
+  export interface NodeVarTreeProp {
+    label: string
+    children: NodeVar[]
+  }
   // 组件向外提供的变量
   export interface NodeVar {
     label: string
     value: string,
     type: 'string' | 'number' | 'boolean' | 'object' | 'array' | 'null' | string // 值类型。 string自定义, 比如枚举
+  }
+
+  // 可视化交互
+  export interface InteractiveProp {
+    label: string
+    value: string
+    message: string
+    code: any
+    params: Array<{ option: string | NODE_TAG[]; type: string; value: string | unknown; desc: string; required: boolean }>
   }
 
   export interface ContextMenuNode {
@@ -481,7 +495,7 @@ export declare namespace MPL {
     pos: { pc: NodePos; mobile: NodePos }
     getTemplateCode: (node: any) => string
     getBaseVar?: (cid: string) => string
-    getNodeVar: (node: any) => NodeVar[]
+    getNodeVar: (node: any) => { label: string; children: NodeVar[] }
   }
 
   export interface FormLabelProp {

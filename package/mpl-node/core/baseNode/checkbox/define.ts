@@ -9,8 +9,6 @@ import {
   ComponentBaseExport
 } from '@mpl/typings'
 
-import { SERVICE_MODE } from '@mpl/const'
-
 export function getDefaultCheckboxOptions() {
   return [
     { label: '北京', value: 'beijing' },
@@ -138,7 +136,7 @@ export function newCheckboxNode(cid: string): CheckboxFormProp {
       placeholder: '请选择',
       readonly: false,
       service: {
-        mode: SERVICE_MODE.STATIC,
+        mode: 'static',
         methodName: '',
         methodCode: '',
         labelKey: 'label',

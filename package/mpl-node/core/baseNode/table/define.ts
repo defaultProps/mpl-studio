@@ -1,5 +1,4 @@
 import type { ComponentBaseExport, Node, NodePos, BaseBtn, ServiceTableBindNode } from '@mpl/typings'
-import { SERVICE_MODE } from '@mpl/const'
 import { newCid } from '@mpl/libs'
 import { initTableColumn, initTableData } from './constant'
 
@@ -387,7 +386,7 @@ export function newBaseTableNode(cid: string): BaseTableProp {
     defaultEvents: [],
     pos: pos(),
     service: {
-      mode: SERVICE_MODE.STATIC,
+      mode: 'static',
       methodName: '',
       methodCode: '',
       staticData: initTableData(),

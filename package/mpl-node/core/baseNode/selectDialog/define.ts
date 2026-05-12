@@ -11,9 +11,7 @@ import type {
 } from '@mpl/typings'
 import { DialogProp } from '../dialog/define'
 import { BaseTableProp } from '../table/define'
-
 import { newCid } from '@mpl/libs'
-import { SERVICE_MODE } from '@mpl/const'
 
 export interface SelectDialogNodeProp {
   model: any // 服务绑定的接口选中值
@@ -173,7 +171,7 @@ export function newSearchTableNode(cid: string): BaseTableProp {
     },
     columns: [],
     service: {
-      mode: SERVICE_MODE.STATIC,
+      mode: 'static',
       methodName: '',
       methodCode: '',
       staticData: [],

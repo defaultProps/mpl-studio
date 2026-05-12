@@ -14,9 +14,10 @@ const props = defineProps<{
   var?: string
   placement?: string
   cid?: boolean
-  hiddenLabel?: boolean
-  flexEnd?: boolean
-  flexStart?: boolean
+  hiddenLabel?: boolean // 是否隐藏标题 ui
+  flexEnd?: boolean // 内容右对齐 ui
+  flexStart?: boolean // 内容左对齐 ui
+  wrap?: boolean // 是否换行显示 ui
   layout?: boolean // 排版类型
   service?: boolean // 服务类型
   serviceType?: string // 服务值
@@ -88,7 +89,7 @@ function changeSubBoxSetting(model: SUB_BOX_SETTING_MODEL) {
 </script>
 
 <template>
-  <div class="form-item-node" :class="{ 'flex-start-content': props.flexStart }">
+  <div class="form-item-node" :class="{ 'flex-start-content': props.flexStart, 'flex-column': props.wrap }">
     <template v-if="props.hiddenLabel !== true">
       <span v-if="props.var"
         v-tooltip.left="{ content: isCopy ? '已复制' : props.var, shown: visibleTooltip, triggers: [], autoHide: false }"

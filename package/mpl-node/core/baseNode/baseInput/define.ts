@@ -245,38 +245,38 @@ export const singleInputNode: ComponentBaseExport = {
       }
     `
   },
-  getNodeVar: (node: SingleInputFormProp): NodeVar[] => {
+  getNodeVar: (node: SingleInputFormProp): { label: string; children: NodeVar[] } => {
     // 如果有子组件, 也根据该组件获取动态变量
-    const prefix = `${node.mpl_title} / ${node.mpl_zh}`
+    const label = node.mpl_zh || '基础输入'
     const allVars: NodeVar[] = [
-      { label: `基础输入 / ${prefix} / 显示隐藏`, value: `mpl.var.${node.cid}.visible`, type: 'boolean' },
-      { label: `基础输入 / ${prefix} / 绑定值`, value: `mpl.var.${node.cid}.vModel`, type: 'string' },
-      { label: `基础输入 / ${prefix} / 必填`, value: `mpl.var.${node.cid}.required`, type: 'boolean' },
-      { label: `基础输入 / ${prefix} / 禁用`, value: `mpl.var.${node.cid}.disabled`, type: 'boolean' },
-      { label: `基础输入 / ${prefix} / 只读`, value: `mpl.var.${node.cid}.readonly`, type: 'boolean' },
-      { label: `基础输入 / ${prefix} / 唯一标识`, value: node.cid, type: 'string' },
+      { label: `${label} / 显示隐藏`, value: `mpl.var.${node.cid}.visible`, type: 'boolean' },
+      { label: `${label} / 绑定值`, value: `mpl.var.${node.cid}.vModel`, type: 'string' },
+      { label: `${label} / 必填`, value: `mpl.var.${node.cid}.required`, type: 'boolean' },
+      { label: `${label} / 禁用`, value: `mpl.var.${node.cid}.disabled`, type: 'boolean' },
+      { label: `${label} / 只读`, value: `mpl.var.${node.cid}.readonly`, type: 'boolean' },
+      { label: `${label} / 唯一标识`, value: node.cid, type: 'string' },
     ]
 
     node.slotNodes.forEach(slot => {
       if (slot.tag === 'btn') {
         allVars.push(
           {
-            label: `基础输入-插槽 / 按钮 / ${prefix} / 文本`,
+            label: `${label} / ${slot.metaInfo.text} / 文本`,
             value: `mpl.var.${node.cid}.slot.${slot.cid}.text`,
             type: 'string'
           },
           {
-            label: `基础输入-插槽 / 按钮 / ${prefix} / 禁用`,
+            label: `${label} / ${slot.metaInfo.text} / 禁用`,
             value: `mpl.var.${node.cid}.slot.${slot.cid}.disabled`,
             type: 'boolean'
           },
           {
-            label: `基础输入-插槽 / 按钮 / ${prefix} / 显隐`,
+            label: `${label} / ${slot.metaInfo.text} / 显隐`,
             value: `mpl.var.${node.cid}.slot.${slot.cid}.visible`,
             type: 'boolean'
           },
           {
-            label: `基础输入-插槽 / 按钮 / ${prefix} / 加载状态`,
+            label: `${label} / ${slot.metaInfo.text} / 加载状态`,
             value: `mpl.var.${node.cid}.slot.${slot.cid}.loading`,
             type: 'boolean'
           }
@@ -284,6 +284,9 @@ export const singleInputNode: ComponentBaseExport = {
       }
     })
 
-    return allVars
+    return {
+      label,
+      children: allVars
+    }
   }
 }

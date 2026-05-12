@@ -4,8 +4,6 @@ import type {
   ServiceFormBindNode, NodePos, SLOT_NODE, NodeVar
 } from '@mpl/typings'
 
-import { SERVICE_MODE } from '@mpl/const'
-
 const selectEvents: EventNode[] = [
   { name: 'input', desc: '输入内容时', code: '', open: false, type: 'baseComponent', flowType: '', tag: 'mpl-select', cid: '' },
   { name: 'focus', desc: '获取焦点时', code: '', open: false, type: 'baseComponent', flowType: '', tag: 'mpl-select', cid: '' },
@@ -139,7 +137,7 @@ export function newSelectNode(cid: string): SelectFormProp {
       readonly: false,
       placeholder: '请选择',
       service: {
-        mode: SERVICE_MODE.STATIC,
+        mode: 'static',
         methodName: '',
         methodCode: '',
         labelKey: 'label',

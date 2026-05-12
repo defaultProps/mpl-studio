@@ -12,7 +12,7 @@ import { SERVICE_MODE } from '@mpl/const'
 const props = defineProps<{ label: string }>()
 const service = defineModel<ServiceTableBindNode>({
   default: {
-    mode: SERVICE_MODE.STATIC,
+    mode: 'static',
     defaultValue: []
   }
 })
@@ -21,7 +21,7 @@ const id = useId()
 
 function openSubSettingBox(model: SERVICE_MODE) {
   view.$patch({
-    subBoxSettingModel: model === SERVICE_MODE.STATIC ? 'staticJSON' : 'serviceMode',
+    subBoxSettingModel: model === 'static' ? 'staticJSON' : 'serviceMode',
     subBoxSettingModelId: id
   })
 }
@@ -35,7 +35,7 @@ function changeServiceMode() {
 </script>
 
 <template>
-  <FormItem label="数据来源" :msg="service.mode === SERVICE_MODE.DYNAMICS ? '未绑定接口或该接口已失效' : ''">
+  <FormItem label="数据来源" :msg="service.mode === 'dynamics' ? '未绑定接口或该接口已失效' : ''">
     <select v-model="service.mode" class="flex-1 mpl-select" @change="changeServiceMode">
       <option v-for="item in serviceTypeOption" :value="item.value">
         {{ item.label }}

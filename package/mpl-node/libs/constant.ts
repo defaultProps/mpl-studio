@@ -1,4 +1,3 @@
-import type { EventNode } from '@mpl/typings'
 import { SERVICE_MODE } from '@mpl/const'
 
 export const labelPosWithClassName = new Map([
@@ -21,10 +20,10 @@ export const textAlignPosition = [
 ]
 
 export const serviceTypeOption: Array<{ label: string; value: SERVICE_MODE }> = [
-  { label: '静态数据', value: SERVICE_MODE.STATIC },
-  { label: '接口绑定', value: SERVICE_MODE.DYNAMICS },
-  { label: '关联配置', value: SERVICE_MODE.CONNECT },
-  { label: '自定义', value: SERVICE_MODE.CUSTOM }
+  { label: '静态数据', value: 'static' },
+  { label: '接口绑定', value: 'dynamics' },
+  { label: '关联配置', value: 'connect' },
+  { label: '自定义', value: 'custom' }
 ]
 
 // 表单自定义规则类型

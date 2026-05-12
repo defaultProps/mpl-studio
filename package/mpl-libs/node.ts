@@ -1,4 +1,4 @@
-import type { Node, BreadCrumbNode, ParseVueOptions, EventNode, NodeVar } from '@mpl/typings'
+import type { Node, BreadCrumbNode, ParseVueOptions, EventNode, NodeVar, NodeVarTreeProp } from '@mpl/typings'
 import { mapNodeSetting } from '@mpl/node'
 
 // 更新节点单个属性
@@ -297,13 +297,15 @@ export function bindEventByTemplateStr(defaultEvents: EventNode[]): string {
 }
 
 // 根据ide代码变量路径查找所有组件对应的变量描述
-export function getAllVarsByNodeList(nodeList: Node[]): NodeVar[] {
+export function getAllVarsByNodeList(nodeList: Node[]): NodeVarTreeProp[] {
   // 递归查询所有组件列表
-  const allVars: NodeVar[] = []
+  const allVars: NodeVarTreeProp[] = []
   function queryNode(list: Node[]) {
     list.forEach((v: any) => {
-      const vars: NodeVar[] = mapNodeSetting[v.tag]!.node.getNodeVar?.(v) || []
-      allVars.push(...vars)
+      const obj = mapNodeSetting[v.tag]!.node.getNodeVar?.(v)
+      if (obj) {
+        allVars.push(obj)
+      }
 
       // 折叠面板
       if (['mpl-collapse', 'mpl-tabs'].includes(v.tag)) {

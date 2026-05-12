@@ -1,7 +1,9 @@
-import type { NodePos, Node, ComponentBaseExport, NodeVar } from '@mpl/typings'
+import type { NodePos, Node, ComponentBaseExport, NodeVarTreeProp, NodeVar } from '@mpl/typings'
+interface BodyNode extends Node {
+  customVars: Array<NodeVar & { initValue: string, varType: 'data' | 'computed', type: string, desc: string }>
+}
 
-
-export function newNode(): Node {
+export function newNode(): BodyNode {
   return {
     mpl_group: '页面节点',
     mpl_title: '画板节点',
@@ -9,7 +11,6 @@ export function newNode(): Node {
     field: '',
     cid: 'body',
     tag: 'mpl-body',
-
     variables: [],
     mpl_zh: 'body',
     mpl_ce: 'c',
@@ -54,7 +55,18 @@ export function newNode(): Node {
     classList: [],
     userClassName: [],
     style: '',
-    pos: pos()
+    pos: pos(),
+    customVars: [
+      {
+        // 是一个data变量或computed计算变量
+        label: '用户信息',
+        value: 'userInfo', // 使用方式 mpl.var.custom.userInfo
+        initValue: 'getUserInfo()', // 初始赋值
+        varType: 'data',
+        type: 'object',
+        desc: ''
+      }
+    ]
   }
 }
 
@@ -133,13 +145,23 @@ export const bodyNode: ComponentBaseExport = {
   comp: newNode,
   pos: pos(),
   getTemplateCode,
-  getNodeVar: (node: Node): NodeVar[] => {
+  getNodeVar: (node: BodyNode): NodeVarTreeProp => {
     // 自定义页面变量
     const result: NodeVar[] = [
-      { label: `页面变量 / 禁用`, value: `mpl.disabledPage`, type: 'boolean' },
-      { label: `页面变量 / 全屏加载中`, value: `mpl.loadingPage`, type: 'boolean' },
-      { label: `页面变量 / 页面所有表单规则`, value: `mpl.rules`, type: 'array' },
+      { label: `禁用`, value: `mpl.disabledPage`, type: 'boolean' },
+      { label: `全屏加载中`, value: `mpl.loadingPage`, type: 'boolean' },
+      { label: `表单规则`, value: `mpl.rules`, type: 'array' },
     ]
-    return result
+    node.customVars.filter(v => v.varType === 'data').forEach(v => {
+      result.push({
+        ...v,
+        value: `mpl.var.custom.${v.value}`
+      })
+    })
+
+    return {
+      label: '页面变量',
+      children: result
+    }
   }
 }

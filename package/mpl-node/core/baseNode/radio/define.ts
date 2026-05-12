@@ -8,8 +8,6 @@ import type {
   ServiceFormBindNode
 } from '@mpl/typings'
 
-import { SERVICE_MODE } from '@mpl/const'
-
 export function getDefaultRadioOptions() {
   return [
     { label: '北京', value: 'beiJin' },
@@ -112,7 +110,7 @@ export function newRadioNode(cid: string): RadioBoxFormProp {
       required: false,
       placeholder: '请选择',
       service: {
-        mode: SERVICE_MODE.STATIC,
+        mode: 'static',
         methodName: '',
         methodCode: '',
         labelKey: 'label',

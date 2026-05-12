@@ -11,7 +11,6 @@ import RadioBtnGroup from '../../../components/RadioBtnGroup.vue'
 import { VueDraggable } from 'vue-draggable-plus'
 import { newCid } from '@mpl/libs'
 import FormVModel from '../../../components/FormVModel.vue'
-import { SERVICE_MODE } from '@mpl/const'
 import NoteNode from '../../../components/NoteNode.vue'
 
 const props = defineProps<{ value: CheckboxFormProp }>()
@@ -70,7 +69,7 @@ function addServiceCustomAPI() {
     <FormItem label="多选项" :var="`mpl.var.checkbox.${activeNode.cid}.options`" cid />
     <!-- 静态数据 -->
     <div class="mpl-sub-form-block">
-      <template v-if="activeNode.checkbox.service.mode === SERVICE_MODE.STATIC">
+      <template v-if="activeNode.checkbox.service.mode === 'static'">
         <div class="flex-end mb-5">
           <div style="margin-right: 56px">显示值</div>
           <div style="margin-right: 22px">保存值</div>
@@ -93,14 +92,14 @@ function addServiceCustomAPI() {
         </button>
       </template>
       <!-- 动态数据 -->
-      <template v-else-if="activeNode.checkbox.service.mode === SERVICE_MODE.DYNAMICS">
+      <template v-else-if="activeNode.checkbox.service.mode === 'dynamics'">
         <FormItem label="选择接口">
           <input v-model="activeNode.checkbox.service.postman.url" disabled class="mpl-input">
           <button type="button" class="mpl-btn ml-5 icon icon-select5" />
         </FormItem>
       </template>
       <!-- 自定义方法 -->
-      <template v-else-if="activeNode.checkbox.service.mode === SERVICE_MODE.CUSTOM">
+      <template v-else-if="activeNode.checkbox.service.mode === 'custom'">
         <FormItem label="自定义方法" flex-end>
           <input v-model="activeNode.checkbox.service.methodName" disabled class="mpl-input">
           <button v-if="activeNode.checkbox.service.methodCode" type="button"
@@ -116,12 +115,10 @@ function addServiceCustomAPI() {
   </div>
 </template>
 
-<style lang="less">
-.right-bar-setting--box {
-  .service-static-item {
-    display: flex;
-    height: 28px;
-    line-height: 28px;
-  }
+<style lang="less" scoped>
+.service-static-item {
+  display: flex;
+  height: 28px;
+  line-height: 28px;
 }
 </style>

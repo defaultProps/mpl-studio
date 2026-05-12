@@ -1,4 +1,4 @@
-import type { NODE_TAG } from '@mpl/typings'
+import { InteractiveProp } from '@mpl/typings'
 
 // 交互列表
 // 单个服务详情
@@ -68,16 +68,8 @@ export const serviceInfoTable = [
 	}
 ]
 
-export interface clientProp {
-	label: string
-	value: string
-	message: string
-	code: any
-	params: { option: string | NODE_TAG[]; type: string; value: string | unknown; desc: string; required: boolean }[]
-}
-
 // 事件列表 - 交互节点
-export const flowNodes: { label: string; value: string; children: clientProp[] }[] = [
+export const flowNodes: { label: string; value: string; children: InteractiveProp[] }[] = [
 	{
 		label: '辅助交互',
 		value: 'nodeInteractive',
