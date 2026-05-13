@@ -56,6 +56,10 @@ export declare namespace MPL {
     | 'staticJSON' // JSON静态设置
     | 'serviceMode' // 绑定接口配置
     | 'aiChat' // AI聊天
+    | 'customVar' // 自定义变量
+    | 'computedVar' // 自动计算变量
+    | 'interactive' // 交互
+
 
   export type FormItemSize = 'small' | 'medium' | 'large' //
   export type FormItemLabelPos = 'l' | 'c' | 'r'

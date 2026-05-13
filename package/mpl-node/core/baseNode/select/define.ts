@@ -266,7 +266,6 @@ export const selectNode: ComponentBaseExport = {
   getNodeVar: (node: SelectFormProp): NodeVar[] => {
     // 如果有子组件, 也根据该组件获取动态变量
     const prefix = `${node.mpl_title} / ${node.mpl_zh}`
-
     return [
       { label: `${prefix} / 显示隐藏`, value: `${node.cid}.visible`, type: 'boolean' },
       { label: `${prefix} / 绑定值`, value: `${node.cid}.vModel`, type: 'string' },

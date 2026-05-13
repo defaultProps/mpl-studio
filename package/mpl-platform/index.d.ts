@@ -13,7 +13,7 @@ interface Window {
   dfnIframe: Window
   workbench: Window
   mplContextmenu: string
-  mplFocusPreviewWindowList: Window[]
+    mplFocusPreviewWindowList: Array<{ target: Window | null, id: string, params: string }>
 }
 
 export default Window

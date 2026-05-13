@@ -12,7 +12,7 @@ declare interface Window {
   heightRatio: number
   mplAssetFilePath: string
   workbench: Window
-  mplFocusPreviewWindowList: Window[]
+  mplFocusPreviewWindowList: Array<{ target: Window | null, id: string, params: string }>
   app: any
   dfnIframe: Window
 }

@@ -8295,17 +8295,17 @@
 }
 
 .el-dialog__headerbtn .el-dialog__close {
-  color: var(--el-color-info);
+  color: #000;
   font-size: inherit;
 }
 
 .el-dialog__headerbtn:focus .el-dialog__close,
 .el-dialog__headerbtn:hover .el-dialog__close {
-  color: #c3002f;
+  color: #fff;
 }
 
 .el-dialog__headerbtn:hover {
-  background: #33333326;
+  background: #c3002f;
 }
 
 .el-dialog__title {
